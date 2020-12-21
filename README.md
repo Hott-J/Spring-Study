@@ -2,7 +2,8 @@
 
 <br>
 
-스프링 스터디를 위한 저장소입니다. :smile:
+## 스프링 스터디를 위한 저장소입니다. :smile:
+
 <br>
 [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트) 김영환 강사님의 입문 강의  <br>
 [스프링 입문](https://www.inflearn.com/course/spring) 백기선 강사님의 입문 강의  <br>
