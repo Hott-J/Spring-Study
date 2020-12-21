@@ -6,11 +6,19 @@
 
 <br>
 
-[김영환 강사님의 스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)  <br>
-[백기선 강사님의 스프링 입문](https://www.inflearn.com/course/spring)  <br>
-[김환 강사님의 RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services)  <br>
-[스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)  <br>
+### 진행 계획
 
-위의 순서로 스터디 진행 예정입니다. :book:
+| 주차  | 강의                                                   | 완료 여부 |
+| ------| ------------------------------------------------------ | --------------------- |
+| 1 | [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)               | x |
+| 2 | [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)               |  x                 |
+| 3 | [PetClinic](https://www.inflearn.com/course/spring)                    | x                  |
+| 4 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services)                   | x                  |
+| 5 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services) | x                  |
+| 6 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)         |x                  |
+| 7 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)         |x                  |
+| 8 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)         |x                  |
+
+
 
 
