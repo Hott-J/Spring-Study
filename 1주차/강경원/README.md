@@ -11,3 +11,4 @@
     * Group : hello
     * Artifact : hello-spring
   * Dependencies : Spring Web, Thymeleaf(html 만들어주는 템플릿 엔진)
+  * GENERATE 후 압축 풀기
