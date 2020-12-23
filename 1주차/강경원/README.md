@@ -12,7 +12,7 @@
     * Artifact : hello-spring
   * Dependencies : Spring Web, Thymeleaf(html 만들어주는 템플릿 엔진)
 
-### 3. 라이브러리 살펴보기
+### 3. 라이브러리 의존성
 * spring-boot-starter-web
   * spring-boot-starter-tomcat : 톰캣(웹서버)
   * spring-webmvc : 스프링 웹 MVC
@@ -27,3 +27,6 @@
   * spring-test : 스플이 통합 테스트 지원
   * mockito
   * assertj
+
+
+### 4. View 환경설정
