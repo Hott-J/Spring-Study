@@ -30,4 +30,8 @@
 
 
 ### 4. View 환경설정
-* resources/static/에 index.html 파일을 올려두면 스프링 부트에서 Welcome page 기능을 제공한다.
+* Welcome Page 기능
+  * resources/static/에 index.html 파일을 올려두면 스프링 부트에서 Welcome page 기능을 제공한다.
+* Thymeleaf 템플릿 엔진 사용
+  * GetMapping annotation : HTTP GET 요청을 처리하는 method (HTTP POST 요청 처리는 PostMapping annotation)
+  *
