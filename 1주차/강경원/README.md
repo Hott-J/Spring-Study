@@ -41,5 +41,4 @@
   * gradlew build
   * cd build/libs
   * java -jar hello-spring-0.0.1-SNAPSHOT.jar
-  * 실행 확인
-  * 다시 build하고 싶을 경우 : gradlew clean build
+  * 실행 확인 (다시 build하고 싶을 경우 : gradlew clean build)
