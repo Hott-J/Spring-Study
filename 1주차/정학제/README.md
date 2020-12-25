@@ -77,4 +77,13 @@
   - 스프링 부트는 static에서 **index.html**을 먼저 찾는다. 없으면, **index 템플릿**을 찾는다.
   - 웹앱의 첫번째 진입점이 **컨트롤러** 이다. *@Controller*
   
-  
+### :smile: 빌드하고 실행하기
+
+  - 윈도우의 경우, 폴더안의 gradlew.bat / build / libs / ~.jar 를 java -jar ~.jar 로 실행한다.
+  - 잘안되는 경우, `gradlew clean build` 명령어를 통해 build 폴더를 지우고, 다시 빌드한다. 
+
+## :three: 스프링 웹 개발 기초
+
+### :smile: 정적 컨텐츠
+
+- 파일을 그대로 웹브라우저에 내려줌
