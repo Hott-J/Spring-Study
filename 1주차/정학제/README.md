@@ -103,4 +103,4 @@
     ![스프링3](https://user-images.githubusercontent.com/47052106/103142220-09ef7100-4743-11eb-8c3b-abb6647898b5.JPG)
     - 템플릿 엔진일 경우에는, 변환한 HTML을 웹 브라우저에게 넘겨준다. (정적과 차이점)
     - 실행
-      - http://localhost:8080/hello-mvc?*name=spring*
+      - `http://localhost:8080/hello-mvc?name=spring`
