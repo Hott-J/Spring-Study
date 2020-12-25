@@ -6,7 +6,7 @@
 :white_check_mark: 최신 개발 트렌드 <br>
 :white_check_mark: 직접 코딩을 하며 웹앱을 만들어보며 익힌다. <br>
 
-### 로드맵
+### :thunder: 로드맵
 
 - 스프링 입문
 - 스프링 핵심 원리
