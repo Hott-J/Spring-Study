@@ -77,7 +77,7 @@
   - 스프링 부트는 static에서 **index.html**을 먼저 찾는다. 없으면, **index 템플릿**을 찾는다.
   - 웹앱의 첫번째 진입점이 **컨트롤러** 이다. *@Controller*
   
-  ![스프링1](img src="https://user-images.githubusercontent.com/47052106/103139349-950a4000-471e-11eb-8384-478bf65010e8.JPG" width="400")
+  ![스프링1](https://user-images.githubusercontent.com/47052106/103139349-950a4000-471e-11eb-8384-478bf65010e8.JPG)
   
 ### :smile: 빌드하고 실행하기
 
