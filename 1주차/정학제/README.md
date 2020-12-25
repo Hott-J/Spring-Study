@@ -98,9 +98,32 @@
     - Model, View, Controller
     - View는 화면 띄움, 모델과 컨트롤러는 내부적인 처리에 집중. 모델은 화면에 필요한걸 담아서 뷰에게 전달한다.
     - 외부에서 파라미터 가져올때는 *@RequestParam*을 파라미터로 넣어준다.
-    - **ctrl + P : 파라미터 정보 출력**
+    - **Ctrl + P : 파라미터 정보 출력**
     
     ![스프링3](https://user-images.githubusercontent.com/47052106/103142220-09ef7100-4743-11eb-8c3b-abb6647898b5.JPG)
     - 템플릿 엔진일 경우에는, 변환한 HTML을 웹 브라우저에게 넘겨준다. (정적과 차이점)
     - 실행
       - `http://localhost:8080/hello-mvc?name=spring`
+
+### :smile: API
+
+  - *@ResponseBdoy*
+    - http의 body부에 내가 직접 넣어주겠다. (**return**)
+    - 뷰에게 던져주지 않는다.
+    - html로 변환되지 않는다.
+    - 문자가 반환된 경우, 문자가 그대로 내려간다. (StringConverter)
+    - 객체가 반환된 경우, JSON 방식으로 데이터를 만들어서 http 응답에 반환 (JsonConverter)
+    - 요청할 때, xml로 받고 싶으면 xml로 반환해주는 converter가 동작한다.
+    - 최신 트렌드는 *JSON*
+  - API
+    - 자바 class 안에 static class1을 정의할 경우, class.class1로 호출 가능
+    - **Alt + Insert : Generator**
+    - *Key : Value 형태의 JSON 으로 반환된다*
+    - Getter & Setter 는 자바 빈 규약이다.
+      - public 메서드를 통해 private 변수를 접근하게끔 한다.
+        - property 접근 방식
+    - 객체를 JSON으로 바꾸기 위해 Jackson, Gson 라이브러리를 사용한다.
+      - 스프링은 Jackson
+      
+    ![스프링4](https://user-images.githubusercontent.com/47052106/103142325-c0078a80-4744-11eb-9d14-b7249a402d01.JPG)
+    
