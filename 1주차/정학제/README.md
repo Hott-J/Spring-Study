@@ -73,3 +73,8 @@
   - junit : 테스트 프레임워크
 
 ### :smile: View 환경설정
+
+  - 스프링 부트는 static에서 **index.html**을 먼저 찾는다. 없으면, **index 템플릿**을 찾는다.
+  - 웹앱의 첫번째 진입점이 **컨트롤러** 이다. *@Controller*
+  
+  
