@@ -1,4 +1,4 @@
-# Spring :spring:
+# Spring :flower:
 
 ## :one: 강의소개
 
