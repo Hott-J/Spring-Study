@@ -42,7 +42,8 @@
     - 원격 저장소나, pom, ivy 파일 없이 연결되는 의존성 관리 지원
     - 그루비 문법 사용
     - 빌드를 설명하는 풍부한 도메인 모델
-  :while_check_mark: maven vs gradel
+  
+  :whie_check_mark: maven vs gradel
     - gradle 의 빌드 스크립트는 groovy 라는 언어로 작성해야 하므로 maven 의 xml 에 비하면 친숙하진 않지만 확장성이 뛰어나다.
     - maven 은 프로젝트가 커질수록 빌드 스크립트의 내용이 길어지고 가독성이 떨어지는 반면, gradle 은 훨씬 적은 양의 스크립트로 짧고 간결하게 작성할 수 있다.
     - maven 의 경우 멀티 프로젝트에서 특정 설정을 다른 모듈에서 사용하려면 상속을 받아야 하지만 gradle 은 설정 주입 방식으로 이를 해결한다.
