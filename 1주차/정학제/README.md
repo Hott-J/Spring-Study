@@ -89,3 +89,6 @@
 ### :smile: 정적 컨텐츠
 
 - 파일을 그대로 웹브라우저에 내려줌
+
+![스프링2](https://user-images.githubusercontent.com/47052106/103139411-18c42c80-471f-11eb-81ae-9c759d3691bf.JPG)
+
