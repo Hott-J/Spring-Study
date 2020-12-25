@@ -92,3 +92,9 @@
 
 ![스프링2](https://user-images.githubusercontent.com/47052106/103139411-18c42c80-471f-11eb-81ae-9c759d3691bf.JPG)
 
+### :smile: MVC와 템플릿 엔진
+
+  - MVC
+    - Model, View, Controller
+    - View는 화면 띄움, 모델과 컨트롤러는 내부적인 처리에 집중. 모델은 화면에 필요한걸 담아서 뷰에게 전달한다.
+    - 외부에서 파라미터 가져올때는 *@RequestParam*을 파라미터로 넣어준다.
