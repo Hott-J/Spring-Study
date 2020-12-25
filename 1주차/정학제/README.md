@@ -48,5 +48,31 @@
     - maven 은 프로젝트가 커질수록 빌드 스크립트의 내용이 길어지고 가독성이 떨어지는 반면, gradle 은 훨씬 적은 양의 스크립트로 짧고 간결하게 작성할 수 있다.
     - maven 의 경우 멀티 프로젝트에서 특정 설정을 다른 모듈에서 사용하려면 상속을 받아야 하지만 gradle 은 설정 주입 방식으로 이를 해결한다.
     - gradle 은 멀티 프로젝트에 매우 적합하며, 빌드 속도는 다양한 시나리오 상에서 10~100배 가량이 빠르다.
+    
+  - snapshot
+    - 아직 개발중인 상태
+    
+  - artifact
+    - 프로젝트 명
+  
+  - **dependencies**
+    - 어떤 라이브러리를 사용할 것안가
+    
+- *최신 개발 트렌드로 test 코드가 굉장히 중요하다*
+- 자바 파일을 제외하고는 모두 resources 폴더안에
+- **build.gradle**
+  - 버전 맞추고 라이브러리를 땡겨옴
+  
+### :smile: 라이브러리 살펴보기
 
+- gradle은 의존관계인 라이브러리를 전부 자동으로 가져온다
+- **spring-boot-starter-web**
+  - *spring-boot-starter-tomcat : 톰캣(웹서버)*
+    - **자바 코드에 웹서버가 같이 올라가있다.**
+  - spring-webmvc
+- 실무에서는 *logging* 을 사용한다. (system.out x)
+  - slf4j
+  - logback
+- test
+  - junit : 테스트 프레임워크
 
