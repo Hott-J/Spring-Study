@@ -236,3 +236,20 @@
       ```
 ### :smile: 회원 리포지토리 테스트 케이스 작성
 
+- *@Test*
+- **Main 함수 짜듯 작성한다.**
+- **Ctrl + Alt + V : 변수 추출**
+- Optional 에서 값을 꺼낼 때 get() 으로 바로 꺼낼 수 있다. (좋지 않음)
+- *Assertions*
+  - assertj가 더 편리 (JUnit 보다)
+  - `Assertions.assertThat(A).isEqualTo(B) // A가 B와 똑같아? `
+  - static import 로 코드 간단하게
+- **Shift + F6 : 변수 리네임 기능**
+- 테스트 순서는 보장되지 않음
+  - 테스트 하나 끝나면 메모리를 **clear** 해줘야한다
+  - `store.clear()`
+- *@AfterEach*
+  - 함수 하나 종료되면 실행되는 콜백함수
+- **TDD**
+  - 테스트 주도 개발
+  - 테스트 틀을 먼저 만들고 함수 구현
