@@ -311,3 +311,12 @@
 ![스프링4](https://user-images.githubusercontent.com/47052106/103155427-29d67180-47e3-11eb-8913-63eeaeac1100.JPG)
 
 ### :smile: 자바 코드로 직접 스프링 빈 등록하기
+
+- *@Configuration , @Bean* 을 통해 스프링 빈에 등록한다.
+
+![스프링5](https://user-images.githubusercontent.com/47052106/103158790-51d6cc80-4805-11eb-929e-47191057eb44.JPG)
+![스프링6](https://user-images.githubusercontent.com/47052106/103158791-5307f980-4805-11eb-8cf7-7f5da0e63f08.JPG)
+
+
+
+
