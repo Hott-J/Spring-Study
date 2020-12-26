@@ -293,6 +293,7 @@
 - *@Controller*
   - 스프링이 시작할때, Controller 객체를 생성해 컨테이너에 넣어놓는다.
 - final
+  - 변경 불가능하게끔 한다.
 - *@Autowired*
   - 스프링 컨테이너에서 서비스 등을 가져와 연결한다. 스프링이 넣어주므로, **DI** 이다.
   - 해당 애노테이션이 있으면, 해당 구조체가 어떤 것이 필요한지 파악하여, 필요한 것을 컨테이너에서 찾아 주입시킨다.
@@ -308,4 +309,5 @@
 ![스프링2](https://user-images.githubusercontent.com/47052106/103155425-280cae00-47e3-11eb-9c9c-6706865d3d7d.JPG)
 ![스프링3](https://user-images.githubusercontent.com/47052106/103155426-28a54480-47e3-11eb-9f88-b1d3114bd111.JPG)
 ![스프링4](https://user-images.githubusercontent.com/47052106/103155427-29d67180-47e3-11eb-8913-63eeaeac1100.JPG)
+
 ### :smile: 자바 코드로 직접 스프링 빈 등록하기
