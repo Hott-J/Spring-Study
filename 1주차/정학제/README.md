@@ -282,6 +282,30 @@
   -
 - 테스트도 메모리를 clear 해줘야한다
 - **테스트와 메인의 리포지토리는 같은 리포지토리여야한다. 그래야 문제가 생기지 않는다.**
-  - New 로 객체생성하지않고 외부에서 넣어준다. *Dependency Injection*
+  - New 로 객체생성하지않고 외부에서 넣어준다. *Dependency Injection (DI)*
 - *@BeforeEach*
   - 테스트 실행전에 일어남
+
+## :four: 스프링 빈과 의존관계
+
+### :smile: 컴포넌트 스캔과 자동 의존관계 설정
+
+- *@Controller*
+  - 스프링이 시작할때, Controller 객체를 생성해 컨테이너에 넣어놓는다.
+- final
+- *@Autowired*
+  - 스프링 컨테이너에서 서비스 등을 가져와 연결한다. 스프링이 넣어주므로, **DI** 이다.
+  - 해당 애노테이션이 있으면, 해당 구조체가 어떤 것이 필요한지 파악하여, 필요한 것을 컨테이너에서 찾아 주입시킨다.
+- *@Service*
+  - 스프링이 올라올 때, 컨테이너에 서비스로 등록한다.
+- *@Repository*
+  - 스프링이 올라올 때, 컨테이너에 리포지토리로 등록한다.
+- 위와 같은 방식이 바로 *컴포넌트 스캔* 이다.
+  - 스프링이 올라올때, 컴포넌트를 스캔해서 얘네들을 객체로 생성해서 등록한다.
+  - 이후, *@Autowired* 를 통해 서로 사용할 수 있게끔 의존관계를 설정한다.
+- *@Component* 는 하위 패키지 아래에서만 스캔을 하므로, 하위 패키지 안에 있어야한다.
+![스프링1](https://user-images.githubusercontent.com/47052106/103155424-2642ea80-47e3-11eb-888c-63d29007aa59.JPG)
+![스프링2](https://user-images.githubusercontent.com/47052106/103155425-280cae00-47e3-11eb-9c9c-6706865d3d7d.JPG)
+![스프링3](https://user-images.githubusercontent.com/47052106/103155426-28a54480-47e3-11eb-9f88-b1d3114bd111.JPG)
+![스프링4](https://user-images.githubusercontent.com/47052106/103155427-29d67180-47e3-11eb-8913-63eeaeac1100.JPG)
+### :smile: 자바 코드로 직접 스프링 빈 등록하기
