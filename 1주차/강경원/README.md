@@ -26,7 +26,7 @@
     * logback, slf4j
 * spring-boot-starter-test
   * junit : 테스트 프레임워크
-  * spring-test : 스플이 통합 테스트 지원
+  * spring-test : 스프링 통합 테스트 지원
   * mockito
   * assertj
 
