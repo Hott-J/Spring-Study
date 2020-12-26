@@ -304,7 +304,7 @@
   - 스프링이 올라올때, 컴포넌트를 스캔해서 얘네들을 객체로 생성해서 등록한다.
   - 이후, *@Autowired* 를 통해 서로 사용할 수 있게끔 의존관계를 설정한다.
 - *@Component* 는 하위 패키지 아래에서만 스캔을 하므로, 하위 패키지 안에 있어야한다.
-![스프링1](https://user-images.githubusercontent.com/47052106/103155424-2642ea80-47e3-11eb-888c-63d29007aa59.JPG)
+
 ![스프링2](https://user-images.githubusercontent.com/47052106/103155425-280cae00-47e3-11eb-9c9c-6706865d3d7d.JPG)
 ![스프링3](https://user-images.githubusercontent.com/47052106/103155426-28a54480-47e3-11eb-9f88-b1d3114bd111.JPG)
 ![스프링4](https://user-images.githubusercontent.com/47052106/103155427-29d67180-47e3-11eb-8913-63eeaeac1100.JPG)
