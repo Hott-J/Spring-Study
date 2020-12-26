@@ -1,5 +1,7 @@
 <H1> :cherry_blossom: Spring 
 
+---
+
 ## :one: 강의소개
 
 :white_check_mark: 어떻게 사용하는지에 초점을 맞춘다. <br>
