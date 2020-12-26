@@ -126,4 +126,10 @@
       - 스프링은 Jackson
       
     ![스프링4](https://user-images.githubusercontent.com/47052106/103142325-c0078a80-4744-11eb-9d14-b7249a402d01.JPG)
-    
+
+## :three: 회원 관리 예제 - 백엔드 개발
+
+### :smile: 비지니스 요구사항 정리
+
+  ![스프링1](https://user-images.githubusercontent.com/47052106/103149129-004d2400-47aa-11eb-8f06-2a4fac8ed132.JPG)
+
