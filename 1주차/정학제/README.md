@@ -133,3 +133,104 @@
 
   ![스프링1](https://user-images.githubusercontent.com/47052106/103149129-004d2400-47aa-11eb-8f06-2a4fac8ed132.JPG)
 
+### :smile: 회원 도메인과 리포지토리 만들기
+
+- *Optional*
+  - 자바 8에 들어가있는 기능
+  - NULL 값이 반환될 수 있으므로, 이를 Optional로 감싸서 반환
+  - Optional.ofNullable로 감싸면, 해당값이 NULL이여도 클라이언트에서 처리를 할 수 있음
+- **Alt + Enter 로 인터페이스 상속하는 메소드 보이게끔 가능**
+- **MAP**
+  - *Key : Value* 로 이루어짐
+  - put()
+    - 입력
+  - get()
+    - key에 해당되는 값을 얻음
+  - remove()
+    - 맵(Map)의 항목을 삭제하는 메소드로 key값에 해당되는 아이템(key, value)을 삭제한 후 그 value 값을 리턴
+  - *Stream()* 
+  ```java
+  ArrayList<string> list = new ArrayList<>(Arrays.asList("Apple","Banana","Melon","Grape","Strawberry"));
+
+  System.out.println(list);
+
+  //[Apple, Banana, Melon, Grape, Strawberry]
+  ```
+    - map
+      - 요소들을 특정 조건에 해당하는 값으로 변환
+      ```java
+      System.out.println(list.stream().map(s->s.toUpperCase()).collect(Collectors.joining(" "))); //APPLE BANANA MELON GRAPE STRAWBERRY
+      System.out.println(list.stream().map(s->s.toUpperCase()).collect(Collectors.toList())); //[APPLE, BANANA, MELON, GRAPE, STRAWBERRY]
+      list.stream().map(String::toUpperCase).forEach(s -> System.out.println(s));
+      //APPLE
+      //BANANA
+      //MELON
+      //GRAPE
+      //STRAWBERRY
+      ```
+      - Collectors.joining 을 이용해 리스트를 조인의 기준으로 배치 할 수 있습니다. String 으로 리턴합니다.
+      - Collectors.toList 를 이용해 리스트로 리턴 받을 수 있습니다.
+      - forEach 요소마다 각각 작업을 할 수 있습니다.
+    - filter
+      - 요소들을 조건에 따라 걸러내는 작업
+      ```java
+      System.out.println(list.stream().filter(t->t.length()>5).collect(Collectors.joining(" "))); //Banana Strawberry
+      System.out.println(list.stream().filter(t->t.length()>5).collect(Collectors.toList())); //[Banana, Strawberry]
+      ```
+    - sorted
+      - 요소들을 정렬
+      ```java
+      System.out.println(list.stream().sorted().collect(Collectors.toList())); //[Apple, Banana, Grape, Melon, Strawberry] 
+      ```
+  - collect()
+    - collect는 stream의 데이터를 변형 등의 처리를 하고 원하는 자료형으로 변환해 줍니다.
+    `collect(Supplier supplier, BiConsumer accumulator, BiConsumer combiner)`
+    - collect에 3개의 params을 넣어야 해서 다소 사용하기 번거롭습니다. Collectors라는 라이브러리가 기본적인 기능들을 제공해주어 이런 불편함을 해결
+    - toSet()
+    `Set<String> fruitSet = fruits.collect(Collectors.toSet()); //Set 자료형으로 변환`
+    - toList()
+    `List<String> fruitList = fruits.collect(Collectors.toList()); //List 자료형으로 변환`
+    - joining()
+    `String result2 = fruits.collect(Collectors.joining()); //String 자료형으로 변환`
+    `String result2 = fruits.map(Object::toString).collect(Collectors.joining(", ")); // , 로 구분자 넣어서 구분 용이`
+    - toMap()
+      - Custom 객체에 대해서 Collect
+     ```Java
+      Stream<Fruit> fruits2 = Stream.of(new Fruit("1", "banana"), new Fruit("2", "apple"),
+        new Fruit("3", "mango"), new Fruit("4", "kiwi"),
+        new Fruit("5", "peach"), new Fruit("6", "cherry"),
+        new Fruit("7", "lemon"));
+      Map<String, String> map = fruits2.collect(Collectors.toMap(Fruit::getId, Fruit::getName));
+      for (String key : map.keySet()) {
+        System.out.println("key: " + key + ", value: " + map.get(key));
+      }
+
+      static class Fruit {
+        public String id;
+        public String name;
+
+        Fruit(String id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public String getId() {
+          return id;
+        }
+        public String getName() {
+          return name;
+        }
+    }
+    ```
+      - 동일한 Key에 대한 예외처리
+      ```Java
+      Collectors.toMap(item -> item.getId(), item -> item.getName(),
+            (existingValue, newValue) -> existingValue)); // 처음에 입력한 값 출력
+      ```
+      ```Java
+      Collectors.toMap(item -> item.getId(), item -> item.getName(),
+            (existingValue, newValue) -> {
+                    String concat = existingValue + ", " + newValue;
+                    return concat;
+                })); // 처음 입력한 값 + 이후에 입력한 값 출력
+      ```
