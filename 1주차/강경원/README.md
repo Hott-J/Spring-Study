@@ -1,3 +1,5 @@
+## :cherry_blossom: Spring 기초
+
 ### 1. Spring 환경 설정
 * Java 11, IntelliJ 설치
 
