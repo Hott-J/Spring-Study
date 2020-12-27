@@ -46,5 +46,11 @@ name에 해당하는 value가 들어가게 된다.
 
 ### :smile: 회원 웹 기능 - 조회
 
+![스프링1](https://user-images.githubusercontent.com/47052106/103181156-4953c400-48e1-11eb-8cd5-b91e6d46982a.JPG)
+*model.addAttribute* 메소드를 통해 "members"가 key가 된다.
+`model.addAttribute("변수이름","변수에 넣을 데이터값");`
+![스프링2](https://user-images.githubusercontent.com/47052106/103181158-4fe23b80-48e1-11eb-8635-f6ce0cb2b9ce.JPG)
+${members}로 값을 전부 가져온다.
+`${변수이름}`
 
 
