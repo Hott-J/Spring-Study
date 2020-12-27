@@ -49,14 +49,22 @@
 ### 6. 스프링 웹 개발 기초
 * 정적 컨텐츠   
 <img src="https://user-images.githubusercontent.com/61045469/103153554-ba598580-47d4-11eb-85ff-448b981087dd.PNG" width="90%" height="70%"></img><br/>
-  * 정적 컨텐츠는 그대로 반환된다.
+  * 정적 컨텐츠는 파일 그대로 반환된다.
 * MVC와 템플릿 엔진  
 <img src="https://user-images.githubusercontent.com/61045469/103170901-462de900-488b-11eb-89c0-e2cd73d859e1.PNG" width="90%" height="70%"></img><br/>
   * model -> name은 key, spring은 value
-  * 정적 컨텐츠와는 달리 Thymeleaf 템플릿 엔진이 html 파일을 rendering 해서 반환한다.
+  * 정적 컨텐츠와는 달리 Thymeleaf 템플릿 엔진이 html 파일을 rendering해서 반환한다.
+  * 템플릿 엔진을 MVC 각각으로 쪼개서 rendering된 파일을 반환하는 방식이다.
   * MVC : Model, View, Controller (View : 화면을 그리는 역할, Model Controller : business logic, server backend 처리 담당)
   * Thymeleaf 장점 : server없이 파일을 열어서 볼 수 있다.
-* API   
+* API
+<img src="https://user-images.githubusercontent.com/61045469/103171584-c0ad3780-4890-11eb-984f-4764e679ad64.PNG" width="90%" height="70%"></img><br/>
+  * ResponseBody annotation을 발견하면 viewResolver에게 요청하지 않는다.
+  * viewResolver 대신 HttpMessageConverter가 동작
+    * 문자열일 경우 : 문자열 데이터를 HTTP응답으로 넣어서 그대로 반환한다. -> String Converter가 동작
+    * 객체일 경우 : 객체를 json 방식으로 데이터를 만들어서 HTTP응답으로 넣어 반환한다. -> Json Converter가 동작
+    * 그 외 여러 포멧에 대한 HTTPMessageConverter도 등록되어 있다.
+    * 보통은 객체 반환을 위주로 사용된다.
 <br/>
 
 ## :cherry_blossom: 회원 관리 예제
