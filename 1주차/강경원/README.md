@@ -92,7 +92,7 @@
 
 ### 2. 회원 도메인과 리포지토리 만들기
 * 회원 객체
-```
+```java
 public class Member {
     private Long id;
     private String name;
@@ -115,7 +115,7 @@ public class Member {
 }
 ```
 * 회원 리포지토리 인터페이스
-```
+```java
 public interface MemberRepository {
     Member save(Member member); // 회원을 저장소에 저장
     Optional<Member> findById(Long id); // 저장소에서 id로 회원 찾아옴
@@ -124,7 +124,7 @@ public interface MemberRepository {
 }
 ```
 * 회원 리포지토리 메모리 구현체
-```
+```java
 public class MemoryMemberRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     private static long sequence = 0L;
