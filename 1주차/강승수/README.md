@@ -105,4 +105,16 @@ Hello
 ![mvc](https://user-images.githubusercontent.com/51367515/103170882-27c7ed80-488b-11eb-9ddc-7346c97f4c3e.PNG)
 
 - url에 입력된 값을 parameter로 입력받아서 html에 출력시켜줌을 볼 수 있다.
+
+## :seven: API
+- ResponseBody 문자 반환
+```
+@GetMapping("hello-string")
+ @ResponseBody
+ public String helloString(@RequestParam("name") String name) {
+ return "hello " + name;
+ }
+```
+    
+
     
