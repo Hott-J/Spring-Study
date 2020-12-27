@@ -61,6 +61,7 @@
   <br/>
 * API   
 <img src="https://user-images.githubusercontent.com/61045469/103171584-c0ad3780-4890-11eb-984f-4764e679ad64.PNG" width="90%" height="70%"></img><br/>
+  * getter, setter : 자바 빈 표준 방식 (단축키 : Alt + Insert)
   * ResponseBody annotation을 발견하면 viewResolver에게 요청하지 않는다.
   * viewResolver 대신 HttpMessageConverter가 동작
     * 문자열일 경우 : 문자열 데이터를 HTTP응답으로 넣어서 그대로 반환한다. -> String Converter가 동작
