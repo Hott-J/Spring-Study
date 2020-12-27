@@ -50,13 +50,15 @@
 * 정적 컨텐츠   
 <img src="https://user-images.githubusercontent.com/61045469/103153554-ba598580-47d4-11eb-85ff-448b981087dd.PNG" width="90%" height="70%"></img><br/>
   * 정적 컨텐츠는 파일 그대로 반환된다.
+  <br/>
 * MVC와 템플릿 엔진  
 <img src="https://user-images.githubusercontent.com/61045469/103170901-462de900-488b-11eb-89c0-e2cd73d859e1.PNG" width="90%" height="70%"></img><br/>
   * model -> name은 key, spring은 value
   * 정적 컨텐츠와는 달리 Thymeleaf 템플릿 엔진이 html 파일을 rendering해서 반환한다.
   * 템플릿 엔진을 MVC 각각으로 쪼개서 rendering된 파일을 반환하는 방식이다.
-  * MVC : Model, View, Controller (View : 화면을 그리는 역할, Model Controller : business logic, server backend 처리 담당)
+  * MVC : Model, View, Controller (View : 화면을 그리는 역할, Model Controller : 비즈니스 로직, server backend 처리 담당)
   * Thymeleaf 장점 : server없이 파일을 열어서 볼 수 있다.
+  <br/>
 * API   
 <img src="https://user-images.githubusercontent.com/61045469/103171584-c0ad3780-4890-11eb-984f-4764e679ad64.PNG" width="90%" height="70%"></img><br/>
   * ResponseBody annotation을 발견하면 viewResolver에게 요청하지 않는다.
@@ -68,3 +70,20 @@
 <br/>
 
 ## :cherry_blossom: 회원 관리 예제
+
+### 1. 비즈니스 요구사항 정리
+* 데이터 : 회원ID, 이름
+* 기능 : 회원 등록, 조회
+* 아직 데이터 저장소가 선정되지 않음   
+* 일반적인 웹 어플리케이션 계층 구조
+<img src="https://user-images.githubusercontent.com/61045469/103172280-bb9eb700-4895-11eb-93ef-d351d009ea91.PNG" width="90%" height="70%"></img><br/>
+  * 컨트롤러 : 웹 MVC의 컨트롤러 역할
+  * 서비스 : 핵심 비즈니스 로직 구현(ex-회원은 중복 가입이 안됨)
+  * 도메인 : 비즈니스 도메인 객체 (ex-회원, 주문, 쿠폰 등등 주로 데이터베이스에 저장하고 관리됨)
+  * 리포지토리 : 데이터베이스에 접근, 도메인 객체를 DB에 저장하고 관리
+  <br/>
+* 클래스 의존관계
+<img src="https://user-images.githubusercontent.com/61045469/103172424-a70eee80-4896-11eb-8ff1-fa2fb3e13b09.PNG" width="90%" height="70%"></img><br/>
+  * 아직 데이터 저장소가 선정되지 않아 우선 interface로 구현 클래스를 변경할 수 있도록 설계
+  * 데이터 저장소는 RDB, NoSQL 등등 다양한 저장소를 고민중인 상황으로 가정
+  * 개발을 진행하기 위해서 초기 개발 단계에서는 구현체로 가벼운 메모리 기반의 데이터 저장소 사용
