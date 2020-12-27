@@ -11,5 +11,9 @@
  - 사용 프로젝트: gradle project
  - Dependancies: Spring Web, Thymeleaf
 
+## :three: 라이브러리
+- 외부 라이브러리
+ - ex)TOMCAT, JUNIT, SPRING BOOT
+ - 각각의 의존 관게를 지니고 있음
 
-## :three: 
+### :smile: 출력 사항에는 console.log를 사용하기!
