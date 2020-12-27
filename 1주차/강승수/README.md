@@ -6,10 +6,10 @@
 ## :two: 스프링 설치
 
 - 프로젝트 환경
- - JAVA: JAVA 11
- - IDE: IntelliJ
- - 사용 프로젝트: gradle project
- - Dependancies: Spring Web, Thymeleaf
+    - JAVA: JAVA 11
+    - IDE: IntelliJ
+    - 사용 프로젝트: gradle project
+    - Dependancies: Spring Web, Thymeleaf
 
 ## :three: 라이브러리
 - 외부 라이브러리
