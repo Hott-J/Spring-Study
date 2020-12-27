@@ -108,13 +108,15 @@ Hello
 
 ## :seven: API
 - ResponseBody 문자 반환
+    - html 파일을 보내는 것이 아닌 문자열 자체를 보냄
 ```
 @GetMapping("hello-string")
  @ResponseBody
  public String helloString(@RequestParam("name") String name) {
  return "hello " + name;
- }
+}
 ```
-    
+
+
 
     
