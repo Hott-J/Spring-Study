@@ -82,8 +82,9 @@
   * 도메인 : 비즈니스 도메인 객체 (ex-회원, 주문, 쿠폰 등등 주로 데이터베이스에 저장하고 관리됨)
   * 리포지토리 : 데이터베이스에 접근, 도메인 객체를 DB에 저장하고 관리
   <br/>
-* 클래스 의존관계
-<img src="https://user-images.githubusercontent.com/61045469/103172424-a70eee80-4896-11eb-8ff1-fa2fb3e13b09.PNG" width="90%" height="70%"></img><br/>
+* 클래스 의존관계   
+<img src="https://user-images.githubusercontent.com/61045469/103172424-a70eee80-4896-11eb-8ff1-fa2fb3e13b09.PNG" width="70%" height="70%"></img><br/>
+  * 회원 비즈니스 로직 : MemberService, 회원 리포지토리 : interface인 MemberRepository
   * 아직 데이터 저장소가 선정되지 않아 우선 interface로 구현 클래스를 변경할 수 있도록 설계
   * 데이터 저장소는 RDB, NoSQL 등등 다양한 저장소를 고민중인 상황으로 가정
-  * 개발을 진행하기 위해서 초기 개발 단계에서는 구현체로 가벼운 메모리 기반의 데이터 저장소 사용
+  * 개발을 진행하기 위해 초기 개발 단계에서는 구현체로 가벼운 메모리 기반의 데이터 저장소(Memory MemberRepository) 사용
