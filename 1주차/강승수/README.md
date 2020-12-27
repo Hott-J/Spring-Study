@@ -78,18 +78,31 @@ Hello
 
 ## :five: 정적 컨텐츠
 - 동작 구조
+![정적](https://user-images.githubusercontent.com/51367515/103170842-d1f34580-488a-11eb-9502-b7cf208b50ce.PNG)
 
-- MVC
-    - Model, View, Controller
-    - GetMapping("hell-mvc")
-    - hello-template
-    - controller code
+## MVC
+- Model, View, Controller
+    
+- controller code
     ```@GetMapping("hello-mvc")
     public String helloMvc( @RequestParam("name") String name, Model model){
         model.addAttribute("name",name);
         return "hello-template";
     }
     ```
-    
-   
+- html code(hello-template)
+    ```<!DOCTYPE HTML>
+
+	<html xmlns:th="http://www.thymeleaf.org">
+
+	<body>
+	Hello
+	<p th:text="'hello. '+ ${name}">hello! empty</p>
+	</body>
+	</html>
+    ```
+
+![mvc](https://user-images.githubusercontent.com/51367515/103170882-27c7ed80-488b-11eb-9ddc-7346c97f4c3e.PNG)
+
+-위와 같이 
     
