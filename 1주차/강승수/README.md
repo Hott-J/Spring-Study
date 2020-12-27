@@ -139,8 +139,8 @@ Hello
 
 
 ### :smile: json이란?
-    - JSON은 속성-값 쌍( attribute–value pairs and array data types (or any other serializable value)) 또는 "키-값 쌍"으로 이루어진 데이터 오브젝트를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷
-    - 요즘은 xml보다 json으로 반환하는 것이 기본!    
+- JSON은 속성-값 쌍( attribute–value pairs and array data types (or any other serializable value)) 또는 "키-값 쌍"으로 이루어진 데이터 오브젝트를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷
+- 요즘은 xml보다 json으로 반환하는 것이 기본!    
 
 
 ![reqbody](https://user-images.githubusercontent.com/51367515/103171499-2fd65c00-4890-11eb-82fe-68b67c79a32d.PNG)
