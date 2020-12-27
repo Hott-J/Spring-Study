@@ -53,4 +53,18 @@ name에 해당하는 value가 들어가게 된다.
 ${members}로 값을 전부 가져온다.
 `${변수이름}`
 
+- *model 객체*
+  - **Controller 에서 생성된 데이터를 담아서 View 로 전달할 때 사용하는 객체.**
+  - Servelt 의 `request.setAttribute()` 와 유사한 역할.
+  - Method 에 Model 타입이 지정된 경우 Model 타입의 객체를 만들어서 메서드에 주입
+  - **addAttribute("키", "값")** 메소드를 사용하여 전달할 데이터 세팅.
+
+- *@ModelAttribute*
+  - 강제로 전달받은 파라미터를 Model에 담아서 전달하도록 할 때 필요한 어노테이션
+  - 스프링에서 *Java beans 규칙(Getter, Setter, 생성자 포함)에 맞는 객체는 파라미터 전달이 자동으로 가능.*
+  - 하지만 **일반 변수**의 경우, 자동 전달 불가능. model 객체를 통해서 전달 필요.
+  `ModelAttribute("page")int page` 와 같이 일반 변수를 감싸서 파라미터를 전송해준다.
+  - [참고](https://lopicit.tistory.com/224)
+
+
 
