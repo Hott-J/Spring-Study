@@ -77,8 +77,8 @@ Hello
 - hello로 입장과 동시에 HelloController로 이동
 
 ## :five: 정적 컨텐츠
-- 동작 구조
 ![정적](https://user-images.githubusercontent.com/51367515/103170842-d1f34580-488a-11eb-9502-b7cf208b50ce.PNG)
+- 위와 같이 정적 url에 입력된 정적파일을 실행시켜줌을 볼 수 잇다.
 
 ## MVC
 - Model, View, Controller
@@ -104,5 +104,5 @@ Hello
 
 ![mvc](https://user-images.githubusercontent.com/51367515/103170882-27c7ed80-488b-11eb-9ddc-7346c97f4c3e.PNG)
 
--위와 같이 
+- url에 입력된 값을 parameter로 입력받아서 html에 출력시켜줌을 볼 수 있다.
     
