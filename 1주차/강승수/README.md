@@ -17,3 +17,22 @@
     - 각각의 의존 관게를 지니고 있음
 
 ### :smile: 출력 사항에는 console.log를 사용하기!
+
+
+## :four: 환경설정
+- resources/static/index.html로 파일을 설정해 놓으면 welcome page로 인식함
+```
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+<body>
+    Hello
+    <a href="/hello">hello</a>
+</body>
+</html>
+
+```
