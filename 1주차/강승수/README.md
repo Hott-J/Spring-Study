@@ -37,7 +37,7 @@
 
 ```
 
--정적 파일이 아닌 동적 파일을 만들어주기위해서 thymeleaf 라이브러리르 이용한다.
+- 정적 파일이 아닌 동적 파일을 만들어주기위해서 thymeleaf 라이브러리르 이용한다. 밑의 코드는 정적인 html 파일에 변수 출력이 가능함을 보여준다.
 
 ```//HelloController.java
 
@@ -71,3 +71,4 @@ Hello
 </body>
 </html>
 ```
+![캡처](https://user-images.githubusercontent.com/51367515/103169339-06143980-487e-11eb-850d-39c233fd0a32.PNG)
