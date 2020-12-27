@@ -71,4 +71,5 @@ Hello
 </body>
 </html>
 ```
+- 동작 
 ![캡처](https://user-images.githubusercontent.com/51367515/103169339-06143980-487e-11eb-850d-39c233fd0a32.PNG)
