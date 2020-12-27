@@ -44,5 +44,7 @@ name이 서버로 넘어올 때 Key가 된다.
 name에 해당하는 value가 들어가게 된다.
 ![스프링3](https://user-images.githubusercontent.com/47052106/103180511-86b45380-48d9-11eb-8708-86867d8def82.JPG)
 
+### :smile: 회원 웹 기능 - 조회
+
 
 
