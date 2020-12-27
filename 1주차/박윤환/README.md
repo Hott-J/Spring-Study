@@ -62,3 +62,62 @@
 
     - `@AfterEach` : 메모리 DB에 직전 테스트의 결과가 남을 수 있다. 이렇게 되면 다음 이전 테스트 때문에 다음 테스트가 **실패할 가능성이 있다.** **@AfterEach 를 사용하면 각 테스트가 종료될 때 마다 이 기능을 실행한다.**
     - 테스트는 각각 **독립적**으로 실행되어야 한다. 테스트 순서에 의존관계가 있는 것은 좋은 테스트가 아니다.
+    
+# 회원 서비스 개발 및 테스트
+
+## **서비스** 구현
+
+- 서비스는 `join()`, `findMembers()`, `findOne()` 같은 메서드로
+좀 더 **사용자 친화적**으로 만들어진다.
+
+- **DI (Dependency Injection)**
+
+```java
+public class MemberService {
+private final MemberRepository memberRepository;
+
+	public MemberService(MemberRepository memberRepository) {
+			this.memberRepository = memberRepository;
+	}
+...
+}
+```
+
+- 생성자를 이용해 회원리포지토리를 사용하는 곳에서 넣어줄 수 있도록 한다. (생성자 DI)
+
+- `@BeforeEach` 를 통해 test 실행전에 memberRepository를 할당 할 수 있다.
+
+### Test는 형식에 맞춰 작성해보자
+
+- given : 주어진 상황
+- when : 실행
+- then   : 실행 후 결과
+
+### 단축키
+
+- cmd + option + v // ctrl + t // shift + f6 등의 단축키 활용 (맥북용)
+
+# 스프링 빈과 의존관계 & 웹 MVC 개발
+
+**멤버 컨트롤러 - 멤버 서비스
+(컨트롤러가 멤버 서비스를 의존한다)**
+
+- 시작 패키지 하위 → `스프링 빈`에 등록하기
+- 회원은 공유되는 자원 → 서로 의존 관계를 설정
+
+1. **컴포넌트 스캔**과 **자동 의존관계** 설정
+    - `@controller` 와 `@Autowired` 와 같은 Annotation을 통해 스프링이 연관된 객체를 스프링 컨테이너에 스프링 빈에 등록
+    - DI에는 `필드 주입`, `setter 주입`, `생성자 주입` 이렇게 3가지 방법
+
+ 2. 자바 코드로 직접 스프링 빈 등록
+
+- 따로 클래스 파일을 만들어 `@Configuration` 을 이용하면 직접 등록할 수 있다.
+- 향후 리포지토리를 다른 리포지토리로 변경할 예정일 때 **`매우 유용`**하게 사용할 수 있다.
+`ex) 메모리데이테베이스 -> 실 데이터베이스`
+
+## 웹 MVC 개발
+
+- 홈 컨트롤러 클래스 파일을 만들어 index.html보다 앞서 참조 될 home을 설정한다.
+- `GetMapping` 은 url, return은 참조할 html이라고 볼 수 있다. (현재까지는 html파일의 경로를 반환했으므로..)
+- `postMapping` 을 이용해 **form형태** 내용을 전달 받을 수 있다.
+- **thymeleaf** 문법을 통해 모든 객체를 웹 화면에 뿌려줄 수 있다. (ex. th:each)
