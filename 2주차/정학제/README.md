@@ -39,10 +39,8 @@ GET은 요청을 전송할 때 필요한 데이터를 Body에 담지 않고, 쿼
   - 데이터를 조회하는데 주로 사용
   
 ![스프링](https://user-images.githubusercontent.com/47052106/103180508-85832680-48d9-11eb-82a2-fdaafe855a04.JPG) 
-
 name이 서버로 넘어올 때 Key가 된다.
 ![스프링1](https://user-images.githubusercontent.com/47052106/103180510-86b45380-48d9-11eb-83f0-099241b960f9.JPG) 
-
 name에 해당하는 value가 들어가게 된다.
 ![스프링3](https://user-images.githubusercontent.com/47052106/103180511-86b45380-48d9-11eb-8708-86867d8def82.JPG)
 
