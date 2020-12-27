@@ -36,3 +36,38 @@
 </html>
 
 ```
+
+-정적 파일이 아닌 동적 파일을 만들어주기위해서 thymeleaf 라이브러리르 이용한다.
+
+```//HelloController.java
+
+
+package hello.hellospring;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HelloSpringApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HelloSpringApplication.class, args);
+	}
+
+}
+```
+```
+//hello.html
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+Hello
+<p th:text="'안녕하세요. '+ ${data}">안녕하세요. 손님</p>
+</body>
+</html>
+```
