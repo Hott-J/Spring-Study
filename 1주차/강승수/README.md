@@ -20,7 +20,7 @@
 
 
 ## :four: 환경설정
-- resources/static/index.html로 파일을 설정해 놓으면 welcome page로 인식함
+- resources/static/index.html로 파일을 설정해 놓으면 welcome page로 인식함. index.html을 못 찾을 경우 index 템플릿을 찾는다.
 ```
 <!DOCTYPE HTML>
 
