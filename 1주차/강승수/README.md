@@ -80,7 +80,7 @@ Hello
 ![정적](https://user-images.githubusercontent.com/51367515/103170842-d1f34580-488a-11eb-9502-b7cf208b50ce.PNG)
 - 위와 같이 정적 url에 입력된 정적파일을 실행시켜줌을 볼 수 잇다.
 
-## MVC
+## :MVC
 - Model, View, Controller
     
 - controller code
