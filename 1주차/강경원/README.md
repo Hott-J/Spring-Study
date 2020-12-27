@@ -51,11 +51,11 @@
 <img src="https://user-images.githubusercontent.com/61045469/103153554-ba598580-47d4-11eb-85ff-448b981087dd.PNG" width="90%" height="70%"></img><br/>
   * 정적 컨텐츠는 그대로 반환된다.
 * MVC와 템플릿 엔진  
-  * MVC : Model, View, Controller (View : 화면을 그리는 역할, Model Controller : business logic, server backend 처리 담당)
-  * Thymeleaf 장점 : server없이 파일을 열어서 볼 수 있다.   
-<img src="https://user-images.githubusercontent.com/61045469/103170859-f6e7b880-488a-11eb-9486-bca8bc4c1f7c.PNG" width="90%" height="70%"></img><br/>
+<img src="https://user-images.githubusercontent.com/61045469/103170901-462de900-488b-11eb-89c0-e2cd73d859e1.PNG" width="90%" height="70%"></img><br/>
   * model -> name은 key, spring은 value
-  * 정적 컨텐츠와는 달리 Thymeleaf 템플릿 엔진이 rendering 해서 반환한다.
+  * 정적 컨텐츠와는 달리 Thymeleaf 템플릿 엔진이 html 파일을 rendering 해서 반환한다.
+  * MVC : Model, View, Controller (View : 화면을 그리는 역할, Model Controller : business logic, server backend 처리 담당)
+  * Thymeleaf 장점 : server없이 파일을 열어서 볼 수 있다.
 * API   
 <br/>
 
