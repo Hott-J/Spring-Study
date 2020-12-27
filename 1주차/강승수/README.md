@@ -13,7 +13,7 @@
 
 ## :three: 라이브러리
 - 외부 라이브러리
- - ex)TOMCAT, JUNIT, SPRING BOOT
- - 각각의 의존 관게를 지니고 있음
+    - ex)TOMCAT, JUNIT, SPRING BOOT
+    - 각각의 의존 관게를 지니고 있음
 
 ### :smile: 출력 사항에는 console.log를 사용하기!
