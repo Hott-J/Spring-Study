@@ -229,8 +229,13 @@ class MemoryMemberRepositoryTest {
 * 회원 가입, 회원 조회 등의 기능
 ```java
 public class MemberService {
-    // 저장소
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // 저장소 - Test에서 MemberService에서 사용하는 memberRepository를 가져오기 위함
+    private final MemberRepository memberRepository;
+
+    // 외부에서 넣어주도록 생성자 구현 : Dependency Injection(DI)
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 회원가입
     public long join(Member member) {
@@ -265,4 +270,72 @@ public class MemberService {
 ```
 
 ### 5. 회원 서비스 테스트
-* 
+* ctrl + shift + T : 테스트 케이스 생성 단축키
+* 테스트 method는 한글로 적는것이 직관적이여서 더 좋을 수 있다.
+```java
+class MemberServiceTest {
+
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
+
+    // memory clear
+    @AfterEach
+    public void afterEach() {
+        memberRepository.clearStore();
+    }
+
+    @Test
+    void 회원가입() {
+        // given 뭔가가 주어졌는데
+        Member member = new Member();
+        member.setName("hello");
+
+        // when 이거를 실행했을 때
+        Long saveId = memberService.join(member);
+
+        // then 이 결과가 나와야한다.(검증)
+        Member findMember = memberService.findOne(saveId).get();
+        Assertions.assertThat(member.getName()).isEqualTo(findMember.getName());
+    }
+
+    // 예외적인 경우의 테스트도 실험 - 중복 회원 검증이 잘 되는가?
+    @Test
+    public void 중복_회원_예외() {
+        // given
+        Member member1 = new Member();
+        member1.setName("spring");
+        Member member2 = new Member();
+        member2.setName("spring");
+
+        // when -> 중복 이름이므로 예외가 발생해야 한다.
+        memberService.join(member1);
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));// 이 예외가 발생해야 성공
+
+        /*
+        try {
+            memberService.join(member2);
+            fail();
+        } catch(IllegalStateException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        }
+        */
+
+        // then
+        Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); // 검증
+    }
+
+    @Test
+    void findMembers() {
+    }
+
+    @Test
+    void findOne() {
+    }
+}
+```
