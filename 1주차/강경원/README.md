@@ -183,12 +183,12 @@ class MemoryMemberRepositoryTest {
         member.setName("spring");
 
         repository.save(member);
-        Member result = repository.findById(member.getId()).get(); // optional 에서 값을 꺼낼 때
+        Member result = repository.findById(member.getId()).get(); // optional에서 값을 꺼낼 때
 
-        // 검증 단계 - result, member 가 똑같은지 확인(인자 : 기대하는 값(Expected), 실제 값(Actual))
+        // 검증 단계 - result, member가 똑같은지 확인(인자 : 기대하는 값(Expected), 실제 값(Actual))
         // Assertions.assertEquals(member, result);
 
-        // 다른 방법(더 편한 방법) - member 가 result 와 같은가?
+        // 다른 방법(더 편한 방법) - member가 result와 같은가?
         assertThat(member).isEqualTo(result);
     }
 
@@ -221,3 +221,5 @@ class MemoryMemberRepositoryTest {
     }
 }
 ```
+
+### 4. 회원 서비스 개발
