@@ -28,19 +28,33 @@
 
 # 📖 스프링 웹 개발 기초 & 백엔드 개발
 
+- **컨트롤러**는 웹 어플리케이션의 첫번째 진입점이다.
+    - 메서드 실행 시 **스프링**이 **모델**을 만들어서 인자로 넘겨준다.
+    - **인자로 받은 모델**에 값을 넣을 수 있다.
+    - 만약 **리턴 값**으로 `문자`를 반환하면 `뷰 리졸버`가 해당 위치 화면을 찾아서 처리한다.
+
+ 
+
 - **정적 컨텐츠**
     - resources 디렉토리의 **/static 디렉토리**에 위치함
     - 항상 스프링 컨테이너의 컨트롤러가 우선순위를 가지며 없을 때만  정적 컨텐츠 찾음
 
 - **MVC와 템플릿 엔진**
     - **MVC** (Model, View, Controller)
-        - **viewResolver** : 뷔를 찾아주고 템플릿에 연결시켜줌
+        - `Controller` : 인자로 모델 받아서 값을 넣어주고 반환하는 역할 (지금까진)
+            - 비즈니스 로직
+        - `View` : 템플릿 폴더에 있는 .html 파일 (사용자에게 보여지는 것)
+            - 화면에 관련된 일
+        - **viewResolver** : view를 찾아주고 템플릿에 연결시켜 HTML로 변환 후 반환
+
+    - `@RequestParam` 사용 시 url로 부터 데이터를 받아올 수 있다. (url path?name=value)
 
 - **API**
-    - `@ResponseBody`를 사용해 viewResolver를 사용하지 않음
-    - HTTP Body에 직접 내용을 반환
-        - viewResolver 대신 HttpMessageConverter가 사용됨
+    - `@ResponseBody`를 사용해 ***viewResolver를 사용하지 않음***
+    - **HTTP Body**에 **직접 내용을 반환**
+        - viewResolver 대신 `HttpMessageConverter`가 사용됨
             - 이를 통해 객체라면 JsonConverter를 통해 Json 형태로 변환
+            - 단순 문자라면, StringConverter 실행
 
 ## 백엔드 개발
 
@@ -52,9 +66,20 @@
 - 리포지토리 : 데이터베이스 접근, 도메인 객체를 DB에 저장하고 관리
 - 도메인     : 비즈니스 도메인 객체
 
-현재는 데이터 저장소 **X**, 우선 **인터페이스**로 **구현 클래스**를 변경할 수 있도록 설계 
+> 현재는 데이터 저장소 X, 우선 인터페이스로 구현 클래스를 변경할 수 있도록 설계
+구현체로는 가벼운 메모리 기반의 저장소를 사용 (강의 코드)
 
-구현체로는 가벼운 **메모리 기반의 저장소**를 사용 (강의 코드)
+- 개발 순서
+    1. 도메인 작성하기
+    2. 도메인 객체의 리포지토리 작성
+        1. 리포지토리 인터페이스 작성
+        2. 리포지토리 구현체 작성
+    3. 서비스 작성하기
+        - 리포지토리 메서드를 이용
+
+    - 각 구현체 완성 시 마다 테스트케이스 작성 or 테스트케이스 작성 후 구현체 구현
+        - `@Test` 어노테이션 표시를 해줘야한다.
+        - 테스트 메서드에 `특정 기능`을 검증하기 위한 코드를 작성한다.
 
 ## JUnit 프레임워크를 통한 테스트
 
@@ -99,25 +124,31 @@ private final MemberRepository memberRepository;
 
 # 📖 스프링 빈과 의존관계 & 웹 MVC 개발
 
-**멤버 컨트롤러 - 멤버 서비스
+**멤버 컨트롤러 →(멤버 서비스 & 리포지토리) ⇒ 컨트롤러가 의존하고 있음
 (컨트롤러가 멤버 서비스를 의존한다)**
 
 - 시작 패키지 하위 → `스프링 빈`에 등록하기
 - 회원은 공유되는 자원 → 서로 의존 관계를 설정
 
 1. **컴포넌트 스캔**과 **자동 의존관계** 설정
-    - `@controller` 와 `@Autowired` 와 같은 Annotation을 통해 스프링이 연관된 객체를 스프링 컨테이너에 스프링 빈에 등록
+    - `@controller` 와 `@Autowired` 와 같은 **Annotation**을 통해 스프링이 연관된 객체를 스프링 컨테이너에 **스프링 빈**에 등록
     - DI에는 `필드 주입`, `setter 주입`, `생성자 주입` 이렇게 3가지 방법
 
- 2. 자바 코드로 직접 스프링 빈 등록
+- 생성자 주입 예시
+    - 먼저 MemberService class 위에 `@Service` 어노테이션을 적어준다.
+    - 빈에 등록된 memberService 객체를 MemberController 생성 시 주입해준다.
 
+    ```java
+    @Autowired
+        public MemberController(MemberService memberService) {
+            this.memberService = memberService;
+        }
+    ```
+
+ 2. **자바 코드로 직접 스프링 빈 등록**
+
+- 직접 등록하려면 Service, Repositroy, Autowired 어노테이션을 없애줘야 한다.
 - 따로 클래스 파일을 만들어 `@Configuration` 을 이용하면 직접 등록할 수 있다.
+- 등록할 객체 위에 `@Bean` 작성해야 한다.
 - 향후 리포지토리를 다른 리포지토리로 변경할 예정일 때 **`매우 유용`**하게 사용할 수 있다.
 `ex) 메모리데이테베이스 -> 실 데이터베이스`
-
-## 웹 MVC 개발
-
-- 홈 컨트롤러 클래스 파일을 만들어 index.html보다 앞서 참조 될 home을 설정한다.
-- `GetMapping` 은 url, return은 참조할 html이라고 볼 수 있다. (현재까지는 html파일의 경로를 반환했으므로..)
-- `postMapping` 을 이용해 **form형태** 내용을 전달 받을 수 있다.
-- **thymeleaf** 문법을 통해 모든 객체를 웹 화면에 뿌려줄 수 있다. (ex. th:each)
