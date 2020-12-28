@@ -70,7 +70,7 @@
     * 보통은 객체 반환을 위주로 사용된다.
 <br/>
 
-## :cherry_blossom: 회원 관리 예제
+## :cherry_blossom: 회원 관리 예제 - 
 
 ### 1. 비즈니스 요구사항 정리
 * 데이터 : 회원ID(시스템에서 설정), 이름(회원이 설정)
@@ -125,6 +125,7 @@ public interface MemberRepository {
 ```
 * 회원 리포지토리 메모리 구현체
 ```java
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     private static long sequence = 0L;
@@ -228,11 +229,13 @@ class MemoryMemberRepositoryTest {
 * ctrl + Alt + M : Extract method
 * 회원 가입, 회원 조회 등의 기능
 ```java
+@
 public class MemberService {
     // 저장소 - Test에서 MemberService에서 사용하는 memberRepository를 가져오기 위함
     private final MemberRepository memberRepository;
 
     // 외부에서 넣어주도록 생성자 구현 : Dependency Injection(DI)
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -316,6 +319,7 @@ class MemberServiceTest {
         // when -> 중복 이름이므로 예외가 발생해야 한다.
         memberService.join(member1);
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));// 이 예외가 발생해야 성공
+        Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); // 검증
 
         /*
         try {
@@ -325,9 +329,6 @@ class MemberServiceTest {
             Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
         }
         */
-
-        // then
-        Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); // 검증
     }
 
     @Test
@@ -339,3 +340,23 @@ class MemberServiceTest {
     }
 }
 ```
+
+### 6. 스프링 빈과 의존관계
+* 스프링 빈 등록과 의존관계 설정
+```java
+@Controller
+public class MemberController {
+
+    private final MemberService memberService; // 하나만 만들어져 있으면 된다.
+
+    @Autowired
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+}
+```
+  * @Controller가 있으면 스프링 컨테이너가 객체를 생성한다.(스프링 빈이 관리된다.)
+  * @Controller(외부 요청 받음), @Service(비즈니스 로직 만듦), @Repository(데이터 저장함) -> 스프링 컨테이너에 등록
+  * 생성자에 @Autowired 사용하면 MemberController 생성될 때 스프링 빈에 등록되어 있는 MemberService 객체를 가져다가 넣는다.
+  * MemberService 생성자에 @Autowired 사용하면 MemberRepository가 필요하다는 것을 파악하고 스프링 빈에 등록된 MemberRepository 객체를 가져다가 넣는다.
+  <img src="https://user-images.githubusercontent.com/61045469/103234397-f03c6c80-4982-11eb-9411-03fa1a711a1c.PNG" width="70%" height="70%"></img><br/>
