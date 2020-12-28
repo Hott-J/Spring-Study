@@ -152,8 +152,72 @@ public class MemoryMemberRepository implements MemberRepository {
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
+    
+    // Test 할 때 data clear 하기 위함
+    public void clearStore() {
+        store.clear();
+    }
 }
 ```
 
 ### 3. 회원 리포지토리 테스트 케이스 작성
-* JUnit 프레임워크를 사용하여 테스트 케이스 작성
+* JUnit 프레임워크를 사용하여 테스트 케이스 작성 - 클래스 전체 한번에 테스트 가능
+* 테스트 케이스를 통과하지 않으면 다음 단계로 못넘어가게 막는다.
+* 어떤 method가 먼저 테스트가 될지는 모른다. 순서 상관 없이 method별로 따로 돌게 설계해야 한다.
+* 따라서 테스트 하나 끝나고 나면 data clear 해줘야 한다. (@AfterEach)
+* shift + F6 : 변수명 고치기
+```
+class MemoryMemberRepositoryTest {
+
+    MemoryMemberRepository repository = new MemoryMemberRepository();
+
+    // Test 실행 순서 의존관계를 없앤다. -> 하나의 테스트가 끝날 때마다 저장소를 비워준다.
+    @AfterEach
+    public void afterEach() {
+        repository.clearStore();
+    }
+
+    @Test
+    public void save() {
+        Member member = new Member();
+        member.setName("spring");
+
+        repository.save(member);
+        Member result = repository.findById(member.getId()).get(); // optional 에서 값을 꺼낼 때
+
+        // 검증 단계 - result, member 가 똑같은지 확인(인자 : 기대하는 값(Expected), 실제 값(Actual))
+        // Assertions.assertEquals(member, result);
+
+        // 다른 방법(더 편한 방법) - member 가 result 와 같은가?
+        assertThat(member).isEqualTo(result);
+    }
+
+    @Test
+    public void findByName() {
+        Member member1 = new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+
+        Member member2 = new Member();
+        member2.setName("spring2");
+        repository.save(member2);
+
+        Member result = repository.findByName("spring1").get();
+        assertThat(result).isEqualTo(member1); // 검증
+    }
+
+    @Test
+    public void findAll() {
+        Member member1 = new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+
+        Member member2 = new Member();
+        member2.setName("spring2");
+        repository.save(member2);
+
+        List<Member> result = repository.findAll();
+        assertThat(result.size()).isEqualTo(2); // 검증
+    }
+}
+```
