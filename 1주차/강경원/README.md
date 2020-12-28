@@ -166,7 +166,7 @@ public class MemoryMemberRepository implements MemberRepository {
 * 어떤 method가 먼저 테스트가 될지는 모른다. 순서 상관 없이 method별로 따로 돌게 설계해야 한다.
 * 따라서 테스트 하나 끝나고 나면 data clear 해줘야 한다. (@AfterEach 사용)
 * shift + F6 : 변수명 고치기
-```
+```java
 class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
@@ -227,7 +227,7 @@ class MemoryMemberRepositoryTest {
 * ctrl + Alt + V : optional 자동완성
 * ctrl + Alt + M : Extract method
 * 회원 가입, 회원 조회 등의 기능
-```
+```java
 public class MemberService {
     // 저장소
     private final MemberRepository memberRepository = new MemoryMemberRepository();
