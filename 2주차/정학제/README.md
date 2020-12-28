@@ -82,9 +82,89 @@ ${members}로 값을 전부 가져온다.
 
 - 과거의 코딩이다.
 - 인터페이스의 다형성을 활용한다.
-- *개방-폐쇄 원칙(OCP,Open-Closed Principle)
+- *개방-폐쇄 원칙(OCP,Open-Closed Principle)*
   - 확장에는 열려있고, 수정, 변경에는 닫혀있다.
 - 스프링의 DI을 사용하면 **기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경**할 수 있다.
 - 데이터를 DB에 저장하므로 스프링 서버를 다시 실행해도 데이터가 안전하게 저장된다.
   
+ ### :smile: 스프링 통합 테스트
  
+ - *@SpringBootTest*
+  - 스프링 컨테이너와 테스트를 함께 실행한다. **진짜 스프링을 띄워서 테스트**
+ - *@Transactional*
+  - 테스트 시작 전에 트랜잭션을 실행하고, 데이터들을 DB에 넣고 테스트가 끝나면 **롤백** 해준다.
+    - *번거롭게 BeforeEach, AfterEach 만들지 않아도 된다.*
+    - 다음 테스트에 영향을 주지 않는다.
+    - 테스트 케이스에 붙어있을때만 롤백한다.
+ - Commit / AutoCommit
+  - DB는 데이터를 insert call을 한 뒤에 Commit이 되어야 DB에 반영이 된다. AutoCommit의 경우에는 자동으로 Commit이 되어 반영된다.
+ - 테스트는 그냥 필드주입으로 *@Autowired* 한다. 필요한거 인젝션하고 끝이므로 편한 방법을 택한다. 생성자 주입 x
+ - **컨테이너 없이 순수한 단위 테스트가 좋은 테스트일 확률이 높다. 최대한 작은 단위의 테스트 설계를 하자!!!**
+
+ ### :smile: 스프링 JdbcTemplate
+ 
+- JdbcTemplate은 *dataSource*를 인젝션 받는다.
+- Spring JDBC를 사용하려면 먼저, DB Connection을 가져오는 DataSource를 Spring IoC 컨테이너의 공유 가능한 Bean으로 등록해야 한다.
+```java
+private final JdbcTemplate jdbcTemplate;
+public JdbcTemplateMemberRepository(DataSource dataSource){
+  jdbcTemplate=new JdbcTemplate(dataSource);
+}
+```
+- 생성자가 하나일 경우 *@Autowired* 생략 가능!
+- SQL문에서의 *?*
+  - 동적 SQL을 실행할 때. 매개변수가 있는 쿼리이다.
+- **JdbcTemplate**
+  - *execute*
+    - DDL을 실행
+    - `jdbc.execute("drop table persons if exists");`
+  - *update*
+    - Read를 제외한 나머지 insert, update, delete 는 모두 이 메서드를 사용하면 된다. 
+    - `jdbc.update("insert into persons (name) values (?)",name);`
+  - *queryForObject*
+    - queryForObject는 하나의 도메인 객체를 리턴받거나 하나의 컬럼을 리턴 받을 때 사용한다. 
+    ```java
+    public Long findId(Long id) {
+      return this.jdbcTemplate.queryForObject("SELECT id FROM persons where id = ?", Long.class, id);
+     }
+    
+     public Person findOne(Long id) {
+      return this.jdbcTemplate.queryForObject("SELECT id, name FROM persons where id = ?",
+        (rs, rowNum) -> new Person(rs.getLong("id"), rs.getString("name")),
+        id);
+        }
+    }
+    ```
+  - *query*
+    - 아마 가장 많은 메서드를 갖고 있고 위의 설명한 것을 제외하면 모두 이 메서드를 이용하면 된다.
+    - `RowMapper<T> 인터페이스를 해당 도메인에 맞게 구현하면 된다.
+    ```java
+    <T> List<T> query(String sql, RowMapper<T> rowMapper) throws DataAccessException;
+    <T> List<T> query(String sql, RowMapper<T> rowMapper, @Nullable Object... args) throws DataAccessException;
+    ```
+    ```java
+    /* 모든 학생 객체 */
+    String SQL = "select * from Student"; 
+    List<Student> students = jdbcTemplateObject.query(SQL, new StudentMapper()); 
+    // RowMapper interface의 구현 클래스 정의 
+    public class StudentMapper implements RowMapper<Student> {
+    // interface method
+    public Student mapRow(ResultSet rs, int rowNum) throws SQLException { 
+      Student student = new Student(); 
+
+      student.setID(rs.getInt("id")); 
+      student.setName(rs.getString("name")); 
+      student.setAge(rs.getInt("age")); 
+
+      return student; 
+      } 
+    }
+    ```
+    ```java
+      public List<Person> findAll() {
+        return this.jdbcTemplate.query("SELECT id, name FROM persons",
+        (rs, rowNum) -> new Person(rs.getLong("id"), rs.getString("name")));
+      }
+      ```
+      
+ ### :smile: JPA
