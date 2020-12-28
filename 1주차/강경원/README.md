@@ -229,7 +229,7 @@ class MemoryMemberRepositoryTest {
 * ctrl + Alt + M : Extract method
 * 회원 가입, 회원 조회 등의 기능
 ```java
-@
+@Service
 public class MemberService {
     // 저장소 - Test에서 MemberService에서 사용하는 memberRepository를 가져오기 위함
     private final MemberRepository memberRepository;
@@ -358,5 +358,5 @@ public class MemberController {
   * @Controller가 있으면 스프링 컨테이너가 객체를 생성한다.(스프링 빈이 관리된다.)
   * @Controller(외부 요청 받음), @Service(비즈니스 로직 만듦), @Repository(데이터 저장함) -> 스프링 컨테이너에 등록
   * 생성자에 @Autowired 사용하면 MemberController 생성될 때 스프링 빈에 등록되어 있는 MemberService 객체를 가져다가 넣는다.
-  * MemberService 생성자에 @Autowired 사용하면 MemberRepository가 필요하다는 것을 파악하고 스프링 빈에 등록된 MemberRepository 객체를 가져다가 넣는다.
+  * MemberService 생성자에 @Autowired 사용하면 MemberRepository가 필요하다는 것을 파악하고 스프링 빈에 등록된 MemberRepository 객체를 가져다가 넣는다.   
   <img src="https://user-images.githubusercontent.com/61045469/103234397-f03c6c80-4982-11eb-9411-03fa1a711a1c.PNG" width="70%" height="70%"></img><br/>
