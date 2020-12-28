@@ -142,7 +142,7 @@
   - NULL 값이 반환될 수 있으므로, 이를 Optional로 감싸서 반환
   - Optional.ofNullable로 감싸면, 해당값이 NULL이여도 클라이언트에서 처리를 할 수 있음
 - **Alt + Enter 로 인터페이스 상속하는 메소드 보이게끔 가능**
-- **MAP**
+- **MAP (자료구조)**
   - *Key : Value* 로 이루어짐
   - put()
     - 입력
