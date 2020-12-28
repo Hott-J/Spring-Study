@@ -79,4 +79,14 @@ public class HelloController {
    }
 }
 ```
+* 객체를 반환할 때 JSON으로 변환된다.
+* 스프링에서 default로 JSON 형식으로 변환.
+
 ![image](https://user-images.githubusercontent.com/46257667/103208494-1e4e8c00-4944-11eb-9976-48958ac72f77.png)
+
+✅ <동작과정><br>
+@ResponseBody 어노테이션 -> HTTPMessageConverter가 작동 -> 문자, 객체로 알맞게 변환 -> 웹 브라우저로 return<br>
+* 기본 문자처리 : StringHttpMessageConverter
+* 기본 객체처리 : MappingJackson2HttpMessageConverter
+
+### 3️⃣ 회원 관리 예제 - 백엔드 개발
