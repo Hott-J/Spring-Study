@@ -164,7 +164,7 @@ public class MemoryMemberRepository implements MemberRepository {
 * JUnit 프레임워크를 사용하여 테스트 케이스 작성 - 클래스 전체 한번에 테스트 가능
 * 테스트 케이스를 통과하지 않으면 다음 단계로 못넘어가게 막는다.
 * 어떤 method가 먼저 테스트가 될지는 모른다. 순서 상관 없이 method별로 따로 돌게 설계해야 한다.
-* 따라서 테스트 하나 끝나고 나면 data clear 해줘야 한다. (@AfterEach)
+* 따라서 테스트 하나 끝나고 나면 data clear 해줘야 한다. (@AfterEach 사용)
 * shift + F6 : 변수명 고치기
 ```
 class MemoryMemberRepositoryTest {
@@ -223,3 +223,45 @@ class MemoryMemberRepositoryTest {
 ```
 
 ### 4. 회원 서비스 개발
+* 비즈니스 로직을 구현하는 단계
+* ctrl + Alt + V : optional 자동완성
+* ctrl + Alt + M : Extract method
+* 회원 가입, 회원 조회 등의 기능
+```
+public class MemberService {
+    // 저장소
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 회원가입
+    public long join(Member member) {
+        // 같은 이름을 가진 중복 회원X
+        // Optional로 감쌌기 때문에 ifPresent같은 method 사용 가능. 반환형도 Optional임.
+        // Optional<Member> result = memberRepository.findByName(member.getName());
+        // result.ifPresent(m->{ // 어떤 값이 있는 경우
+        //     throw new IllegalStateException("이미 존재하는 회원입니다.");
+        // });
+
+        validataduplicateMember(member); // 중복 회원 검증 (ctrl+Alt+M)
+        memberRepository.save(member);
+        return member.getId();
+    }
+
+    private void validataduplicateMember(Member member) {
+        memberRepository.findByName(member.getName())
+                .ifPresent(m->{ // 어떤 값이 있는 경우
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        });
+    }
+
+    // 전체 회원 조회
+    public List<Member> findMembers() {
+        return memberRepository.findAll(); // return type : List<Member>
+    }
+
+    public Optional<Member> findOne(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+}
+```
+
+### 5. 회원 서비스 테스트
