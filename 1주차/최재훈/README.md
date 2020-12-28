@@ -29,3 +29,15 @@ public class HelloController{
    }
 }
 ```
+View
+```html
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+   <p th:text="'hello '+ ${name}">hello! empty</p>
+</body>
+</html>  
+```
+![image](https://user-images.githubusercontent.com/46257667/103173536-0ec93780-489f-11eb-8257-4acf1a810869.png)
+
+✅ 웹 브라우저에서 url 요청 -> 내장 웹 서버 톰캣이 스프링에게 url 전달 -> 스프링은 return값과 model을 viewResolver에게 전달 -> viewResolver가 thymeleaf 템플릿 엔진과 매핑 -> thymeleaf 템플릿 엔진이 넘어온 값들 처리 후 랜더링 -> view에 전달
+
