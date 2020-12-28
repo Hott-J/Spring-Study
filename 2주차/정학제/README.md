@@ -112,7 +112,7 @@ public JdbcTemplateMemberRepository(DataSource dataSource){
 }
 ```
 - 생성자가 하나일 경우 *@Autowired* 생략 가능!
-- SQL문에서의 *?*
+- SQL문에서의 *"?"*
   - 동적 SQL을 실행할 때. 매개변수가 있는 쿼리이다.
 - **JdbcTemplate**
   - *execute*
