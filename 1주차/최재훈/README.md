@@ -56,7 +56,7 @@ public class HelloController {
 }
 ```
 * ResponseBody 어노테이션 사용하면 viewResolver를 사용하지 않음
-* HTTP body 부분에 문자 내용을 직접 반환
+* HTTP body 부분에 문자 내용을 **직접 반환**
 ResponseBody 객체 반환
 ```java
 @Controller
@@ -79,13 +79,13 @@ public class HelloController {
    }
 }
 ```
-* 객체를 반환할 때 JSON으로 변환된다.
+* 객체를 반환할 때 **JSON**으로 변환된다.
 * 스프링에서 default로 JSON 형식으로 변환.
 
 ![image](https://user-images.githubusercontent.com/46257667/103208494-1e4e8c00-4944-11eb-9976-48958ac72f77.png)
 
 ✅ <동작과정><br>
-@ResponseBody 어노테이션 -> HTTPMessageConverter가 작동 -> 문자, 객체로 알맞게 변환 -> 웹 브라우저로 return<br>
+**@ResponseBody 어노테이션** -> **HTTPMessageConverter**가 작동 -> 문자, 객체로 알맞게 변환 -> 웹 브라우저로 return<br>
 * 기본 문자처리 : StringHttpMessageConverter
 * 기본 객체처리 : MappingJackson2HttpMessageConverter
 
