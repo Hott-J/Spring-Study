@@ -146,6 +146,118 @@ Hello
 ![reqbody](https://user-images.githubusercontent.com/51367515/103171499-2fd65c00-4890-11eb-82fe-68b67c79a32d.PNG)
 
 - json을 {name:spring}형태로 바꾸어서 응답
+
+
+## :eight: 회원관리 예제
+
+### :smile: 비즈니스 요구사항
+- 데이터: 회원 ID, 이름
+- 기능: 회원 등록, 조회
+- DB
+![웹애플리케이션](https://user-images.githubusercontent.com/51367515/103205765-af6e3480-493d-11eb-994f-eaceaa82452e.PNG)
+- 컨트롤러
+- 서비스
+- 리포지토리
+- 도메인
+ 
+- test code
+```
+package hello.hellospring.repository;
+
+import hello.hellospring.domain.Member;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class MemoryMemberRepositoryTest {
+
+    MemberRepository repository= new MemoryMemberRepository();
+
+    @Test
+    public void save(){
+        Member member = new  Member();
+        member.setName("spring");
+
+        repository.save(member);
+
+        Member result=repository.findById(member.getId()).get();
+        assertThat(member).isEqualTo(result);
+    }
+
+    @Test
+    public void findByName(){
+        Member member1 = new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+
+        Member member2= new Member();
+        member2.setName("spring2");
+        repository.save(member2);
+
+        Member result= repository.findByName("spring1").get();
+
+        assertThat(result).isEqualTo(result);
+
+    }
+
+    @Test
+    public void findAll(){
+        Member member1= new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+
+        Member member2= new Member();
+        member2.setName("spring2");
+        repository.save(member2);
+
+        List<Member> result = repository.findAll();
+
+        assertThat(result.size()).isEqualTo(2);
+
+    }
+}
+
+```
+- AfterEach란 : 한 번에 실행시키면 전에 했던 내용이 변수에 남아 있을수 있으므로 이를 초기화 해주는 작업이 필요함
+
+- 회원 서비스 개발
+```
+package hello.hellospring.service;
+import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemberRepository;
+import java.util.List;
+import java.util.Optional;
+public class MemberService {
+ private final MemberRepository memberRepository = new
+MemoryMemberRepository();
+ /**
+ * 회원가입
+ */
+ public Long join(Member member) {
+ validateDuplicateMember(member); //중복 회원 검증
+ memberRepository.save(member);
+ return member.getId();
+ }
+ private void validateDuplicateMember(Member member) {
+ memberRepository.findByName(member.getName())
+ .ifPresent(m -> {
+ throw new IllegalStateException("이미 존재하는 회원입니다.");
+ });
+ }
+ /**
+ * 전체 회원 조회
+ */
+ public List<Member> findMembers() {
+ return memberRepository.findAll();
+ }
+ public Optional<Member> findOne(Long memberId) {
+ return memberRepository.findById(memberId);
+ }
+}
+ ```
  
 
 
