@@ -345,4 +345,10 @@ class MemberServiceTest {
     }
 }
 ```
+### 4️⃣ 스프링 빈과 의존관계
+
+Dependency injection
+
+
+
 
