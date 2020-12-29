@@ -368,3 +368,23 @@ public class MemberController {
     * 단, hello.hellospring 패키지 내에서만 컴포넌트 스캔이 가능하다.
     * 스프링은 스프링 컨테이너에 스프링 빈을 등록할 때, 기본으로 싱글톤으로 등록한다.(유일하게 하나만 등록해서 공유한다.)
   * 자바 코드로 직접 스프링 빈 등록하기
+    * 회원 서비스와 회원 리포지토리의 @Service, @Repository, @Autowired 애노테이션을 제거하고 진행한다. (Controller는 그대로 둔다.)
+    ```java
+    @Configuration
+    public class SpringConfig {
+        // 스프링 빈에 등록
+        @Bean
+        public MemberService memberService() {
+            return new MemberService(memberRepository());
+        }
+
+        @Bean
+        public MemberRepository memberRepository() { // interface
+            return new MemoryMemberRepository(); // 구현체
+        }
+    }
+    ```
+    * DI에는 필드 주입, setter 주입, 생성자 주입 이렇게 3가지 방법이 있다. 의존관계가 실행중에 동적으로 변하는 경우는 거의 없으므로 생성자 주입을 권장한다.
+    * 실무에서는 주로 정형화된 컨트롤러, 서비스, 리포지토리 같은 코드는 컴포넌트 스캔을 사용한다. 
+    * 정형화 되지 않거나, 상황에 따라 구현 클래스를 변경해야 하면 설정을 통해 스프링 빈으로 등록한다. (ex:MemoryMemberRepository를 나중에 DB에 연결 가능한 Repository로 바꿀것!)
+    * @Autowired를 통한 DI는 helloConroller, memberService등과 같이 스프링이 관리하는 객체에서만 동작한다.
