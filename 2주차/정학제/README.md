@@ -218,6 +218,7 @@ Long>, MemberRepository { // 인터페이스는 다중 상속이 가능
   - 이를 인젝션해서 사용
   - *Proxy*
 - findByName 함수의 경우는 **비지니스마다 name 값은 다르므로,** 만들어줘야한다.
+
 `Optional<Member> findByName(String name);`
 - 위와 같이 코드를 작성할 경우, JPQL이 `select m from Member m where m.name=?` 로 SQL문으로 만들어준다. 
 - *인터페이스 이름만으로도 개발이 끝남*
