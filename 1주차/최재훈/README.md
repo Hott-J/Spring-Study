@@ -124,7 +124,157 @@ public class HelloController {
 - 휘발성이다. DB 서버 전원이 꺼지면 데이터가 모두 날아갈 수 있다. 
 - 데이터에 비해 RAM 용량이 적을 경우 가상메모리를 쓰게되어 성능저하의 원인이 된다.
 
+#### 🔶 회원 도메인과 리포지토리 만들기
+
+domain
+```java
+package hello.hellospring.domain;
+
+public class Member {
+    private Long id;
+    private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+Repository
+```java
+package hello.hellospring.repository;
+
+public class MemoryMemberRepository implements MemberRepository{
+    private static Map<Long, Member> store = new HashMap<>();
+    private static long sequence = 0L;
+    @Override
+    public Member save(Member member) {
+        member.setId(++sequence); // id값 세팅
+        store.put(member.getId(), member); // store에 저장, map에 저장된다.
+        return member;
+    }
+
+    @Override
+    public Optional<Member> findByName(String name) {
+        return store.values().stream()
+                .filter(member -> member.getName().equals(name))
+                .findAny();
+    }
+
+    @Override
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public void clearStore(){
+        store.clear();
+    }
+}
+```
+
+#### 🔶 회원 리포지토리 테스트 케이스 작성
+```java
+package hello.hellospring.repository;
+
+public class MemoryMemberRepositoryTest {
+    MemoryMemberRepository repository = new MemoryMemberRepository();
+    @AfterEach
+    public void afterEach(){
+        repository.clearStore();
+    }
+    @Test
+    public void save() {
+        Member member = new Member();
+        member.setName("spring");
+
+        repository.save(member);
+        Member result = repository.findById(member.getId()).get();
+        assertThat(member).isEqualTo(result);
+    }
+
+    @Test
+    public void findByName(){
+        Member member1 = new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+        Member member2 = new Member();
+        member2.setName("spring1");
+        repository.save(member2);
+        Member result = repository.findByName("spring1").get();
+        assertThat(result).isEqualTo(member1);
+    }
+
+    @Test
+    public void findAll(){
+        Member member1 = new Member();
+        member1.setName("spring1");
+        repository.save(member1);
+        Member member2 = new Member();
+        member2.setName("spring1");
+        repository.save(member2);
+
+        List<Member> result = repository.findAll();
+
+        assertThat(result.size()).isEqualTo(2);
+    }
+
+
+}
+
+```
+
 ![image](https://user-images.githubusercontent.com/46257667/103224884-02f77700-496c-11eb-9dae-ecb58f1fba3e.png)
 
-❌ERROR 원인❌<br>
-메소드를 순서 의존적으로 설계하였다. findAll()에서 미
+❌ ERROR 원인 ❌<br>
+메소드를 순서 의존적으로 설계하였다. Test를 전체 실행하면 임의로 메소드가 실행되는데 findAll()에서 member1, member2를 이미 save했기 때문에 다른 메소드에서 동일한 객체를 save하게 되면 데이터가 충돌하게 된다. 
+⭕ 해결방법 ⭕ <br>
+@AfterEach 어노테이션을 사용하여 콜백함수를 지정한 다음 하나의 테스트가 끝날 때마다 저장소나 공용 데이터들을 깔끔하게 지워줘야한다. 
+
+#### 🔶 회원 서비스 개발
+service
+```java
+package hello.hellospring.service;
+
+public class MemberService {
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    public Long join(Member member){
+        //같은 이름이 있는 중복 회원 X
+        validateDuplicateMember(member);
+        memberRepository.save(member);
+        return member.getId();
+    }
+    private void validateDuplicateMember(Member member){
+        memberRepository.findByName(member.getName())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다");
+                });
+    }
+    public List<Member> findMembers(){
+        return memberRepository.findAll();
+    }
+
+    public Optional<Member> findOne(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+}
+```
+
+
