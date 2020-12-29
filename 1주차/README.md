@@ -76,6 +76,7 @@ public class PrinterLazy {
 
 생성자를 private 으로 선언하기 때문에 접근이 불가능하게 된다. 따라서 외부에서 new를 통해 인스턴스 생성이 불가능하게 되었다. 대신 public static으로 선언된 getInstance() 메소드를 호출해서 인스턴스가 null일 경우 새로운 객체를 생성하여 인스턴스를 받아온다.
 
+```java
 package spring.chap1.singleton;
  
 public class User {
@@ -91,6 +92,7 @@ public class User {
                 System.out.println("프린터 연결 시도 >>> " + pl.hashCode());
         }
 }
+```
 
 ![이미지 2](https://user-images.githubusercontent.com/47052106/103310908-2bf73500-4a5c-11eb-8094-f12a896e4f65.png)
 
