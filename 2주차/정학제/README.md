@@ -172,7 +172,7 @@ public JdbcTemplateMemberRepository(DataSource dataSource){
 - *@Entity*
   - 자바 JPA가 관리한다는 뜻
 - 쿼리에 값을 입력해주면 ID는 DB에서 자동으로 생성해주는 것을 *Identity 전략* 이라 한다.
-  - *@ID(Primary Key) @GeneratedValue(strategy=GenerationType.IDENTITY)
+  - *@ID(Primary Key) @GeneratedValue(strategy=GenerationType.IDENTITY)*
 - JPA를 사용하려면 *EntityManager* 를 주입받아야 한다.
 - JPA를 사용할때, 모든 데이터 변경이 *@Transactional* 안에서 실행되어야 한다.
 
