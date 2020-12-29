@@ -360,3 +360,11 @@ public class MemberController {
   * 생성자에 @Autowired 사용하면 MemberController 생성될 때 스프링 빈에 등록되어 있는 MemberService 객체를 가져다가 넣는다.
   * MemberService 생성자에 @Autowired 사용하면 MemberRepository가 필요하다는 것을 파악하고 스프링 빈에 등록된 MemberRepository 객체를 가져다가 넣는다.   
   <img src="https://user-images.githubusercontent.com/61045469/103234397-f03c6c80-4982-11eb-9411-03fa1a711a1c.PNG" width="70%" height="70%"></img><br/>
+  
+* 스프링 빈을 등록하는 2가지 방법
+  * 컴포넌트 스캔(@Controller, @Service, @Repository)과 자동 의존관계 설정
+    * @Component annotation이 있으면 스프링 빈으로 자동 등록된다.
+    * @Controller, @Service, @Repository은 @Component를 포함한다.
+    * 단, hello.hellospring 패키지 내에서만 컴포넌트 스캔이 가능하다.
+    * 스프링은 스프링 컨테이너에 스프링 빈을 등록할 때, 기본으로 싱글톤으로 등록한다.(유일하게 하나만 등록해서 공유한다.)
+  * 자바 코드로 직접 스프링 빈 등록하기
