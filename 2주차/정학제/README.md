@@ -193,11 +193,34 @@ public Optional<Member> findById(Long id) {
 ```
 
 - **PK 제외 조회**
-  - SPQL 필요
+  - JPQL 필요
 ```java
  public List<Member> findAll() {
  return em.createQuery("select m from Member m", Member.class) //Member 객체 m 에서 객체 m 전체를 select 한다.
  .getResultList();
 }
  ```
+
+### :smile: 스프링 데이터 JPA
+
+- **인터페이스만**으로 완료
+- *기본적인 CRUD 제공*
+- 개발 생산성 증대
+```java
+import org.springframework.data.jpa.repository.JpaRepository; // 인터페이스이다.
+
+public interface SpringDataJpaMemberRepository extends JpaRepository<Member, // 인터페이스가 인터페이스 상속할 때, extends 사용. 
+Long>, MemberRepository { // 인터페이스는 다중 상속이 가능
+ Optional<Member> findByName(String name);
+}
+```
+- 위의 코드를 보고, JPA 에서 **알아서** *SpringDataJpaMemberRepository* 구현체를 만들어서 빈에 등록해준다.
+  - 이를 인젝션해서 사용
+  - *Proxy*
+- findByName 함수의 경우는 **비지니스마다 name 값은 다르므로,** 만들어줘야한다.
+`Optional<Member> findByName(String name);`
+- 위와 같이 코드를 작성할 경우, JPQL이 `select m from Member m where m.name=?` 로 SQL문으로 만들어준다. 
+- *인터페이스 이름만으로도 개발이 끝남*
+
+![캡처](https://user-images.githubusercontent.com/47052106/103316665-800a1580-4a6c-11eb-9fbd-6f25afe35cc9.JPG)
 
