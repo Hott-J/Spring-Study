@@ -243,7 +243,7 @@ public class MemoryMemberRepositoryTest {
 ![image](https://user-images.githubusercontent.com/46257667/103224884-02f77700-496c-11eb-9dae-ecb58f1fba3e.png)
 
 ❌ ERROR 원인 ❌<br>
-메소드를 순서 의존적으로 설계하였다. Test를 전체 실행하면 임의로 메소드가 실행되는데 findAll()에서 member1, member2를 이미 save했기 때문에 다른 메소드에서 동일한 객체를 save하게 되면 데이터가 충돌하게 된다. 
+메소드를 순서 의존적으로 설계하였다. Test를 전체 실행하면 임의로 메소드가 실행되는데 findAll()에서 member1, member2를 이미 save했기 때문에 다른 메소드에서 동일한 객체를 save하게 되면 데이터가 충돌하게 된다. <br> 
 ⭕ 해결방법 ⭕ <br>
 @AfterEach 어노테이션을 사용하여 콜백함수를 지정한 다음 하나의 테스트가 끝날 때마다 저장소나 공용 데이터들을 깔끔하게 지워줘야한다. 
 
