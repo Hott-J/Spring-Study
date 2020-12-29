@@ -10,6 +10,38 @@
     - IDE: IntelliJ
     - 사용 프로젝트: gradle project
     - Dependancies: Spring Web, Thymeleaf
+### :smile: thymeleaf를 사용하는 이유
+- 동적 컨텐츠의 대표 주자인 jsp와 thymeleaf가 있는데 일단 jsp는 spring boot에서는 jsp를 지원하지 않는다. jsp는 자바에서 html코드를 사용할 수 있다. Thymeleaf 템플릿 엔진의 장점은 페이지를 생성하는데 필요한 정보를 태그의 속성으로 넣고, remove 속성을 이용해서 실제 생성될 페이지에서는 제거될 태그를 넣을 수 있어서 페이지의 프로토타입을 제공할 수 있다는 것이다. 또 단순한 점을 들 수 있다.
+
+- Freemarker
+```
+<#list user as users>
+
+  ${user.name}
+
+</#list>
+```
+
+
+- Velocity
+```
+#foreach($user in $users)
+
+  ${user.name}
+
+#end
+```
+
+
+- Thymeleaf
+```
+<p th:each="user : ${users}" th:text="${user.name}"></p>
+```
+
+### :smile: maven과 gradle의 차이
+- MAVNE은 pom.xml로 프로젝트 정보, 빌드 설정, 빌드환경 등이 저장되어있는 파일로 빌드를 함. 라이프사이클이 있음.clear, validate, compile,Test,,,,Deploy등이다.
+
+- Gradle은 스크립트 언어로 빌드를 함으로써 훨씬 편하다. groovy script 라는 언어를 사용하여 훨씬 플렉스한 언어를 사용할 수 있다. 훨씬 gradle이 100배 이상 빠르다.
 
 ## :three: 라이브러리
 - 외부 라이브러리
@@ -17,6 +49,7 @@
     - 각각의 의존 관게를 지니고 있음
 
 ### :smile: 출력 사항에는 console.log를 사용하기!
+
 
 
 ## :four: 환경설정
@@ -141,6 +174,7 @@ Hello
 ### :smile: json이란?
 - JSON은 속성-값 쌍( attribute–value pairs and array data types (or any other serializable value)) 또는 "키-값 쌍"으로 이루어진 데이터 오브젝트를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷
 - 요즘은 xml보다 json으로 반환하는 것이 기본!    
+- 장점: 
 
 
 ![reqbody](https://user-images.githubusercontent.com/51367515/103171499-2fd65c00-4890-11eb-82fe-68b67c79a32d.PNG)
