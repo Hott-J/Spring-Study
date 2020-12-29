@@ -175,6 +175,7 @@ public JdbcTemplateMemberRepository(DataSource dataSource){
   - *@ID(Primary Key) @GeneratedValue(strategy=GenerationType.IDENTITY)
 - JPA를 사용하려면 *EntityManager* 를 주입받아야 한다.
 - JPA를 사용할때, 모든 데이터 변경이 *@Transactional* 안에서 실행되어야 한다.
+
 - **저장**
 ```java
 public Member save(Member member) {
@@ -182,6 +183,7 @@ public Member save(Member member) {
  return member;
 }
 ```
+
 - **PK 조회**
 ```java
 public Optional<Member> findById(Long id) {
@@ -189,13 +191,13 @@ public Optional<Member> findById(Long id) {
  return Optional.ofNullable(member);
 }
 ```
+
 - **PK 제외 조회**
-- SPQL 필요
+  - SPQL 필요
 ```java
  public List<Member> findAll() {
- return em.createQuery("select m from Member m", Member.class)
+ return em.createQuery("select m from Member m", Member.class) //Member 객체 m 에서 객체 m 전체를 select 한다.
  .getResultList();
 }
  ```
-Member 객체 m 에서 객체 m 전체를 select 한다.
 
