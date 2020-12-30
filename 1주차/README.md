@@ -200,44 +200,44 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 * 테스트가 용이하다.
 
 #### :book: DI 종류 3가지
-* 필드 주입(Field Injection)   
-  '''java
-  public class Sample {
-      @Autowired
-      private Example example;
-  }
-  '''
+* 필드 주입(Field Injection)
+```java
+public class Sample {
+    @Autowired
+    private Example example;
+}
+```
   * 가장 흔히 볼 수 있는 Injection 방법이나, 권장되지 않는다. 
   * 쉬운 의존성 주입 방법은 하나의 클래스에서 지나치게 많은 기능을 하게 만든다. 이는 '객체는 그에 맞는 동작만을 한다.'는 법칙(Single Responsibility Principle)에 위배된다.
   * 추상화된 의존관계는 의존성을 검증하기 힘들게 만든다. 
   * 필드 주입을 사용하면 해당 클래스를 바로 Instant화 시킬 수 없다.
   * 필드 주입된 객체는 final 선언을 할 수 없으므로 가변적이다.
   
-* Setter 주입(Setter Injection)   
-  '''java
-  public class Sample {
-      private Example example;
+* Setter 주입(Setter Injection)
+```java
+public class Sample {
+    private Example example;
 
-      @Autowired
-      public void setExample(Example example) {
-      this.example = example;
-      }
-  }
-  '''
+    @Autowired
+    public void setExample(Example example) {
+    this.example = example;
+    }
+}
+```
   * 선택적인 의존성을 주입할 경우에 유용하며, Spring 3.X시대까지 제일 권장되던 방법이었다.
   * Optional Injection의 경우 권장되는 방식이다.
   
-* 생성자 주입(Constructor Injection)   
-  '''java
-  public class Sample {
-      private final Example example;
+* 생성자 주입(Constructor Injection)
+```java
+public class Sample {
+    private final Example example;
 
-      @Autowired
-      public Sample(Example example) {
-          this.example = example;
-      }
-  }
-  '''
+    @Autowired
+    public Sample(Example example) {
+        this.example = example;
+    }
+}
+```
   * 생성자에서 의존성을 주입하는 방법으로, Spring 4.X 이상부터 권장되는 방법이다.
   * 객체에 final 선언이 가능하여 Immutability(불가변성)을 보장한다.
   * 의존성의 순환 참조(Circular Dependency)에 대한 예방이 가능하다.
