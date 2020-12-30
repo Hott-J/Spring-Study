@@ -199,8 +199,8 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 * 코드의 재사용이 용이하고 코드가 분리되어 가독성이 좋아진다.
 * 테스트가 용이하다.
 
-#### :book: DI 종류
-* 1. 필드 주입(Field Injection)
+#### :book: DI 종류 3가지
+* 필드 주입(Field Injection)   
   '''java
   public class Sample {
       @Autowired
@@ -213,7 +213,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   * 필드 주입을 사용하면 해당 클래스를 바로 Instant화 시킬 수 없다.
   * 필드 주입된 객체는 final 선언을 할 수 없으므로 가변적이다.
   
-* 2. Setter 주입(Setter Injection)
+* Setter 주입(Setter Injection)   
   '''java
   public class Sample {
       private Example example;
@@ -227,7 +227,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   * 선택적인 의존성을 주입할 경우에 유용하며, Spring 3.X시대까지 제일 권장되던 방법이었다.
   * Optional Injection의 경우 권장되는 방식이다.
   
-* 3. 생성자 주입(Constructor Injection)
+* 생성자 주입(Constructor Injection)   
   '''java
   public class Sample {
       private final Example example;
