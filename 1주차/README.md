@@ -187,3 +187,62 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 - bean 관리의 주체인 스프링 컨테이너는 그 어떤 호출에도 **단일 공유 인스턴스를 리턴**시키므로 *thread safety도 자동으로 보장된다.*
 
 ![img](https://user-images.githubusercontent.com/47052106/103311192-09b1e700-4a5d-11eb-8245-576441491e72.png)
+
+### :smile: DI (Dependency Injection)
+
+#### :book: DI란?
+* DI는 '의존성 주입'을 의미하며, 한 클래스가 다른 클래스의 메서드를 실행하기 위해 의존성을 설정하는 것이다. 스프링 프레임워크는 Framework 레벨에서 DI를 제공한다.
+* 객체의 구성 요소에 필요한 설정 등의 의존성을 코드에서 분리하고 외부에서 주입하도록 하자는 것이 '의존성 주입'의 기본적인 원리이다.
+
+#### :book: DI의 장점
+* 객체 간의 결합도가 낮아져 상호 간 의존성 관계를 줄여준다.
+* 코드의 재사용이 용이하고 코드가 분리되어 가독성이 좋아진다.
+* 테스트가 용이하다.
+
+#### :book: DI 종류
+* 1. 필드 주입(Field Injection)
+  '''java
+  public class Sample {
+      @Autowired
+      private Example example;
+  }
+  '''
+  * 가장 흔히 볼 수 있는 Injection 방법이나, 권장되지 않는다. 
+  * 쉬운 의존성 주입 방법은 하나의 클래스에서 지나치게 많은 기능을 하게 만든다. 이는 '객체는 그에 맞는 동작만을 한다.'는 법칙(Single Responsibility Principle)에 위배된다.
+  * 추상화된 의존관계는 의존성을 검증하기 힘들게 만든다. 
+  * 필드 주입을 사용하면 해당 클래스를 바로 Instant화 시킬 수 없다.
+  * 필드 주입된 객체는 final 선언을 할 수 없으므로 가변적이다.
+  
+* 2. Setter 주입(Setter Injection)
+  '''java
+  public class Sample {
+      private Example example;
+
+      @Autowired
+      public void setExample(Example example) {
+      this.example = example;
+      }
+  }
+  '''
+  * 선택적인 의존성을 주입할 경우에 유용하며, Spring 3.X시대까지 제일 권장되던 방법이었다.
+  * Optional Injection의 경우 권장되는 방식이다.
+  
+* 3. 생성자 주입(Constructor Injection)
+  '''java
+  public class Sample {
+      private final Example example;
+
+      @Autowired
+      public Sample(Example example) {
+          this.example = example;
+      }
+  }
+  '''
+  * 생성자에서 의존성을 주입하는 방법으로, Spring 4.X 이상부터 권장되는 방법이다.
+  * 객체에 final 선언이 가능하여 Immutability(불가변성)을 보장한다.
+  * 의존성의 순환 참조(Circular Dependency)에 대한 예방이 가능하다.
+  * Spring 4.3 이상부터는 생성자가 하나인 경우 @Autowired를 사용하지 않아도 무방하다.
+  
+  
+#### :book: Spring DI Container
+* Spring DI Container가 관리하는 객체를 Bean이라 하고, Bean들을 관리하는 의미로 Container를 BeanFactory라고 부르기도 한다.
