@@ -2,7 +2,7 @@
 
 ---
 
-## :one: 웹 MVC 개발
+## :five: 웹 MVC 개발
 
 ### :smile: 회원 웹 기능 - 홈 화면 추가
 
@@ -225,3 +225,56 @@ Long>, MemberRepository { // 인터페이스는 다중 상속이 가능
 
 ![캡처](https://user-images.githubusercontent.com/47052106/103316665-800a1580-4a6c-11eb-9fbd-6f25afe35cc9.JPG)
 
+## :six: AOP
+  
+### :smile: AOP가 필요한 상황
+
+- 모든 메소드의 호출 시간을 측정하고 싶다면?
+- **공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern)**
+- *문제*
+  - 회원가입, 회원 조회에 시간을 측정하는 기능은 *핵심 관심 사항이 아니다.*
+  - 시간을 측정하는 로직은 *공통 관심 사항이다.*
+  - 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 **유지보수가 어렵다.**
+  - 시간을 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.
+  - 시간을 측정하는 로직을 변경할 때 **모든 로직을 찾아가면서 변경해야 한다**
+
+### :smile: AOP 적용
+
+```java
+@Component // 등록,  이 방법보다는 Config에 빈으로 직접 등록하는게 좋다. AOP가 있다는 걸 확인차
+@Aspect
+public class TimeTraceAop {
+ @Around("execution(* hello.hellospring..*(..))") // 타겟팅. 여기에 적용할 것이다. hello.hellospring 하위 전부
+ public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+  long start = System.currentTimeMillis();
+  System.out.println("START: " + joinPoint.toString());
+  try {
+    return joinPoint.proceed(); // 다음 메소드 실행
+    } finally {
+        long finish = System.currentTimeMillis();
+        long timeMs = finish - start;
+        System.out.println("END: " + joinPoint.toString()+ " " + timeMs + "ms");
+        }
+    }
+}
+```
+
+- 메소드 호출될 때 마다 중간에 인터셉트가 되서 호출됨. 
+
+**AOP 적용전 의존 관계**
+![캡처1](https://user-images.githubusercontent.com/47052106/103356816-1550ec80-4af5-11eb-8332-41e8765e8950.JPG)
+
+![캡처2](https://user-images.githubusercontent.com/47052106/103356829-1c77fa80-4af5-11eb-851d-d3e9b69073be.JPG)
+
+- AOP가 불리면, 프록시란 기술을 사용하여 *가짜 memberService를* 만들고 얘를 통해 AOP가 실행되고 `JoinPoint.proceed()`가 실행되면 실제 memberService가 호출된다.
+
+**AOP 적용전 전체 그림**
+![캡처3](https://user-images.githubusercontent.com/47052106/103356841-226ddb80-4af5-11eb-871b-7ee5f17980bb.JPG)
+
+![캡처4](https://user-images.githubusercontent.com/47052106/103356858-2bf74380-4af5-11eb-91cb-8afbcf3000bc.JPG)
+
+- DI가 AOP를 할 수 있는 기반이 된다. 나는 뭔지 모르겠고, 알아서 쓸게. 여기에 프록시를 주입시킨다. 그래서 이런 AOP가 가능한 것이다.
+
+## :seven: 다음으로
+
+### :smile: 다음으로
