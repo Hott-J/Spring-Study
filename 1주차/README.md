@@ -191,8 +191,8 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 ### :smile: DI (Dependency Injection)
 
 #### :book: DI란?
-* DI는 '의존성 주입'을 의미하며, 한 클래스가 다른 클래스의 메서드를 실행하기 위해 의존성을 설정하는 것이다. 스프링 프레임워크는 Framework 레벨에서 DI를 제공한다.
-* 객체의 구성 요소에 필요한 설정 등의 의존성을 코드에서 분리하고 외부에서 주입하도록 하자는 것이 '의존성 주입'의 기본적인 원리이다.
+* DI는 **의존성 주입**을 의미하며, 한 클래스가 다른 클래스의 메서드를 실행하기 위해 의존성을 설정하는 것이다. 스프링 프레임워크는 Framework 레벨에서 DI를 제공한다.
+* 객체의 구성 요소에 필요한 설정 등의 의존성을 코드에서 분리하고 외부에서 주입하도록 하자는 것이 의존성 주입의 기본적인 원리이다.
 
 #### :book: DI의 장점
 * 객체 간의 결합도가 낮아져 상호 간 의존성 관계를 줄여준다.
@@ -200,7 +200,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 * 테스트가 용이하다.
 
 #### :book: DI 종류 3가지
-* 필드 주입(Field Injection)
+* **필드 주입(Field Injection)**
   ```java
   public class Sample {
       @Autowired
@@ -213,7 +213,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   * 필드 주입을 사용하면 해당 클래스를 바로 Instant화 시킬 수 없다.
   * 필드 주입된 객체는 final 선언을 할 수 없으므로 가변적이다.
   
-* Setter 주입(Setter Injection)
+* **Setter 주입(Setter Injection)**
   ```java
   public class Sample {
       private Example example;
@@ -227,7 +227,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   * 선택적인 의존성을 주입할 경우에 유용하며, Spring 3.X시대까지 제일 권장되던 방법이었다.
   * Optional Injection의 경우 권장되는 방식이다.
   
-* 생성자 주입(Constructor Injection)
+* **생성자 주입(Constructor Injection)**
   ```java
   public class Sample {
       private final Example example;
