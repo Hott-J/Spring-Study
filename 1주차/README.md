@@ -195,7 +195,6 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 * 객체의 구성 요소에 필요한 설정 등의 의존성을 코드에서 분리하고 외부에서 주입하도록 하자는 것이 의존성 주입의 기본적인 원리이다.
 * 객체 자체에서 의존성을 설정하는 것이 아닌, Spring Framework에 의해 의존성이 주입되는 설계 패턴이다.
   * Dependency Injection은 Spring Framework에서 지원하는 IoC의 형태
-  <img src="https://user-images.githubusercontent.com/61045469/103369341-39b8c300-4b0d-11eb-8968-ac72cb8dec16.PNG" width="50%" height="30%"></img><br/>
   <img src="https://user-images.githubusercontent.com/61045469/103369482-961be280-4b0d-11eb-9dd3-c526e5f0bad5.PNG" width="50%" height="30%"></img><br/>
 
 #### :book: DI의 장점
@@ -250,3 +249,4 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   
 #### :book: Spring DI Container
 * Spring DI Container가 관리하는 객체를 Bean이라 하고, Bean들을 관리하는 의미로 Container를 BeanFactory라고 부르기도 한다.
+  <img src="https://user-images.githubusercontent.com/61045469/103369341-39b8c300-4b0d-11eb-8968-ac72cb8dec16.PNG" width="50%" height="30%"></img><br/>
