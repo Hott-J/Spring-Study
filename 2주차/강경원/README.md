@@ -54,7 +54,8 @@ public class HomeController {
         }
     }
     ```
-    * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다. <br/>
+    * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
+    <br/>
     ```java
     @Controller
     public class MemberController {
