@@ -56,7 +56,7 @@ class OwnerControllerTest {
 ### :smile: IOC (Inversion Of Control) 컨테이너
 
 - *ApplicationContext (BeanFactory)* 라고도 한다.
-- **빈**을 만들고 엮어주며 제공해준다.
+- **빈(bean)**을 만들고 엮어주며 제공해준다.
   - 빈은 @Component , @Service, @Repository, @Controller 와 같은 애노테이션을 보고 알 수 있다.
     - 컴포넌트 스캔
  
