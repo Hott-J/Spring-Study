@@ -19,3 +19,44 @@
 
 - Owner -> Pet -> Visit
 - Vet -> Specialty
+
+## :two: Inversion of Control
+
+### :smile: IOC 소개
+
+- 내가 쓸 것은 내가 쓴다. 일반적인 의존성에 대한 제어권
+
+```java
+class OwnerController {
+  private OwnerRepository repository = new OwnerRepository();
+}
+```
+
+- 내가 쓸 것이 이것인데, 누군가 알아서 주겠지. (IOC)
+  - 내가 쓸 것의 타입만 맞으면 어떤 것이든 상관없다.
+  - 그래야 코드 테스트 하기도 편하다.
+```java
+class OwnerController {
+  private OwnerRepository repo;
+  public OwnerController(OwnerRepository repo) {
+    this.repo = repo;
+  }
+// repo를 사용합니다.
+}
+class OwnerControllerTest {
+@Test
+  public void create() {
+    OwnerRepository repo = new OwnerRepository();
+    OwnerController controller = new OwnerController(repo);
+  }
+}
+```
+- **IOC 컨테이너가 이를 관리해준다.**
+
+### :smile: IOC (Inversion Of Control) 컨테이너
+
+- *ApplicationContext (BeanFactory)* 라고도 한다.
+- **빈(bean)**을 만들고 엮어주며 제공해준다.
+  - 빈은 @Component , @Service, @Repository, @Controller 와 같은 애노테이션을 보고 알 수 있다.
+    - 컴포넌트 스캔
+ 
