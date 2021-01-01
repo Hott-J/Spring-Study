@@ -41,20 +41,20 @@ public class HomeController {
   ```
   
 * 웹 등록 화면에서 데이터를 전달 받을 폼 객체
-    * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
-    ```java
-    public class MemberForm {
-        private String name;
+  * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
+  ```java
+  public class MemberForm {
+      private String name;
 
-        public String getName() {
-            return name;
-        }
+      public String getName() {
+          return name;
+      }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-    ```
+      public void setName(String name) {
+          this.name = name;
+      }
+  }
+  ```
     
 * 회원 Controller에서 회원을 실제 등록하는 기능
   * MemberController에 PostMapping("/members/new") 추가
