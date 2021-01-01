@@ -86,8 +86,8 @@ public class HomeController {
   ```
 
 ### 3. 회원 웹 기능 - 조회
-* 회원 Controller에서 조회 기능
-  * MemberController에 GetMapping("members") 추가
+* 회원 Controller에서 회원을 조회하는 기능
+  * MemberController에 GetMapping("/members") 추가
   * templates/members폴더 밑에 memberList.html 파일 생성
   ```java
   @Controller
