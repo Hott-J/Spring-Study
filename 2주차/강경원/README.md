@@ -56,6 +56,7 @@ public class HomeController {
     }
     ```
     
+* 회원 Controller에서 회원을 실제 등록하는 기능
     * MemberController에 PostMapping("/members/new") 추가
     * PostMapping : form에 data를 넣어서 전달, 등록 / GetMapping : data 조회
     ```java
@@ -83,8 +84,41 @@ public class HomeController {
         }
     }
     ```
-    
-* 회원 Controller에서 회원을 실제 등록하는 기능
-
 
 ### 3. 회원 웹 기능 - 조회
+* 회원 Controller에서 조회 기능
+  * @GetMapping("members") 추가
+  ```java
+  @Controller
+    public class MemberController {
+
+        private final MemberService memberService; // 하나만 만들어져 있으면 된다.
+
+        @Autowired
+        public MemberController(MemberService memberService) {
+            this.memberService = memberService;
+        }
+
+        @GetMapping("/members/new")
+        public String createForm() {
+            return "members/createMembersForm";
+        }
+
+        @PostMapping("/members/new")
+        public String create(MemberForm form) {
+            Member member = new Member();
+            member.setName(form.getName());
+
+            memberService.join(member);
+
+            return "redirect:/";
+        }
+
+        @GetMapping("/members")
+        public String list(Model model) {
+            List<Member> members = memberService.findMembers(); // 모든 회원 list가 들어감.
+            model.addAttribute("members", members);
+            return "members/memberList";
+        }
+    }
+    ```
