@@ -20,6 +20,8 @@ public class HomeController {
 
 ### 2. 회원 웹 기능 - 등록
 * 회원 등록 폼 Controller
+  * MemberController에 GetMapping("/members/new") 추가
+  * templates폴더 밑에 members폴더 생성 후 createMembersForm.html 파일 생성
     ```java
     @Controller
     public class MemberController {
@@ -37,10 +39,9 @@ public class HomeController {
         }
     }
     ```
-  * MemberController에 GetMapping("/members/new") 추가
-  * templates폴더 밑에 members폴더 생성 후 createMembersForm.html 파일 생성
   
 * 웹 등록 화면에서 데이터를 전달 받을 폼 객체
+    * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
     ```java
     public class MemberForm {
         private String name;
@@ -54,8 +55,9 @@ public class HomeController {
         }
     }
     ```
-    * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
-<br/>
+    
+    * MemberController에 PostMapping("/members/new") 추가
+    * PostMapping : form에 data를 넣어서 전달, 등록 / GetMapping : data 조회
     ```java
     @Controller
     public class MemberController {
@@ -81,8 +83,6 @@ public class HomeController {
         }
     }
     ```
-    * MemberController에 PostMapping("/members/new") 추가
-    * PostMapping : form에 data를 넣어서 전달, 등록 / GetMapping : data 조회
     
 * 회원 Controller에서 회원을 실제 등록하는 기능
 
