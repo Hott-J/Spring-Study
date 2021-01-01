@@ -22,23 +22,23 @@ public class HomeController {
 * 회원 등록 폼 Controller
   * MemberController에 GetMapping("/members/new") 추가
   * templates폴더 밑에 members폴더 생성 후 createMembersForm.html 파일 생성
-    ```java
-    @Controller
-    public class MemberController {
+  ```java
+  @Controller
+  public class MemberController {
 
-        private final MemberService memberService; // 하나만 만들어져 있으면 된다.
+      private final MemberService memberService; // 하나만 만들어져 있으면 된다.
 
-        @Autowired
-        public MemberController(MemberService memberService) {
-            this.memberService = memberService;
-        }
+      @Autowired
+      public MemberController(MemberService memberService) {
+          this.memberService = memberService;
+      }
 
-        @GetMapping("/members/new")
-        public String createForm() {
-            return "members/createMembersForm";
-        }
-    }
-    ```
+      @GetMapping("/members/new")
+      public String createForm() {
+          return "members/createMembersForm";
+      }
+  }
+  ```
   
 * 웹 등록 화면에서 데이터를 전달 받을 폼 객체
     * templates/members/createMembersForm.html 에 있는 name="name"과 매칭된다.
