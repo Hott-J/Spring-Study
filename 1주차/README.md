@@ -250,3 +250,18 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 #### :book: Spring DI Container
 * Spring DI Container가 관리하는 객체를 Bean이라 하고, Bean들을 관리하는 의미로 Container를 BeanFactory라고 부르기도 한다.
   <img src="https://user-images.githubusercontent.com/61045469/103369341-39b8c300-4b0d-11eb-8968-ac72cb8dec16.PNG" width="50%" height="30%"></img><br/>
+
+## :smile: 라이브러리
+- thymeleaf : Thymeleaf는 템플릿 엔진으로 스프링 프레임워크의 MVC 구조에서 V 즉, 뷰(View)를 담당하는 라이브러리이고, 텍스트 템플릿 엔진입니다. 템플릿 양식과 특정 데이터 모델에 따른 입력 자료를 결합하여 원하는 결과 문서를 출력하는 소프트웨어(또는 컴포넌트)를 말합니다. 그중 웹 템플릿엔진이란 웹문서가 출력되는 엔진을 말합니다. 종류로는 Freemarker, Thymeleaf, JSP(Java Server pages) 등이 있습니다. 그 중 Thymeleaf는 비교적 최근에 만들어진 템플릿 엔진이며 서버사이드 자바 템플릿 엔진의 한 종류입다.JSP와 Thymeleaf의 가장 큰 차이점은 JSP와 달리 Servlet Code로 변환되지 않다는 점이다. 따라서 비즈니스 로직과 분리되어 오로지 View에 집중할 수 있고 의존성이 높다는 장점이 있습니다.
+
+- Gradle
+    - Ant처럼 유연한 범용 빌드 도구
+    - Maven을 사용할 수 있는 변환 가능 컨벤션 프레임 워크
+    - 멀티 프로젝트에 사용하기 좋음
+    - Apache Ivy에 기반한 강력한 의존성 관리
+    - Maven과 Ivy 레파지토리 완전 지원
+    - 원격 저장소나, pom, ivy 파일 없이 연결되는 의존성 관리 지원
+
+    - 그루비 문법 사용 
+    - 빌드를 설명하는 풍부한 도메인 모델 
+
