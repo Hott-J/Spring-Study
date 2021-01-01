@@ -87,7 +87,7 @@ public class HomeController {
 
 ### 3. 회원 웹 기능 - 조회
 * 회원 Controller에서 조회 기능
-  * GetMapping("members") 추가
+  * MemberController에 GetMapping("members") 추가
   ```java
   @Controller
     public class MemberController {
@@ -122,3 +122,7 @@ public class HomeController {
         }
     }
     ```
+
+## :cherry_blossom: Spring DB 접근 기술
+
+
