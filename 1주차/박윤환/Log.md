@@ -170,7 +170,3 @@ Warning: Nashorn engine is planned to be removed from a future JDK release
 `<Console name="console" target="SYSTEM_OUT">` ⇒ 콘솔 출력 또한 PatternLayout 자식 태그 ⇒ 로그 패턴 지정
 - Loggers 에서는 각 Logger 들에 대한 설정을 정의할 수 있습니다.
     - Root는 logger 들의 최상위 부모 logger 로서 만일 하위 logger들에 대한 설정이 없다면 이 Root 로거의 설정 정보를 자동적으로 상속받아 쓰게 되어 있습니다. 또한 Logger의 하위 태그인 AppendRef를 지정하여 어떤 Appender를 쓸 지 지정할 수 있음
-
----
-
-[[Java Library] slf4j + log4j2 한 방 정리](https://engkimbs.tistory.com/861)
