@@ -180,3 +180,8 @@ public class HomeController {
   * @Transactional를 쓰면 DB에 data commit 단계 전까지 수행한다. 결국 DB에 data insert query 실행 후, 테스트 끝나면 data를 다 지우게 된다. (DB에 반영X)
   * 따라서 다음 테스트를 반복적으로 수행할 수 있게 한다.
 * @Commit을 사용하면 실제로 DB에 commit까지 수행한다.
+
+### 4. Spring JdbcTemplate
+* 스프링 JdbcTemplate과 MyBatis 같은 라이브러리는 JDBC API에서 본 반복 코드를 대부분 제거해준다. 하지만 SQL은 직접 작성해야 한다.
+
+### 5. JPA
