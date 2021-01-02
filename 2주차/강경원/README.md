@@ -127,4 +127,6 @@ public class HomeController {
 
 ## :cherry_blossom: Spring DB 접근 기술
 
-
+### H2 데이터베이스 설치
+* 지금까지는 메모리에 저장했기 때문에, 서버가 꺼지면 모든 data가 날라간다.
+* [https://www.h2database.com](https://www.h2database.com) 사이트 접속하여 Version 1.4.200 (2019-10-14) 다운로드 및 설치
