@@ -147,3 +147,7 @@ public class HomeController {
     primary key (id)
   );
   ```
+  * 테이블 data 조회
+  ```
+  SELECT * FROM MEMBER
+  ```
