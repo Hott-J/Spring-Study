@@ -247,3 +247,22 @@ public class LogAspect {
   - After Throwing 어드바이스
     - 타겟의 메서드가 예외를 발생된 이후(after) 시점에 처리해야 할 필요가 있는 부가기능을 정의한다.
     - 예외가 던져 질때 실행되는 Advice
+
+## :three: Portable Service Abstraction
+
+### :smile: PSA 소개
+
+- *잘 만든 인터페이스*
+- **스프링 API의 대부분**
+
+### :smile: 스프링 트랜잭션
+
+- 추상화를 통해 *PlatformTransactionManager 인터페이스*를 사용했으므로, **빈이 바껴도 트랜잭션 애노테이션 안에 있는 코드는 변하지 않는다.**
+
+### :smile: 스프링 캐시
+
+- CacheManager를 통해 Cache 애노테이션 처리
+
+### :smile: 웹 MVC
+
+- @Controller @RequestMapping 처리
