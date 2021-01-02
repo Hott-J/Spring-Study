@@ -179,3 +179,4 @@ public class HomeController {
   * @Transactional를 안쓰면 테스트 한 data가 DB에 저장되어 있다.
   * @Transactional를 쓰면 DB에 data commit 단계 전까지 수행한다. 결국 DB에 data insert query 실행 후, 테스트 끝나면 data를 다 지우게 된다. (DB에 반영X)
   * 따라서 다음 테스트를 반복적으로 수행할 수 있게 한다.
+* @Commit을 사용하면 실제로 DB에 commit까지 수행한다.
