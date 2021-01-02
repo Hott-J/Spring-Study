@@ -36,3 +36,10 @@
 
 ### :smile: Spring Boot 개요
 
+- Spring Boot
+  - 스프링부트는 단독실행되는, 실행하기만 하면 되는 상용화 가능한 수준의, 스프링 기반 애플리케이션을 쉽게 만들어낼 수 있다.
+  - 최소한의 설정으로 스프링 플랫폼과 서드파티 라이브러리들을 사용할 수 있도록 하고 있다.
+- Spring Boot Aplication
+- Auto Configuration
+  - 애플리케이션에 필요한 각종 설정 작업을 작동화, 개발자가 등록한 환경을 불러와 읽기도 함.
+- Component Scan
