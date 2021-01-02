@@ -158,3 +158,10 @@ public class HomeController {
   ```
   
 ### 2. 순수 JDBC
+* JdbcMemberRepository 추가한 후 SpringConfig 수정(실행할 때 H2 꼭 킨 상태여야 한다!)\
+* Spring을 왜 쓸까?   
+<img src="https://user-images.githubusercontent.com/61045469/103458782-be465400-4d4e-11eb-9a66-a9c8c18f67ce.PNG" width="70%" height="50%"></img><br/>
+  * 개방-폐쇄 원칙(OCP, Open-Closed Principle) : 확장에는 열려있고, 수정, 변경에는 닫혀있다.
+  * 객체지향적인 설계 - 다형성
+    * interface를 두고 구현체를 바꿔서 실행할 수 있다.
+    * 스프링의 DI(Dependencies Injection)을 사용하면 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경할 수 있다.
