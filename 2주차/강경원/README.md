@@ -156,12 +156,26 @@ public class HomeController {
   ```
   insert into member(name) values('spring')
   ```
+  * 테이블 data 삭제
+  ```
+  delete from member
+  ```
   
 ### 2. 순수 JDBC
 * JdbcMemberRepository 추가한 후 SpringConfig 수정(실행할 때 H2 꼭 킨 상태여야 한다!)\
-* Spring을 왜 쓸까?   
+* Spring 특징   
 <img src="https://user-images.githubusercontent.com/61045469/103458782-be465400-4d4e-11eb-9a66-a9c8c18f67ce.PNG" width="70%" height="50%"></img><br/>
   * 개방-폐쇄 원칙(OCP, Open-Closed Principle) : 확장에는 열려있고, 수정, 변경에는 닫혀있다.
   * 객체지향적인 설계 - 다형성
     * interface를 두고 구현체를 바꿔서 실행할 수 있다.
     * 스프링의 DI(Dependencies Injection)을 사용하면 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경할 수 있다.
+  * 데이터를 DB에 저장하므로 스프링 서버를 다시 실행해도 데이터가 안전하게 저장된다.
+
+### 3. Spring 통합 테스트
+* 테스트 코드는 편한 방식으로 만드는 편이다.
+* @SpringBootTest 역할
+  * 스프링 컨테이너와 테스트를 함께 실행한다. (실제로 스프링을 실행시키면서 테스트를 진행한다.)
+* @Transactional 역할
+  * @Transactional를 안쓰면 테스트 한 data가 DB에 저장되어 있다.
+  * @Transactional를 쓰면 DB에 data commit 단계 전까지 수행한다. 결국 DB에 data insert query 실행 후, 테스트 끝나면 data를 다 지우게 된다. (DB에 반영X)
+  * 따라서 다음 테스트를 반복적으로 수행할 수 있게 한다.
