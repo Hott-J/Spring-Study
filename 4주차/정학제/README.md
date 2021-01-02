@@ -18,6 +18,7 @@
       - XML만, 복잡하고 느리고 무겁다
       
 ![12](https://user-images.githubusercontent.com/47052106/103463217-307a6100-4d6e-11eb-8bec-2698db7d74b4.JPG)
+
     - REST (Representational State Transfer)
       - Resource의 Representation에 의한 상태 전달
       - HTTP Method를 통해 Resource를 처리하기 위한 아키텍쳐
