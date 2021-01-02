@@ -16,6 +16,7 @@
   - SOAP과 REST 사용
     - SOAP (Simple Object Access Protocol)
       - XML만, 복잡하고 느리고 무겁다
+      
 ![12](https://user-images.githubusercontent.com/47052106/103463217-307a6100-4d6e-11eb-8bec-2698db7d74b4.JPG)
     - REST (Representational State Transfer)
       - Resource의 Representation에 의한 상태 전달
@@ -25,6 +26,7 @@
         - Resource
           - URI (Uniform Resource Identifier), 인터넷 자원을 나타내는 유일한 주소
           - XML, HTML, JSON      
+          
 ![33](https://user-images.githubusercontent.com/47052106/103463219-31ab8e00-4d6e-11eb-9122-0d4f982e0546.JPG)
 
 - API
