@@ -33,8 +33,57 @@ public interface HandlerInterceptor {
 ![image](https://user-images.githubusercontent.com/46257667/103479010-c9ac8480-4e0d-11eb-83c3-277b8c60e514.png)
 
 - **Domain(Entity)**
+entity class는 DB와 1:1 매칭을 할 수 있다. 이러한 Entity class를 Domain이라 하며 DB와 가장 가까운 class다.
+```java
+@Entity
+@Getter
+public class Member {
+    @Id @GeneratedValue
+    @Column(name = "member_id")
+    private Long id; // PK
+
+    @NotEmpty
+    @NotNull
+    private String name;
+
+    @Embedded // 내장 타입 임베딩
+    private Address address;
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+}
+```
 - **Repository(DAO)**
+```java
+@Repository 
+@RequiredArgsConstructor
+public class MemberRepository{
+
+    private final EntityManager em; 
+
+    public void save(Member member) {
+        em.persist(member);
+    }
+}
+```
+persistence layer에 해당한다. <br>
+Java Persistence API(JPA) 구현체를 이용하여 자바 객체로 접근할 수 있다. ex) Hibernate, MyBatis 등
 - **DTO**
+Entity를 통해 DB에서 데이터를 꺼내왔지만 한가지 문제가 있다.<br>
+요청을 받고 데이터를 처리하고 반환해주기 위해선 데이터에 접근해야 하는데<br>
+여기서 Controller, Presentation Layer의 경우 클라이언트와 직접 맞닿는 부분이고<br>
+Entity는 Presentation Layer와 완전히 분리되어야 한다.<br>
+
+이럴 때 DTO를 사용하는데,
+```java
+@Data
+@AllArgsConstructor
+static class MemberDto {
+    private String name;
+    private Address address;
+}
+```
 - **Service**
 - **Controller**
 ### :smile: 싱글톤 패턴(Singleton Pattern)
