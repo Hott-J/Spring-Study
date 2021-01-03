@@ -258,8 +258,42 @@ public class HomeController {
   * 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 유지보수가 어렵다.
   * 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.
   * 시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 한다.
-* 따라서 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 으로 분리해야 한다! -> AOP
+* 따라서 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 으로 분리해야 한다! -> **AOP**
   
 ### 2. AOP 적용
 *  공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 분리
 <img src="https://user-images.githubusercontent.com/61045469/103474507-f352b500-4de7-11eb-8edc-0082e266a52a.PNG" width="70%" height="50%"></img><br/>
+
+* 시간 측정 AOP 등록
+  ```java
+  @Aspect
+  @Component
+  public class TimeTraceAop {
+
+      @Around("execution(* hello.hellospring..*(..))") // 공통 관심사항을 어디에 적용할 것인가 - hellospring 패키지 하위에 다 적용
+      public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+          long start = System.currentTimeMillis();
+          System.out.println("START: " + joinPoint.toString());
+          try {
+              return joinPoint.proceed();
+          } finally {
+              long finish = System.currentTimeMillis();
+              long timeMs = finish - start;
+              System.out.println("END: " + joinPoint.toString()+ " " + timeMs + "ms");
+          }
+      }
+  }
+  ```
+  * hellosping폴더 밑에 있는 service폴더에만 적용하고 싶으면 다음과 같이 설정하면 된다.
+  ```java
+  @Around("execution(* hello.hellospring.service..*(..))")
+  ```
+  
+* 해결
+  * 회원가입, 회원 조회등 핵심 관심사항과 시간을 측정하는 공통 관심 사항을 분리한다.
+  * 시간을 측정하는 로직을 별도의 공통 로직으로 만들었다.
+  * 핵심 관심 사항을 깔끔하게 유지할 수 있다.
+  * 변경이 필요하면 이 로직만 변경하면 된다.
+  * 원하는 적용 대상을 선택할 수 있다.
+  
+* AOP 동작 원리
