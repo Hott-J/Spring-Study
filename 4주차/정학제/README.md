@@ -150,6 +150,7 @@ public class HelloWorldBean {
 ```
 
 - 객체를 반환하면, JSON형태로 변환되어 반환된다.
+
 ![캡처22](https://user-images.githubusercontent.com/47052106/103483389-4e0d0080-4e2a-11eb-8040-1608004b8f99.JPG)
 
   
