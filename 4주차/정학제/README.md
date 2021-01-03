@@ -157,3 +157,11 @@ public class HelloWorldBean {
 
 - application.properties -> 설정이름 = 값
 - application.yml -> 설정이름 : 값
+  - xml 보다 보기 편하여 더 많이 사용
+
+![캡처332](https://user-images.githubusercontent.com/47052106/103483872-92e66680-4e2d-11eb-9abb-1816ed5e759c.JPG)
+
+![캡처4](https://user-images.githubusercontent.com/47052106/103483873-94179380-4e2d-11eb-928c-c86b1a0afda0.JPG)
+
+
+
