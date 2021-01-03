@@ -4,12 +4,39 @@
 ```
 ![image](https://user-images.githubusercontent.com/46257667/103460661-7c6fda80-4d5b-11eb-9e64-efb724d12bc9.png)
 
+#### :book: Dispatcher Servlet 중심 (🔴원) 
 1️⃣:브라우저로부터 요청이 들어오면 Servlet Container(톰캣 내장 서버)가 생성한 Dispatcher Servlet이 그 요청을 가로챈다. <br>
 2️⃣,3️⃣:Dispatcher Servlet은 그 요청을 가지고 Handler Mapping에게 해당 요청을 어느 controller method 에게 위임할지 물어본다. <br>
 4️⃣:Dispatcher Servlet은 실행할 controller method정보(HandlerMethod)를 Handelr Adapter에게 전달합니다.Handler Adapter는 전달받은 controller method를 실행하는데, 실행하기 전에 HandlerInterceptorAdapter를 구현한 interceptor들을 먼저 실행한다.<br>
 5️⃣:결과적으로 ViewName과 Model을 반환한다.<br>
 6️⃣,7️⃣:Dispatcher Servlet은 Handler Adapter로부터 응답받은 ViewName과 Model을 View Resolver에게 위임하여, response body가 될 view(html)를 응답받는다.<br>
 8️⃣: client에게 view 반환하게 된다.<br>
+#### :book: Controller 중심 (🟡원) 
+1️⃣:Handler Interceptor는 DispatcherServlet이 컨트롤러를 호출하기 전과 후에 요청, 응답을 가공할 수 있는 일종의 필터이다. Handler Adapter가 아래와 같이 구현되어있는 preHandle과 postHandle을 controller 호출 전후에 호출한다.
+```java
+public interface HandlerInterceptor {
+	boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception;
+
+	void postHandle(
+			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception;
+
+	void afterCompletion(
+			HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception;
+}
+```
+2️⃣:HandlerMapping을 통해 찾은 컨트롤러를 직접 실행한다.<br>
+3️⃣,4️⃣,5️⃣,6️⃣,7️⃣:controller -> service -> repository -> DB 순으로 **일반적인 웹 계층구조**를 따라 실행된다.<br>
+8️⃣:객체를 Handler Adaptor에 반환한다.<br>
+9️⃣:반환된 객체를 후처리해야하는 경우 Handler Interceptor에 보내 후처리 후 객체를 반환 받는다.<br>
+
+### :smile: spring boot MVC 계층구조(domain, DTO, DAO 중심)
+![image](https://user-images.githubusercontent.com/46257667/103479010-c9ac8480-4e0d-11eb-83c3-277b8c60e514.png)
+
+- **Domain(Entity)**
+- **Repository(DAO)**
+- **DTO**
+- **Service**
+- **Controller**
 ### :smile: 싱글톤 패턴(Singleton Pattern)
 
 - 싱글톤 패턴은 클래스의 **인스턴스를 하나만 생성하고 사용**하는 형태이다.
