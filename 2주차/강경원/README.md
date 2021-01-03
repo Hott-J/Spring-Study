@@ -182,10 +182,10 @@ public class HomeController {
 * @Commit을 사용하면 실제로 DB에 commit까지 수행한다.
 
 ### 4. Spring JdbcTemplate
-* 스프링 JdbcTemplate과 MyBatis 같은 라이브러리는 JDBC API에서 본 반복 코드를 대부분 제거해준다. 하지만 SQL은 직접 작성해야 한다.
+* 스프링 JdbcTemplate과 MyBatis 같은 라이브러리는 JDBC API에서 본 반복 코드를 대부분 제거해준다. 하지만 **SQL은 직접 작성**해야 한다.
 
 ### 5. JPA(Java Persistence API)
-* JPA는 기존의 반복 코드는 물론이고, 기본적인 SQL도 JPA가 자동으로 만들어서 실행해준다.
+* JPA는 기존의 반복 코드는 물론이고, 기본적인 SQL도 JPA가 자동으로 만들어서 실행해준다. (쿼리 작성할 필요X)
 * JPA를 사용하면, SQL과 데이터 중심의 설계에서 객체 중심의 설계로 패러다임을 전환을 할 수 있다.
 * JPA를 사용하면 개발 생산성을 크게 높일 수 있다. - Member 객체를 보고 table도 알아서 생성하게 할 수도 있다!
 * JPA는 자바의 표준 인터페이스이며 구현(Hibernate)은 여러 업체들이 하는 것으로 볼 수 있다.
@@ -196,18 +196,19 @@ public class HomeController {
 
 
 ### 6. Spring 데이터 JPA
-* 스프링 데이터 JPA를 사용하면, 리포지토리에 구현 클래스 없이 인터페이스만으로도 개발을 할 수 있다.
-* 기본 CRUD 기능도 스프링 데이터 JPA가 모두 제공한다.
+* 스프링 데이터 JPA를 사용하면, 리포지토리에 구현 클래스 없이 **인터페이스**만으로도 개발을 할 수 있다.
+* 기본 CRUD 기능도 스프링 데이터 JPA가 모두 제공한다. 
 * 스프링 데이터 JPA 회원 리포지토리
-```java
-// interface가 interface를 상속받을 때에는 inplements가 아닌 extends 사용
-// interface는 다중 상속이 가능하다.
-public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Long>, MemberRepository {
+  ```java
+  // interface가 interface를 상속받을 때에는 inplements가 아닌 extends 사용
+  // interface는 다중 상속이 가능하다.
+  public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Long>, MemberRepository {
 
-    @Override
-    Optional<Member> findByName(String name);
-}
-```
+      // JPA가 자동으로 select m from Member m where m.name = ? 쿼리를 만듦
+      @Override
+      Optional<Member> findByName(String name);
+  }
+  ```
 * 스프링 데이터 JPA 회원 리포지토리를 사용하도록 SpringConfig 설정 변경
   * 스프링 데이터 JPA가 SpringDataJpaMemberRepository에 대한 구현체를 자동으로 만들고 스프링 빈으로 자동으로 등록까지 해준다.
   ```java
@@ -225,3 +226,12 @@ public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Lon
       }
   }
   ```
+* 스프링 데이터 JPA 제공 기능
+  * 인터페이스를 통한 기본적인 CRUD
+  * save(), findAll()같은 메서드는 공통적으로 사용하기도 하지만, findByName, findById 같은 메서드는 개인마다 다르다. 이러한 메서드는 interface에 써줘야 한다.
+  * findByName() , findByEmail() 처럼 메서드 이름 만으로 조회 기능 제공
+  * 페이징 기능 자동 제공
+
+## :cherry_blossom: AOP
+
+### 1. AOP가 필요한 상황
