@@ -228,9 +228,9 @@ public class HomeController {
   ```
 * 스프링 데이터 JPA 제공 기능
   * 인터페이스를 통한 기본적인 CRUD
-  * save(), findAll()같은 메서드는 공통적으로 사용하기도 하지만, findByName, findById 같은 메서드는 개인마다 다르다. 이러한 메서드는 interface에 써줘야 한다.
   * findByName() , findByEmail() 처럼 메서드 이름 만으로 조회 기능 제공
   * 페이징 기능 자동 제공
+<br/>
 
 ## :cherry_blossom: AOP
 
