@@ -261,4 +261,5 @@ public class HomeController {
 * 따라서 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 으로 분리해야 한다! -> AOP
   
 ### 2. AOP 적용
-*  
+*  공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 분리
+<img src="https://user-images.githubusercontent.com/61045469/103474507-f352b500-4de7-11eb-8edc-0082e266a52a.PNG" width="70%" height="50%"></img><br/>
