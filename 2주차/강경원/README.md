@@ -297,9 +297,9 @@ public class HomeController {
   * 원하는 적용 대상을 선택할 수 있다.
   
 * AOP 동작 원리
-  * AOP 적용 전 의존관계
-  <img src="https://user-images.githubusercontent.com/61045469/103477317-16d62980-4e01-11eb-92bc-ae69752efed4.PNG" width="70%" height="50%"></img><br/>
-  * AOP 적용 후 의존관계
-  <img src="https://user-images.githubusercontent.com/61045469/103477325-20f82800-4e01-11eb-957c-86e96bcd7a77.PNG" width="70%" height="50%"></img><br/>
-    * 가짜(프록시) memberService를 만들어낸다.
+  * AOP 적용 전 의존관계   
+  <img src="https://user-images.githubusercontent.com/61045469/103477383-c8755a80-4e01-11eb-92ea-62d1463cf33a.PNG" width="70%" height="50%"></img><br/>
+  * AOP 적용 후 의존관계   
+  <img src="https://user-images.githubusercontent.com/61045469/103477384-ca3f1e00-4e01-11eb-917b-d0ef1ffdca44.PNG" width="70%" height="50%"></img><br/>
+    * 가짜(프록시) helloController, memberService, memberRepository를 만들어낸다.
     * memberController는 진짜 memberService가 아닌 가짜 memberService를 호출한다.
