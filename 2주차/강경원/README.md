@@ -232,6 +232,33 @@ public class HomeController {
   * 페이징 기능 자동 제공
 <br/>
 
-## :cherry_blossom: AOP
+## :cherry_blossom: AOP(Aspect Oriented Programming) - 관점 지향 프로그래밍
 
 ### 1. AOP가 필요한 상황
+* 모든 메소드의 호출 시간을 측정하고 싶다면?
+* 회원 가입 시간, 회원 조회 시간을 측정하고 싶다면?
+  ```java
+  public long join(Member member) {
+        long start = System.currentTimeMillis();
+
+        try {
+            validataduplicateMember(member);
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join = " + timeMs +"ms");
+        }
+    }
+  ```
+* 문제
+  * 회원가입, 회원 조회에 시간을 측정하는 기능은 핵심 관심 사항(핵심 비즈니스 로직)이 아니다.
+  * 시간을 측정하는 로직은 공통 관심 사항이다.
+  * 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 유지보수가 어렵다.
+  * 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.
+  * 시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 한다.
+* 따라서 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 으로 분리해야 한다! -> AOP
+  
+### 2. AOP 적용
+*  
