@@ -153,4 +153,7 @@ public class HelloWorldBean {
 
 ![캡처22](https://user-images.githubusercontent.com/47052106/103483389-4e0d0080-4e2a-11eb-8040-1608004b8f99.JPG)
 
-  
+### :smile: DispatcherServlet과 프로젝트 동작의 이해
+
+- application.properties -> 설정이름 = 값
+- application.yml -> 설정이름 : 값
