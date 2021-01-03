@@ -84,8 +84,8 @@ static class MemberDto {
     private Address address;
 }
 ```
-- **Service**
-- **Controller**
+Getter/Setter가 없고 wrapping된 순수한 데이터 객체이다. Entity에 직접 접근하지 않기때문에 Entity가 변경되어도 DTO만 변경하면 된다.
+
 ### :smile: 싱글톤 패턴(Singleton Pattern)
 
 - 싱글톤 패턴은 클래스의 **인스턴스를 하나만 생성하고 사용**하는 형태이다.
