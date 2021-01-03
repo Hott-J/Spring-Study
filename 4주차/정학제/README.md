@@ -67,4 +67,24 @@
     port: 8088
   ```
   
+### :smile: HelloWorld Controller 추가
+  
+```java
+@RestController
+public class HelloWorldController {
+    // GET
+    // /hello-world (endpoint)
+    // @RequestMapping(method=RequestMethod.GET, path="/hello-world") : 과거의 방식
+    @GetMapping(path = "/hello-world")
+    public String helloWorld(){
+        return "Hello World";
+    }
+}
+```
+
+- Postman으로 실행
+
+![캡처](https://user-images.githubusercontent.com/47052106/103481431-5bbc8900-4e1e-11eb-817b-28f59c2555fe.JPG)
+
+  
   
