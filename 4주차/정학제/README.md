@@ -49,3 +49,22 @@
 ![캡처](https://user-images.githubusercontent.com/47052106/103477247-4afd1a80-4e00-11eb-8eb1-da2239fb9d2b.JPG)
 
 ![캡처1](https://user-images.githubusercontent.com/47052106/103477248-4d5f7480-4e00-11eb-9b3f-40ffdf439c35.JPG)
+
+### :smile: Spring Boot Project 생성
+
+- 인텔리제이 커뮤니티 버전은 프로젝트를 생성할때, Spring Initializer가 없다. start.spring.io 에서 생성한뒤 Open 해야한다.
+
+### :smile: Spring Boot Project 구조 확인과 실행 방법
+
+- pom.xml
+  - 전체 프로젝트에 필요한 maven 설정을 지정
+- application.properties / application.yml
+  - 필요한 Spring Boot의 설정을 지정
+  - yml 을 더 많이 사용하는 추세
+- 포트 변경을 하려면 application.yml 파일을 수정한다.
+  ```yml
+  server:
+    port: 8088
+  ```
+  
+  
