@@ -163,5 +163,27 @@ public class HelloWorldBean {
 
 ![캡처4](https://user-images.githubusercontent.com/47052106/103483873-94179380-4e2d-11eb-928c-c86b1a0afda0.JPG)
 
+### :smile: Path Variable 사용
 
+```java
+// 가변 변수 name 과 매개변수 name이 다른 경우에는 @PathVariable 매개변수로 value=name(가변변수)로 매핑해줘야한다.
+//    @GetMapping(path = "/hello-world-bean/path-variable/{name}")
+//    public HelloWorldBean helloWorldBean(@PathVariable(value="name") String name1){ // HelloWorldBean()과매개변수가 다르므로 오버로딩
+//        return new HelloWorldBean(String.format("Hello World, %s", name1));
+//    }
+
+
+    @GetMapping(path = "/hello-world-bean/path-variable/{name}")
+    public HelloWorldBean helloWorldBean(@PathVariable String name){ // HelloWorldBean()과매개변수가 다르므로 오버로딩
+        return new HelloWorldBean(String.format("Hello World, %s", name));
+    }
+}
+```
+
+`http://localhost:8088/hello-world-bean/path-variable/hakjae` 로 Send 하면,
+```json
+{
+    "message": "Hello World, hakjae"
+}
+```
 
