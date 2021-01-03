@@ -86,5 +86,15 @@ public class HelloWorldController {
 
 ![캡처](https://user-images.githubusercontent.com/47052106/103481431-5bbc8900-4e1e-11eb-817b-28f59c2555fe.JPG)
 
-  
+- **@ResController = @Controller + @ResponseBody**
+  - *@Controller*
+    - ViewResolver가 동작
+  - *@ResponseBody*
+    - ViewResolver가 동작하지 않고 Converter가 동작
+      - JSONConverter
+      - StringConverter
+
+### :smile: HelloWorld Bean 추가
+
+
   
