@@ -347,6 +347,8 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
   * 의존성의 순환 참조(Circular Dependency)에 대한 예방이 가능하다.
   * Spring 4.3 이상부터는 생성자가 하나인 경우 @Autowired를 사용하지 않아도 무방하다.
   
+* 필드 주입이나, setter 주입은 객체 생성시점에는 순환참조가 일어나는지 아닌지 발견할 수 있는 방법이 없다.
+* 생성자 주입을 사용하면 객체 간 순환참조를 하고 있는 경우, 컨테이너가 빈을 생성하는 시점에서 객체생성에 사이클관계가 생기기 때문에 Spring이 구동되지 않는다.
   
 #### :book: Spring DI Container
 * Spring DI Container가 관리하는 객체를 Bean이라 하고, Bean들을 관리하는 의미로 Container를 BeanFactory라고 부르기도 한다.
