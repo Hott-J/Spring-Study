@@ -309,3 +309,5 @@ public class UserDaoService {
 
 ![캡처](https://user-images.githubusercontent.com/47052106/103575634-5db54380-4f15-11eb-9031-2dee1082b9ea.JPG)
 
+- Response Headers의 location 부분을 보면 controller에서 만든 uri가 전달 된것을 확인 할 수 있습니다. 
+- PostMan으로 요청 할 결과를 보시면 Status코드가 201 Created인 것을 확인 할 수 있습니다. 이를 통하여 적절한 Rest API를 만들 수 있습니다. 
