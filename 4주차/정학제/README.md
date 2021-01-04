@@ -187,3 +187,12 @@ public class HelloWorldBean {
 }
 ```
 
+## :three: User Service API 구현
+
+### :smile: User 도메인 클래스 생성
+
+- 도메인
+  - 인간 활동영역, 자율적 컴퓨터 활동, 특정한 전문 분야에서 사용되는 업무 지식
+    - 사용자 ID, 사용자 이름, 사용자 가입날짜 등과 같은 정보
+    
+
