@@ -25,7 +25,12 @@ public class UserController {
     // GET /users/1 or /users/10 -> String 형태로 전달됨
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id){
-        return service.findOne(id);
+        User user = service.findOne(id);
+
+        if (user==null){
+            throw new UserNotFoundException(String.format("ID[%s] not found",id));
+        }
+        return user;
     }
 
     @PostMapping("/users") // 생성시 Post
