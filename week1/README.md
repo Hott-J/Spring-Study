@@ -312,7 +312,7 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 
       @Autowired
       public void setExample(Example example) {
-      this.example = example;
+          this.example = example;
       }
   }
   ```
