@@ -194,5 +194,111 @@ public class HelloWorldBean {
 - 도메인
   - 인간 활동영역, 자율적 컴퓨터 활동, 특정한 전문 분야에서 사용되는 업무 지식
     - 사용자 ID, 사용자 이름, 사용자 가입날짜 등과 같은 정보
-    
 
+- 사용자 정보 작성
+```java
+package com.example.demo.user;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+public class User {
+    private Integer id; // 도메인 부분
+    private String name;
+    private Date joinDate;
+}
+```
+
+- 사용자 서비스 작성
+```java
+package com.example.demo.user;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class UserDaoService {
+    private static List<User> users = new ArrayList<>(); // DB 역할하는 리스트
+
+    private static int usersCount = 3;
+    static{ //static 으로 만들었기때문에 static 블록에서 사용 가능하다
+        users.add(new User(1,"Hottj1",new Date()));
+        users.add(new User(2,"Hottj2",new Date()));
+        users.add(new User(3,"Hottj3",new Date()));
+    }
+
+    public List<User> findAll(){
+        return users;
+    }
+
+    public User save(User user){
+        if (user.getId() == null){
+            user.setId(++usersCount);
+        }
+
+        users.add(user);
+        return user;
+    }
+
+    public User findOne(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {//lombok 을 사용해서 바로 getId() 사용 가능하다
+                return user;
+            }
+        }
+        return null;
+    }
+}
+```
+
+### :smile: 사용자 목록 조회를 위한 API 구현 - GET HTTP  Method
+
+- 사용자 컨트롤러 작성
+```java
+package com.example.demo.user;
+
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Service // 서비스 빈으로 등록 @Component 라고 해도 되지만 좀 더 명시적인 서비스 사용
+public class UserDaoService {
+    private static List<User> users = new ArrayList<>(); // DB 역할하는 리스트
+
+    private static int usersCount = 3;
+    static{ //static 으로 만들었기때문에 static 블록에서 사용 가능하다
+        users.add(new User(1,"Hottj1",new Date()));
+        users.add(new User(2,"Hottj2",new Date()));
+        users.add(new User(3,"Hottj3",new Date()));
+    }
+
+    public List<User> findAll(){
+        return users;
+    }
+
+    public User save(User user){
+        if (user.getId() == null){
+            user.setId(++usersCount);
+        }
+
+        users.add(user);
+        return user;
+    }
+
+    public User findOne(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {//lombok 을 사용해서 바로 getId() 사용 가능하다
+                return user;
+            }
+        }
+        return null;
+    }
+}
+```
