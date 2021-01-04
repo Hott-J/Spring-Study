@@ -28,5 +28,8 @@ public class HomeController {
 ```
 "/qwer"에 해당하는 controller가 없다면<br>
 ✔ resources > static > index.html을 반환한다. (정적 컨텐츠 반환)
-#### 🔶 회원 웹 기능 - 홈 화면 추가
+#### 🔶 회원 웹 기능 - 등록
+⚡**동작과정**
+* 
+
 
