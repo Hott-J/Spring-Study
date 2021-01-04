@@ -302,3 +302,10 @@ public class UserDaoService {
     }
 }
 ```
+
+### :smile: 사용자 목록 조회를 위한 API 구현 - GET HTTP  Method
+
+- Rest API를 구현 하다 보면 사용자로 부터 요청왔을때  특정값을 포함한 uri를 전달해야 하는 상황이 발생할 수 있다. 이때 사용하는 것이 ServletUriComponentsBuilder이다.  ServletUriComponentsBuilder를 통해 적절한 URI를 만들고 요청한 사용자에게 특정값을 포함한 URI를 전달 할 수 있다. 
+
+![캡처](https://user-images.githubusercontent.com/47052106/103575634-5db54380-4f15-11eb-9031-2dee1082b9ea.JPG)
+
