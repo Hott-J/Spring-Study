@@ -1,7 +1,10 @@
 package com.example.demo.user;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,8 +29,15 @@ public class UserController {
     }
 
     @PostMapping("/users") // 생성시 Post
-    public void createUser(@RequestBody User user){ //object(JSON,XML...) 타입을 받기위해 @RequestBody 사용
+    public ResponseEntity<User> createUser(@RequestBody User user){ //object(JSON,XML...) 타입을 받기위해 @RequestBody 사용
+
         User savedUser = service.save(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()// 현재 요청된 request 값 사용
+                .path("/{id}") // 반환값
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
     // 폼 데이터, 제이커리, 자스 와 같은 게 필요하다. 화면단이 필요. 우리는 postman으로 간단히 한다.
 }
