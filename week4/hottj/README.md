@@ -303,7 +303,7 @@ public class UserDaoService {
 }
 ```
 
-### :smile: 사용자 목록 조회를 위한 API 구현 - GET HTTP  Method
+### :smile: HTTP Status Code 제어
 
 - Rest API를 구현 하다 보면 사용자로 부터 요청왔을때  특정값을 포함한 uri를 전달해야 하는 상황이 발생할 수 있다. 이때 사용하는 것이 ServletUriComponentsBuilder이다.  ServletUriComponentsBuilder를 통해 적절한 URI를 만들고 요청한 사용자에게 특정값을 포함한 URI를 전달 할 수 있다. 
 
@@ -311,3 +311,11 @@ public class UserDaoService {
 
 - Response Headers의 location 부분을 보면 controller에서 만든 uri가 전달 된것을 확인 할 수 있습니다. 
 - PostMan으로 요청 할 결과를 보시면 Status코드가 201 Created인 것을 확인 할 수 있습니다. 이를 통하여 적절한 Rest API를 만들 수 있습니다. 
+
+### :smile: HTTP Status Code 제어를 위한 Exception Handling
+
+![캡처11](https://user-images.githubusercontent.com/47052106/103579229-42e5cd80-4f1b-11eb-8fe5-a5c5a0b5d525.JPG)
+- 보안상의 문제가 생길 수 있다.
+
+![캡처33](https://user-images.githubusercontent.com/47052106/103579235-4416fa80-4f1b-11eb-87ff-e3f12afeee48.JPG)
+- 해당 데이터가 없을 경우, 404 NOT FOUND로 처리한다. 
