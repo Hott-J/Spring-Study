@@ -294,11 +294,12 @@ DCL은 인스턴스를 체크하여 인스턴스가 null일 경우에만 동기�
 * 코드의 유지보수가 용이하다.
 
 #### :book: 개발자가 의존성을 직접 설정한다면?
-```java
-public class Sample {
-    private Example example = new Example();
-}
-```
+  ```java
+  public class Sample {
+      private Example example = new Example();
+  }
+  ```
+  * 객체 내부에서 새로운 객체를 생성하는 것은 강한 결합에 해당한다.
 
 #### :book: DI 종류 3가지
 * **필드 주입(Field Injection)**
