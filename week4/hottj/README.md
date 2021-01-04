@@ -319,3 +319,10 @@ public class UserDaoService {
 
 ![캡처33](https://user-images.githubusercontent.com/47052106/103579235-4416fa80-4f1b-11eb-87ff-e3f12afeee48.JPG)
 - 해당 데이터가 없을 경우, 404 NOT FOUND로 처리한다. 
+
+### :smile: Spring AOP를 이용한 Exception Handling
+
+- 핸들러 클래스를 만들어서 이를 오류 핸들링 메시지로 커스터마이즈하여 RESTful 하게 한다.
+
+![캡처44](https://user-images.githubusercontent.com/47052106/103583601-56953200-4f23-11eb-913f-e358100a07ad.JPG)
+- 보안상의 문제 해결 (trace가 사라짐)
