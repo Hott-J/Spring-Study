@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -37,12 +38,21 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user){ //object(JSON,XML...) 타입을 받기위해 @RequestBody 사용
 
         User savedUser = service.save(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()// 현재 요청된 request 값 사용
-                .path("/{id}") // 반환값
-                .buildAndExpand(savedUser.getId())
-                .toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()// 현재 요청된 request 값 사용. 사용자 요청 uri
+                .path("/{id}") // 반환값 . builAndExpand를 통해 얻은 값이 들어옴
+                .buildAndExpand(savedUser.getId()) //{id}에 넣어줄 값
+                .toUri(); // uri 생성
 
         return ResponseEntity.created(location).build();
     }
     // 폼 데이터, 제이커리, 자스 와 같은 게 필요하다. 화면단이 필요. 우리는 postman으로 간단히 한다.
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id){
+        User user = service.deleteById(id);
+
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+    }
 }
