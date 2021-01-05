@@ -303,6 +303,19 @@ public class UserDaoService {
 }
 ```
 
+### :smile: 사용자 등록을 위한 API 구현 - POST HTTP Method
+
+- @RequestBody
+  -  @RequestBody는 클라이언트가 전송하는 Http 요청의 Body내용을 Java Object로 변환시켜주는 역할을 한다. 그렇기 때문에 Body가 존재하지 않는 Get 방식의 메소드에 @RequestBody를 활용하는 것은 적합하지 않으므로, 에러가 발생하게 된다. 즉, @RequestBody는 반드시 Post 요청과 함께 사용되어야 한다. @RequestBody는 Json이나 XML과 같은 형태의 데이터를 Jackson 등의 MessageConverter를 활용하여 Java Object로 변환한다. 이러한 성질은 Parameter로 받은 데이터들을 자바 객체로 1대1로 매킹시켜주는 @ModelAttribute와 차이가 있다. 즉, @RequestBody는 POST방식으로 Json의 형태로 넘겨온 데이터를 객체로 바인딩하기 위해 사용할 수 있다.
+
+- @ModelAttribute
+  - @ModelAttribute는 클라이언트가 전송하는 여러 파라미터들을 1대1로 객체에 바인딩하여 다시 View로 넘겨서 출력하기 위해 사용되는 오브젝트이다. @ModelAttribute에는 매핑시키는 파라미터의 타입이 객체의 타입과 일치하는지를 포함한 다양한 검증(Validiation) 작업이 추가적으로 진행된다. 예를 들어 게시물의 번호를 저장하는 int형 index 변수에 "1번" 이라는 String형을 넣으려고 한다면, BindException이 발생하게 된다. @RequestBody의 경우에는 Json이나 XML을 Jackson과 같은 MessageConverter를 사용하여 변환시키는 반면에, @ModelAttribute는 여러 개의 파라미터를 바로 자바빈 객체로 매핑시킨다는 차이가 있다. 그렇기 때문에 @ModelAttribute는 JSP에서 Form 태그를 통해 전달받은 파라미터들을 객체로 바인딩 시키는 경우에 사용할 수 있다.
+@ModelAttribute와 @RequestBody를 보다 극단적으로 설명하자면, @ModelAttribute는 바인딩시키는 어떤 데이터를 set해주는 Setter함수가 없다면 매핑이 되지 않는다. 하지만 @RequestBody는 요청받은 데이터를 변환시키는 것이기 때문에, Setter함수가 없어도 값이 매핑이 된다.
+@ModelAttribute 어노테이션을 활용해서 특정 Parameter만을 받아울 수 있다. 만약 우리가 { writer: '망나니개발자', contents : '안녕하세요, 망나니 개발자입니다.' }의 형태로 데이터를 전송했다고 하면, 컨트롤러에서는 @ModelAttribute('writer') String writer의 형태를 활용하여 writer 변수에 '망나니개발자' 만을 바인딩시켜 받아올 수 있다.
+
+- @RequestParam
+  - @RequestParamd은 요청 파라미터를 메소드에서 1:1로 받기 위해서 사용한다. @RequestParam를 사용하면 기본적으로 반드시 해당 파라미터가 전송되어야 한다. 즉, 반드시 필요한 파라미터인가?를 나타내는 required의 값이 default로 true로 되어있어서, 해당 파라미터가 전송되지 않으면 400 Error를 유발하게 된다. 그렇기 때문에 반드시 필요한 변수가 아니라면 required의 값을 false로 설정해둘 수 있으며 해당 Parameter를 사용하지 않고 요청을 보낼 경우에 default로 받을 값을 설정할 수도 있다. 즉, defaultValue로 기본값을 설정할 수 있으며, 필수 요구사항인지를 required로 설정할 수 있다.
+  
 ### :smile: HTTP Status Code 제어
 
 - Rest API를 구현 하다 보면 사용자로 부터 요청왔을때  특정값을 포함한 uri를 전달해야 하는 상황이 발생할 수 있다. 이때 사용하는 것이 ServletUriComponentsBuilder이다.  ServletUriComponentsBuilder를 통해 적절한 URI를 만들고 요청한 사용자에게 특정값을 포함한 URI를 전달 할 수 있다. 
