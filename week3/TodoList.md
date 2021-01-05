@@ -8,7 +8,7 @@
 - 저번주차 스터디 내용 정리
   - 학제 : html 태그와 memberForm, memberController 동작 순서와 원리 정리
   - 승수 : 프록시 개념 및 동작 원리 정리. AOP와 연관지어 설명할 것
-  - 윤환 : dto 
+  - 윤환 : dto, dao, entity 클래스 설명하기
   - 재훈 : view resolver 와 converter. 스터디에서 이야기했던 그림에는 컨버터가 아니라 뷰 리졸버만 있었는데, 컨버터는 어디에 위치하는지
   - 경원 : 순환참조. 의존성주입과 관련지어 설명할 것
 
