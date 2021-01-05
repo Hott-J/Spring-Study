@@ -326,3 +326,13 @@ public class UserDaoService {
 
 ![캡처44](https://user-images.githubusercontent.com/47052106/103583601-56953200-4f23-11eb-913f-e358100a07ad.JPG)
 - 보안상의 문제 해결 (trace가 사라짐)
+
+### :smile: 사용자 삭제를 위한 API 구현 - DELETE HTTP Method
+
+- 삭제를 위해서 @DeleteMapping 을 사용한다.
+- REST API 는 GET , POST , DELETE , PUT 총 네가지를 사용할 수 있다.
+  - GET 은 조회, select
+  - POST 은 추가, insert
+  - DELETE 는 삭제, remove
+  - PUT 은 수정, update
+
