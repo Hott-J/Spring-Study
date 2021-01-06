@@ -42,7 +42,17 @@ public class AdminUserController {
     }
 
     // GET /admin/users/1 -> /admin/v1/users/1
-    @GetMapping("v1/users/{id}")
+   // @GetMapping("v1/users/{id}")
+
+    // @GetMapping(value="/users/{id}/",params="version=1")
+    // 파라미터가 두개면 path가 아니라 value로, 맨뒤에 / 가 있어야 버젼 정보가 추가로 뒤에 들어가진다. <Request Parameter>
+    //http://localhost:8088/admin/users/1/?version=1 와 같은 방식으로 요청보내면됨. 파라미터부분은 ? 로 넣어준다.
+
+    //@GetMapping(value="/users/{id}",headers="X-API-VERSION=1")
+    // headers 값은 임의로 정하면됨. <헤더를 이용한 방법> // KEY = X-API-VERSION, VALUE = 1
+
+    @GetMapping(value="/users/{id}",produces="application/vnd.company.appv1+json")
+    // <마임타입> KEY = Accept, VALUE = application/vnd.company.appv1+json
     public MappingJacksonValue retrieveUserV1(@PathVariable int id){
         User user = service.findOne(id);
 
@@ -61,7 +71,10 @@ public class AdminUserController {
         return mapping;
     }
 
-    @GetMapping("v2/users/{id}")
+    //@GetMapping("v2/users/{id}")
+   // @GetMapping(value="/users/{id}/",params="version=2")
+    //@GetMapping(value="/users/{id}",headers="X-API-VERSION=2")
+    @GetMapping(value="/users/{id}",produces="application/vnd.company.appv2+json")
     public MappingJacksonValue retrieveUserV2(@PathVariable int id){
         User user = service.findOne(id);
 
