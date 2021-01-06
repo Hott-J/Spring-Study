@@ -31,4 +31,20 @@
 [참고](https://pooney.tistory.com/69)
 
 ### :smile: URI를 이용한 REST API Version 관리
+- @GepMapping("v1/users/{id}")
 [참고](https://gompangs.tistory.com/entry/JAVASpring-BeanUtils-%EA%B4%80%EB%A0%A8)
+
+### :smile: Request Parameter와 Header를 이용한 API Version 관리
+- Request Paramter
+  - @GetMapping(value="/users/{id}/",params="version=1")
+    - value의 맨뒤에 / 가 있어야 버젼 정보가 추가로 뒤에 들어간다.
+    - `http://localhost:8088/admin/users/1/?version=1` 와 같은 방식으로 요청. 파라미터 부분은 ?를 넣어준다.
+- Header
+  - @GetMapping(value="/users/{id}/", headers="X-API-VERSION=1)
+    - 헤더 값은 임의로
+    - KEY = X-API-VERSION , VALUE = 1
+- MIME
+  - @GetMapping(value="/users/{id}/",produces="application/vnd.company.appv1+json")
+    - produces 값 임의로. 마지막에 +반환타입 넣어준다.
+    - KEY = Accept , VALUE = application/vnd.company.appv1+json
+    
