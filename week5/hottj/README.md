@@ -23,3 +23,9 @@
 
 ### :smile: Response 데이터 제어를 위한 Filtering
 - @JsonIgnoreProperties / @JsonIgnore 애노테이션 사용
+
+### :smile: 프로그래밍으로 제어하는 Filtering 방법 - 개별 사용자 조회
+[참고](https://pooney.tistory.com/69)
+
+### :smile: 프로그래밍으로 제어하는 Filtering 방법 - 전체 사용자 조회
+[참고](https://pooney.tistory.com/69)
