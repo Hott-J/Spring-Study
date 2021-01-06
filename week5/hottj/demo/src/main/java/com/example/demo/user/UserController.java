@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/users") // 생성시 Post
-    public ResponseEntity<User> createUser(@RequestBody User user){ //object(JSON,XML...) 타입을 받기위해 @RequestBody 사용
-
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user){ //object(JSON,XML...) 타입을 받기위해 @RequestBody 사용
+// @Valid 를 통한 유효성 검사
         User savedUser = service.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()// 현재 요청된 request 값 사용. 사용자 요청 uri
                 .path("/{id}") // 반환값 . builAndExpand를 통해 얻은 값이 들어옴
