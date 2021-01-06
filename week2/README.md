@@ -9,12 +9,23 @@
 * @Lazy 어노테이션 사용
   ```java
   @Component
-  public class BeanA {
-      private BeanB B;
+  public class A {
+      private final B b;
       
       @Autowired
-      public BeanA(@Lazy BeanB B) {
-          this.B = B;
+      public A(@Lazy B b) {
+          this.b = b;
+      }
+  }
+  ```
+  ```java
+  @Component
+  public class B {
+      private final A a;
+      
+      @Autowired
+      public B(A a) {
+          this.a = a;
       }
   }
   ```
