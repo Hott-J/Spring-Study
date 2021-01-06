@@ -13,9 +13,9 @@ public class UserDaoService {
 
     private static int usersCount = 3;
     static{ //static 으로 만들었기때문에 static 블록에서 사용 가능하다
-        users.add(new User(1,"Hottj1",new Date()));
-        users.add(new User(2,"Hottj2",new Date()));
-        users.add(new User(3,"Hottj3",new Date()));
+        users.add(new User(1,"Hottj1",new Date(),"pass1","ssn1"));
+        users.add(new User(2,"Hottj2",new Date(),"pass2","ssn2"));
+        users.add(new User(3,"Hottj3",new Date(),"pass3","ssn3"));
     }
 
     public List<User> findAll(){
