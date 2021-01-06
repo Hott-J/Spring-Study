@@ -11,3 +11,9 @@
 - XML 포멧
 - 필터링
 - 버젼 관리
+
+### :smile: 유효성 체크를 위한 Validation API 사용
+[참고](https://mangkyu.tistory.com/72)
+
+### :smile: 다국어 처리를 위한 Internationalization 구현 방법
+[참고](https://spiralmoon.tistory.com/entry/Spring-boot-Spring-boot%EC%97%90%EC%84%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%ED%95%98%EA%B8%B0-1?category=790800)
