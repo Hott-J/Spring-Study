@@ -20,3 +20,6 @@
 
 ### :smile: Response 데이터 형식 반환 - XML format
 - pom.xml에 XML format을 사용하기 위한 dependency 추가
+
+### :smile: Response 데이터 제어를 위한 Filtering
+- @JsonIgnoreProperties / @JsonIgnore 애노테이션 사용
