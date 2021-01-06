@@ -44,7 +44,7 @@ public class HelloWorldController {
     @GetMapping(path = "/hello-world-internationalized")
     public String helloWorldInternationalized(
             @RequestHeader(name="Accept-Language",required = false) Locale locale){ // Locale : 지역
-        //accept-language라는 헤더값이 없으면 디폴트값이 나온다. (한국어)
+        //accept-language라는 헤더값이 없으면 디폴트값이 나온다.(한국어)
         return messageSource.getMessage("greeting.message",null,locale);
     }
 }
