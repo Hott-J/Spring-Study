@@ -29,3 +29,6 @@
 
 ### :smile: 프로그래밍으로 제어하는 Filtering 방법 - 전체 사용자 조회
 [참고](https://pooney.tistory.com/69)
+
+### :smile: URI를 이용한 REST API Version 관리
+[참고](https://gompangs.tistory.com/entry/JAVASpring-BeanUtils-%EA%B4%80%EB%A0%A8)
