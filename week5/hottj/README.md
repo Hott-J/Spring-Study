@@ -47,4 +47,11 @@
   - @GetMapping(value="/users/{id}/",produces="application/vnd.company.appv1+json")
     - produces 값 임의로. 마지막에 +반환타입 넣어준다.
     - KEY = Accept , VALUE = application/vnd.company.appv1+json
-    
+
+## :five: Spring Boot API 사용
+
+### :smile: Level3 단계의 REST API 구현을 위한 HATEOAS 적용
+
+- 스프링 버젼에 따라 Resource / EntityModel 등 구현 방식이 다르다.
+- HATEOAS 를 통해 사용자가 접근할 수 있는 정보를 더 많이 줌으로써 편리성을 제공
+
