@@ -67,3 +67,7 @@
 
 ### :smile: REST API Monitoring을 위한 Actuator 설정
 - dependency와 yml 파일을 수정한다.
+
+### :smile: HAL Browser를 이용한 HATEOAS 기능 구현
+- 스프링 2.3.7 릴리즈 버젼일 경우
+  - Swagger2 와 Swagger-Ui 버젼을 2.9.2 가 아니라 3.0.0 으로 수정하여야 컴파일됩니다.
