@@ -8,7 +8,10 @@ logging:
 spring:
   messages:
     basename: messages
-
+  security:
+    user:
+      name: hottj
+      password : root
 management:
   endpoints:
     web:

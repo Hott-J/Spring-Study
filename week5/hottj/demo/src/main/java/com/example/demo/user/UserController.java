@@ -29,8 +29,19 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers(){
-        return service.findAll();
+    public MappingJacksonValue retrieveAllUsers(){
+
+        List<User> users = service.findAll();
+
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id","name","joinDate","ssn"); //포함시킬 데이터
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo",filter);
+
+        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        mapping.setFilters(filters);
+        return mapping;
     }
 
     // GET /users/1 or /users/10 -> String 형태로 전달됨
