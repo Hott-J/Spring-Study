@@ -71,3 +71,9 @@
 ### :smile: HAL Browser를 이용한 HATEOAS 기능 구현
 - 스프링 2.3.7 릴리즈 버젼일 경우
   - Swagger2 와 Swagger-Ui 버젼을 2.9.2 가 아니라 3.0.0 으로 수정하여야 컴파일됩니다.
+    - 수정시, `localhost:8088/swagger-ui.html#/` 이 동작하질 않습니다.
+
+### :smile: Spring Security를 이용한 인증 처리
+- 디펜덴시 추가
+- 콘솔창에서 password 찾아서 확인. username은 user. 
+  - postman에서 authorization 탭에서 type을 basic auth 로 설정해 줄 것.
