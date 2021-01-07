@@ -51,11 +51,15 @@
 ## :five: Spring Boot API 사용
 
 ### :smile: Level3 단계의 REST API 구현을 위한 HATEOAS 적용
-
 - 스프링 버젼에 따라 Resource / EntityModel 등 구현 방식이 다르다.
 - HATEOAS 를 통해 사용자가 접근할 수 있는 정보를 더 많이 줌으로써 편리성을 제공
 
-### :smile: Swagger Documentation 구현 방법
-
+### :smile: REST API Documentation을 위한 Swagger 사용
 - 내가 만든 정보들을 가지고 보기 좋게 만들어준다.
 - `localhost:8088/v2/api-docs` 를 요청값으로 보내면 내가 만든 정보들이 나온다.(JSON / XML)
+
+### :smile: Swagger Documentation 구현 방법
+[참고](https://springboot.tistory.com/24)
+![캡처1](https://user-images.githubusercontent.com/47052106/103926980-05708280-515d-11eb-8f99-066ab656e1d8.JPG)
+![캡처2](https://user-images.githubusercontent.com/47052106/103926975-03a6bf00-515d-11eb-9473-12127e36d2d5.JPG)
+![캡처3](https://user-images.githubusercontent.com/47052106/103926977-04d7ec00-515d-11eb-91df-a8214847c9d3.JPG)
