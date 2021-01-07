@@ -64,3 +64,6 @@
 ![캡처1](https://user-images.githubusercontent.com/47052106/103926980-05708280-515d-11eb-8f99-066ab656e1d8.JPG)
 ![캡처2](https://user-images.githubusercontent.com/47052106/103926975-03a6bf00-515d-11eb-9473-12127e36d2d5.JPG)
 ![캡처3](https://user-images.githubusercontent.com/47052106/103926977-04d7ec00-515d-11eb-91df-a8214847c9d3.JPG)
+
+### :smile: REST API Monitoring을 위한 Actuator 설정
+- dependency와 yml 파일을 수정한다.
