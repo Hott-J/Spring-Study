@@ -55,3 +55,7 @@
 - 스프링 버젼에 따라 Resource / EntityModel 등 구현 방식이 다르다.
 - HATEOAS 를 통해 사용자가 접근할 수 있는 정보를 더 많이 줌으로써 편리성을 제공
 
+### :smile: Swagger Documentation 구현 방법
+
+- 내가 만든 정보들을 가지고 보기 좋게 만들어준다.
+- `localhost:8088/v2/api-docs` 를 요청값으로 보내면 내가 만든 정보들이 나온다.(JSON / XML)
