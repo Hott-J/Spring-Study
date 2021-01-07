@@ -77,3 +77,16 @@
 - 디펜덴시 추가
 - 콘솔창에서 password 찾아서 확인. username은 user. 
   - postman에서 authorization 탭에서 type을 basic auth 로 설정해 줄 것.
+  
+### :smile: Configuration 클래스를 이용한 사용자 인증 처리
+- WebSecurityConfigurerAdapter를 상속받아 생성한 Configuration 빈에서 처리한 인증 정보가 application.yml에서 설정한 것보다 우선순위가 높게 스프링이 처리하는 것인가요?
+  - 우선순위는 application.yml 파일보다 직접 구현한 WebSecurityConfiguerAdapter가 높습니다. 
+  
+- WebSecurityConfigurerAdapter 상속받은 Config 빈은 반드시 1개로 고유해야 하나요? 궁금해서 또 하나 만들어서 같은 인증 처리 해주니 "WebSecurityConfigurers must be unique" 로그가 찍히면서 에러 난다.
+  - Spring4에서는 부터는 @Order 어노테이션을 이용해서 같은 타입의 빈이 Autowired 될 때 순서를 지정할 수 있습니다. WebSecurityConfiguerAdapter는 @Order(100)이라는 우선순위로 선언되어 있는데, 만약 WebSecurityConfiguerAdapter 클래스를 상속받은 SecurityConfig2라는 클래스를 선언했다고 가정하면, SecurityConfig2 클래스 역시 @Order(100)라는 같은 우선순위를 갖게 되기 때문에, 오류가 발생합니다. 해결하는 방법은 SecurotyConfig2 클래스 선언 시 명시적으로 @Order(200)과 같은 값으로 선언하게 되면(적은 값이 높은 우선순위), 같은 타입의 빈이라 하더라도, 우선순위가 다르기 때문에, 오류가 발생하지 않습니다. 
+```java
+@Configuration
+@Order(200)
+public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
+...
+```
