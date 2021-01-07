@@ -45,7 +45,7 @@ public class AdminUserController {
    // @GetMapping("v1/users/{id}")
 
     // @GetMapping(value="/users/{id}/",params="version=1")
-    // 파라미터가 두개면 path가 아니라 value로, 맨뒤에 / 가 있어야 버젼 정보가 추가로 뒤에 들어가진다. <Request Parameter>
+    // 파라미터가 두개면 value 로 작성ㅌ, 맨뒤에 / 가 있어야 버젼 정보가 추가로 뒤에 들어가진다. <Request Parameter>
     //http://localhost:8088/admin/users/1/?version=1 와 같은 방식으로 요청보내면됨. 파라미터부분은 ? 로 넣어준다.
 
     //@GetMapping(value="/users/{id}",headers="X-API-VERSION=1")
