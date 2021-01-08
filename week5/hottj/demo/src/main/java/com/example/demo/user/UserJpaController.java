@@ -65,4 +65,14 @@ public class UserJpaController {
 
         return ResponseEntity.created(location).build();
     }
+
+    // /jpa/users/9991/posts -> 9991번의 게시판들을 보여주세요
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPostsByUser(@PathVariable int id){
+        Optional<User> user = userRepository.findById(id); // 있을지 없을지 모르니 Optional로 감싸야한다.
+        if (!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found",id));
+        }
+        return user.get().getPosts();
+    }
 }

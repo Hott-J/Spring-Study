@@ -47,7 +47,7 @@ public class User {
 
     // 게시판
     @OneToMany(mappedBy = "user") // 하나가 여러개와 매칭. 하나의 유저와 여러개의 게시판과 매칭. 관계형데이터베이스에서의 관계
-    private List<Post> post;
+    private List<Post> posts;
 
     public User(int id, String name, Date joinDate, String password, String ssn) {
         this.id = id;
