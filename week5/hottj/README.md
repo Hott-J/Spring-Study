@@ -101,3 +101,7 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 ### :smile: JPA Service 구현을 위한 Controller, Repository 생성
 - JpaRepository 를 상속하여 인터페이스를 만든다.
+
+### :smile: JPA를 이용한 사용자 목록 조회 - GET HTTP Method
+- 개별 조회의 경우, 존재할지 안할지 모르므로 Optinal 객체로 감싸야한다. 
+- 헤테오스 기능을 이용하여 개별 조회여도 전체 조회할 수 있는 링크도 걸어둔다.
