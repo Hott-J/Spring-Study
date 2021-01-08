@@ -98,3 +98,6 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 ### :smile: Spring Data JPA를 이용한 Entity 설정과 초기 데이터 생성
 - yml 파일에 `spring:datasource:url:jdbc:h2:mem:testdb` 을 추가할 것.
+
+### :smile: JPA Service 구현을 위한 Controller, Repository 생성
+- JpaRepository 를 상속하여 인터페이스를 만든다.
