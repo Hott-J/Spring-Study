@@ -26,6 +26,9 @@ public class UserJpaController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     // http://localhost:8080/jpa/users
     @GetMapping("/users")
     public List<User> retrieveAllUsers(){
@@ -74,5 +77,25 @@ public class UserJpaController {
             throw new UserNotFoundException(String.format("ID[%s] not found",id));
         }
         return user.get().getPosts();
+    }
+
+    // 게시판 생성
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post){
+        Optional<User> user = userRepository.findById(id); // 있을지 없을지 모르니 Optional로 감싸야한다.
+        if (!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found",id));
+        }
+
+        post.setUser(user.get()); // 게시판에는 사용자 ID도 저장되므로, 사용자 ID도 필요하다.
+        Post savedPost = postRepository.save(post);
+
+        // id 값 자동으로 지정
+        URI location=ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}") // savedPost 값이 여기에 들어간다.
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
