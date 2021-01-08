@@ -72,3 +72,113 @@
 ### 4. 의존성 주입(DI)
 * [1주차 DI 정리](https://github.com/Hott-J/Spring-Study/tree/main/week1) 참고
 * 의존성 주입을 할 때 주로 @Autowired, @Inject를 붙여서 사용한다.
+<br/>
+
+## :cherry_blossom: AOP
+
+### 1. AOP
+* 흩어져 있는 코드들을 한 곳으로 모아서 실행시킨다.
+
+* Single Responsible Principle를 보장해준다. - 한 클래스는 하나의 일만을 한다.
+
+  * 원래 코드
+  ```java
+  class A {
+      method a () {
+          AAAA
+          Hello
+          BBBB
+      }
+      method b () {
+          AAAA
+          Java
+          BBBB
+      }
+  }
+  
+  class B {
+      method c() {
+          AAAA
+          Spring
+          BBBB
+      }
+  }
+  ```
+  
+  * AOP 코드
+  ```java
+  class A {
+      method a () {
+          Hello
+      }
+      method b () {
+          Java
+      }
+  }
+  
+  class B {
+      method c() {
+          Spring
+      }
+  }
+  
+  class AAAABBBB {
+      method aaaabbb(JoinPoint point) {
+          AAAA
+          point.execute()
+          BBBB
+      }
+  }
+  ```
+* 이외에도 Byte code로 조작하는 방법, Proxy pattern을 사용하는 방법이 있다.
+
+* Spring AOP는 Proxy pattern을 사용한다.
+
+### 2. AOP 적용 예제
+* 특정 annotation이 있는 method만 시간을 재서 log에 기록
+
+* @LogExecutionTime
+  ```java
+  @Target(ElementType.METHOD)
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface LogExecutionTime {
+  }
+  ```
+  
+* LogAspect Bean : @LogExecutionTime이 붙은 곳만 적용
+  ```java
+  @Component
+  @Aspect
+  public class LogAspect {
+      Logger logger = LoggerFactory. getLogger (LogAspect. class);
+      
+      @Around ("@annotation(LogExecutionTime)")
+      public Object logExecutionTime (ProceedingJoinPoint joinPoint) throws Throwable {
+          StopWatch stopWatch = new StopWatch();
+          stopWatch.start() ;
+          Object proceed = joinPoint.proceed();
+          stopWatch.stop() ;
+          logger .info(stopWatch.prettyPrint());
+          return proceed ;
+      }
+  }
+  ```
+<br/>
+  
+## :cherry_blossom: PSA
+
+### 1. PSA(Portable Service Abstraction)
+* 스프링 내부적으로 서블릿 기반으로 코드가 동작하지만 서블릿 기술은 추상화 계층에 의해 숨겨져 있는 것이다.
+
+### 2. 스프링 Transaction
+* @Transactional 처리하는 코드는 바뀌지 않는다. -> 추상화의 장점
+* PlatformTransactionManager : JpaTransacionManager, DatasourceTransactionManager, HibernateTransactionManager 등..
+* PetClinic 예제는 스프링 데이터 JPA를 쓰기 때문에, spring boot에 의해 **JPA Transaction manager**가 Bean으로 자동 등록된 상태이다.
+
+### 3. 캐시
+* @EnableCaching : 캐시 기능 활성화 -> @Cacheable, @CacheEvict 사용할 수 있다!
+* 캐시도 Transaction과 마찬가지로 @Cacheable, @CacheEvict를 처리할 Aspect가 필요하기 때문에 **CacheManager**가 등록되어 있다.
+* CacheManager : JCacheManager, ConcurrentMapCacheManager, EhCacheCacheManager 등..
+
+### 4. 스프링 웹 MVC
+* @Controller, @GetMapping과 같은 어노테이션만으로는 Servlet인지, Reactive인지 알 수 없다. -> 추상화
