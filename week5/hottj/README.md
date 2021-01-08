@@ -95,3 +95,6 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 ### :smile: JPA를 사용을 위한 Dependency 추가와 설정
 - h2 버젼 1.4.197 로 설정할 것.
+
+### :smile: Spring Data JPA를 이용한 Entity 설정과 초기 데이터 생성
+- yml 파일에 `spring:datasource:url:jdbc:h2:mem:testdb` 을 추가할 것.
