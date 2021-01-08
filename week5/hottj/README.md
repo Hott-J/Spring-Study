@@ -109,3 +109,8 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 ### :smile: JPA를 이용한 사용자 추가와 삭제 - POST/DELETE HTTP Method
 - ID 값은 자동적으로 초기값이 1이고 1씩 증가해서 생성해준다. 따라서 기본으로 들어가는 데이터의 ID값이 1,2,3 이라면, POST 메소드 요청시 1부터 ID값을 자동적으로 할당하기에 1이 중복이 되므로 오류가 발생한다. 따라서 기본 데이터의 ID값을 9991와 같이 크게 만들어놓고 테스트 진행하였다.
 - postman 사용시, POST 요청일 경우, Body -> raw 에 JSON 값을 넣고, 이는 GraphQL 오른편에 JSON으로 선택해서 요청을 보내야한다.
+
+### :smile: 게시물 관리를 위한 Post Entity 추가와 초기 데이터 생성
+- fetch = FetchType.LAZY
+  - 지연로딩방식
+- User 클래스에서 User 생성자를 만들어야한다. why?
