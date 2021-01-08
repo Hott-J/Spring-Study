@@ -21,7 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 //@JsonIgnoreProperties(value={"password","ssn"}) // 무시하고 싶은 필드명을 value에 지정
 @NoArgsConstructor // 디폴트 생성자가 있어야 상속가능해진다.
-@JsonFilter("UserInfo")// 임의로 이름 지정
+//@JsonFilter("UserInfo")// 임의로 이름 지정
 @ApiModel(description = "사용자 상세 정보를 위한 도메인 객체")
 @Entity // 테이블 생성
 public class User {
