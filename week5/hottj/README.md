@@ -105,3 +105,7 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 ### :smile: JPA를 이용한 사용자 목록 조회 - GET HTTP Method
 - 개별 조회의 경우, 존재할지 안할지 모르므로 Optinal 객체로 감싸야한다. 
 - 헤테오스 기능을 이용하여 개별 조회여도 전체 조회할 수 있는 링크도 걸어둔다.
+
+### :smile: JPA를 이용한 사용자 추가와 삭제 - POST/DELETE HTTP Method
+- ID 값은 자동적으로 초기값이 1이고 1씩 증가해서 생성해준다. 따라서 기본으로 들어가는 데이터의 ID값이 1,2,3 이라면, POST 메소드 요청시 1부터 ID값을 자동적으로 할당하기에 1이 중복이 되므로 오류가 발생한다. 따라서 기본 데이터의 ID값을 9991와 같이 크게 만들어놓고 테스트 진행하였다.
+- postman 사용시, POST 요청일 경우, Body -> raw 에 JSON 값을 넣고, 이는 GraphQL 오른편에 JSON으로 선택해서 요청을 보내야한다.
