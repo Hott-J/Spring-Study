@@ -114,3 +114,6 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 - fetch = FetchType.LAZY
   - 지연로딩방식
 - User 클래스에서 User 생성자를 만들어야한다. why?
+
+### :smile: 게시물 조회를 위한 Post Entity와 User Entity와의 관계 설정
+- 게시판이 없을 경우에 404로 반환되도록 고쳐야하는 오류가 남아있다.
