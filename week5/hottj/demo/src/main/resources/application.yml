@@ -1,17 +1,24 @@
 server:
-  port: 8088
+  port: 8080
 
 logging:
   level:
     org.springframework: DEBUG
 
 spring:
+  h2:
+    console:
+      enable: true
+  jpa:
+    show-sql: true
   messages:
     basename: messages
+  datasource:
+    url: jdbc:h2:mem:testdb
   security:
     user:
       name: hottj
-      password : root
+      password : "0000"
 management:
   endpoints:
     web:

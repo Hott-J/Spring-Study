@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -20,7 +23,10 @@ import java.util.Date;
 @NoArgsConstructor // 디폴트 생성자가 있어야 상속가능해진다.
 @JsonFilter("UserInfo")// 임의로 이름 지정
 @ApiModel(description = "사용자 상세 정보를 위한 도메인 객체")
+@Entity // 테이블 생성
 public class User {
+    @Id // 속성
+    @GeneratedValue // 자동 생성
     private Integer id;
 
     @Size(min=2, message = "Name은 2글자 이상 입력해 주세요.") // 이름 두글자 이상 입력, 디폴트 메시지 입력. 오류시 details에 보임
