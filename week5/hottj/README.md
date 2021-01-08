@@ -90,3 +90,8 @@
 public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 ...
 ```
+
+## :six: Java Persistence API 사용
+
+### :smile: JPA를 사용을 위한 Dependency 추가와 설정
+- h2 버젼 1.4.197 로 설정할 것.
