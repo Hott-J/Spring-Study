@@ -1,0 +1,19 @@
+server:
+  port: 8088
+
+logging:
+  level:
+    org.springframework: DEBUG
+
+spring:
+  messages:
+    basename: messages
+  security:
+    user:
+      name: hottj
+      password : root
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
