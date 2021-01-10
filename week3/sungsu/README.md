@@ -38,3 +38,13 @@
 ### :five: AOP
 - byte code를 사용하는 방법과 프록시 패턴을 사용하는 방법
 - transactional과의 관계? 어디든 transactional이 있다?
+### :six: PSA
+- portable service application
+- spring이 제공하는 거의 대부분
+- psa를 사용해 코드를 짜야 Test case 만들기도 쉽고 확장하기가 쉬움
+
+### :seven: 스프링 트랜잭션
+ASPECT느낌임
+
+
+
