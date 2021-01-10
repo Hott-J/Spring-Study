@@ -11,7 +11,7 @@
 | 주차  | 강의                                                   | 완료 여부 |
 |:--:|:--:|:--:|
 | 1 | [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)|O|
-| 2 | [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)|x|
+| 2 | [스프링 입문](https://www.inflearn.com/course/스프링-입문-스프링부트)|O|
 | 3 | [PetClinic](https://www.inflearn.com/course/spring)|x|
 | 4 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services)|x |
 | 5 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services) | x |
