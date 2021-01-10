@@ -99,3 +99,107 @@ DTO 클래스는 자주 변경될 수 있으므로 두 개를 분리 시킨다.
 ## 전체 구조
 
 ![README%20821c5d15f5d34e5595b97335f970fd5b/spring-package-flow.png](yunhwan/IMG/spring-package-flow.png)
+
+# Spring MVC 요청 처리과정 정리
+
+> 스크롤 압박 주의!
+
+처음엔 view resolver와 message converter가 언제 실행되는지를 알기위해 검색을 시작했지만 이왕 하는 김에 request부터 response 까지 전체 과정을 알아 보도록하자.
+
+### 🔸간략한 요약
+
+* 페이지를 리턴하는 경우
+![image](https://user-images.githubusercontent.com/46257667/104042542-fd2c4c00-521d-11eb-8a9a-64246282d6c3.png)
+
+✔ controller가 뷰 이름을 리턴하고 view resolver가 해당 뷰를 찾아 응답하는 형태 ex) text/html
+* @Responsebody 사용하는 경우 (@RestController 사용 포함)
+![image](https://user-images.githubusercontent.com/46257667/104042598-0ae1d180-521e-11eb-9497-a8343b9b16d1.png)
+
+✔ message converter에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP response body에 직접 쓰여진다.
+
+### 🔸더 깊이
+
+📖 [Servlet에 대해 알아보자](https://jeong-pro.tistory.com/222)
+
+![image](https://user-images.githubusercontent.com/46257667/104090556-d7a15000-52ba-11eb-9ebb-06e5280436f2.png)
+
+![image](https://user-images.githubusercontent.com/46257667/104090579-03243a80-52bb-11eb-8336-e8c9c3ab5a88.png)
+
+doDispatch()에서 일어나는 첫 작업은 해당 요청에 대한 핸들러와 인터셉터를 찾아내는 것. 핸들러는 컨트롤러에서 요청 url에 해당하는 메소드이다. 핸들러와 인터셉터들이 모여 HandlerExecutionChain이라는 객체에 담긴다.
+
+![image](https://user-images.githubusercontent.com/46257667/104090587-12a38380-52bb-11eb-9d48-2d22b8bdd909.png)
+
+
+![image](https://user-images.githubusercontent.com/46257667/104090904-39fb5000-52bd-11eb-8a4d-ae5a3f5f5cfa.png)
+
+스프링에서 기본적으로 제공하는 여러 핸들러어댑터를 supprot() 메소드로 찾는 과정이다. 
+
+![image](https://user-images.githubusercontent.com/46257667/104091050-46cc7380-52be-11eb-8429-7ee845875e96.png)
+
+해당 URL에 매핑된 인터셉터들의 preHandler()를 실행하는 모습.
+
+❗ 주의 : tomcat은 Request의 body를 한번만 읽을 수 있도록 제한해 놓았다. 인터셉터 preHandler가 실행되는 와중에 Request body를 읽을 경우 뒤에서 body의 값을 읽지 못해 오류가 발생할 수 있다. 이를 해결하기 위해서 Request body를 재사용하도록 변경해야 한다.
+
+![image](https://user-images.githubusercontent.com/46257667/104091072-5ba90700-52be-11eb-82cb-1c1af4b356c3.png)
+
+인터셉터 핸들링이 끝나면 본격적으로 컨트롤러 핸들러의 파라미터들에 요청 데이터를 바인딩하는 작업이 이루어진다.
+
+![image](https://user-images.githubusercontent.com/46257667/104091132-bb9fad80-52be-11eb-9faf-eb2dc9c274f9.png)
+
+자세히 보면, 구현 및 오버라이드를 통해 자연스럽게 타입에 따른 처리가 이루어짐을 볼 수 있다. 예시에서 @RequestMapping을 사용했기 때문에 RequestMappingHandlerAdapter가 사용되었다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092217-d6295500-52c5-11eb-899a-748127390f08.png)
+
+여기서도 @RequestBody가 사용되었기 때문에 ArgumentResolver(인자 데이터 바인딩 작업)에 RequestResponseBodyMethodProcessor.class가 사용되었다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092264-243e5880-52c6-11eb-83bf-81449402b311.png)
+
+메소드 파라미터별로 for문이 돌면서 실행이되고 인자 타입이 다르므로 각각 다른 ArgumentResolver가 쓰인다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092375-e4c43c00-52c6-11eb-881e-45b48409f040.png)
+
+@RequestBody를 쓴 String params의 경우 RequestResponseBodyMethodProcessor의 resolveArgument를 타게 된다. 
+![image](https://user-images.githubusercontent.com/46257667/104092384-f4dc1b80-52c6-11eb-835f-7854503feb1b.png)
+
+![image](https://user-images.githubusercontent.com/46257667/104092392-ff96b080-52c6-11eb-91ed-4c7ccfe09a93.png)
+
+이제 RequestBody에서 데이터를 읽어 컨트롤러 메소드(핸들러)의 파라미터에 바인딩하기 위한 작업을 진행하게 된다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092408-189f6180-52c7-11eb-9891-c4a4bcccc947.png)
+
+이처럼 resolveArgument에서는 메시지 컨버터를 통해 Request에서 데이터를 뽑아내게 한다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092413-2654e700-52c7-11eb-9e4f-9c1dedd82ed5.png)
+
+
+![image](https://user-images.githubusercontent.com/46257667/104092422-32d93f80-52c7-11eb-8edc-32a7d063c86e.png)
+
+![image](https://user-images.githubusercontent.com/46257667/104092437-4f757780-52c7-11eb-9c35-9edaedd4b477.png)
+
+먼저 getBody를 통해서 requestBody를 읽게되고 HttpMessageConverter.read()를 통해 해당 메시지 컨버팅을 하게 된다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092444-59977600-52c7-11eb-85c5-80090dec05c7.png)
+
+만약 Form POST에 해당되는 경우라면 request에서 읽어들인 body 내용을 다시 UTF-8 & UrlEncoding하여 ByteArrayInputStream으로 리턴하고 있다. 여기서 리턴된 ByteArrayInputStream이 RequestBody로 사용되는 것이고, 재사용이 가능하게끔 하는 것이다.
+
+반면 Request content-type이 application/json인 경우 Form POST가 아니므로 위의 과정을 거치지 않게 되며, RequestBody에 대한 재사용이 가능하게끔 따로 처리해주는 부분이 없게 된다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092457-7633ae00-52c7-11eb-8262-dc417ffd5a4d.png)
+
+body에서 읽어들인 데이터를 적절한 메시지 컨버터로 읽을 차례이다. 이 흐름은 @RequestBody를 사용한 경우에만 진입하게 되며, Request Content-type이 json인지 xml인지 form인지와 메소드 핸들러의 파라미터 타입에 따라 자동으로 메세지 컨버터가 결정된다. 그렇기 때문에 JSON, XML 데이터를 정상적으로 읽어들이기 위해서는 무조건 컨트롤러 메소드에서 @RequestBody를 붙여야 한다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092466-8055ac80-52c7-11eb-9b06-61195363b33e.png)
+
+적절한 메시지 컨버터를 찾아 처리하는 과정
+
+![image](https://user-images.githubusercontent.com/46257667/104092476-8a77ab00-52c7-11eb-8784-53615e399e5c.png)
+
+text/plain인 경우 StringHttpMessageConverter가 실행되고, application/json인 경우 MappingJackson2HttpMessageConverter가 실행된다. Form POST 방식은 text/plain으로 처리된다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092481-96fc0380-52c7-11eb-86c4-f746e0fe1df8.png)
+
+응답 결과로 페이지 이동을 하게 될 경우 이동하게될 페이지 url과 페이지에 표시될 데이터 2가지를 들고 리턴하게 된다. 스프링에서는 이를 ModelAndView에 담게 되고 Model에는 데이터를 View에는 페이지 주소를 담게 된다.
+
+![image](https://user-images.githubusercontent.com/46257667/104092486-a0856b80-52c7-11eb-81c9-7bec39c41fe2.png)
+
+페이지 이동이 아닌 경우 @ResponseBody를 붙여 JSON이나 XML 데이터를 리턴하게 된다면 적절한 메시지 컨버터가 쓰여 HTTP response body에 직접 데이터가 쓰여진다.
