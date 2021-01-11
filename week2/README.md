@@ -232,6 +232,8 @@ text/plain인 경우 StringHttpMessageConverter가 실행되고, application/jso
 ![aop2](https://user-images.githubusercontent.com/51367515/104126784-da2aa500-53a1-11eb-85a6-69fea1c4fd5d.png)
 
 # :smile: Proxy
+![프록시](https://user-images.githubusercontent.com/51367515/104176424-8e800600-544a-11eb-9f45-b21f65502efb.PNG)
+
 - 클라이언트가 사용하려고 하는 실제 대상인 것처럼 위장하여 클라이언트 클라이언트의 요청을 받아주어 처리하는 대리자 역할.
 
 - 프록시를 사용하는 이유 : 주 업무 코드는 보조 업무가 필요한 경우, 해당 Proxy 만 추가하면 되고, 필요없게 되면 Proxy를 제거하면 됨. 보조 업무의 탈 부착이 쉬워지고, 그리하여 주 업무 코드는 보조 업무 코드의 변경으로 인해서 발생하는 코드 수정 작업이 필요 없게 됨. 이는 OCP 법칙에 해당됨.
