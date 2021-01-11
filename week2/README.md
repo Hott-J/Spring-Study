@@ -229,7 +229,8 @@ text/plain인 경우 StringHttpMessageConverter가 실행되고, application/jso
 
 - Aspect: 포인트컷과 어드바이스의 결합입니다. 어떤 포인트컷 메소드에 대해 어떤 어드바이스 메소드를 실행할지 결정합니다.
 
-![aop2](https://user-images.githubusercontent.com/51367515/104126784-da2aa500-53a1-11eb-85a6-69fea1c4fd5d.png)
+![aop3](https://user-images.githubusercontent.com/51367515/104176536-bec7a480-544a-11eb-9336-4a7e447aa45f.png)
+
 
 # :smile: Proxy
 ![프록시](https://user-images.githubusercontent.com/51367515/104176424-8e800600-544a-11eb-9f45-b21f65502efb.PNG)
