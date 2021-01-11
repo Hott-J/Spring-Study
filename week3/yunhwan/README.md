@@ -58,3 +58,61 @@ public class PetOwner{
     1. 객체(bean) 생성
     2. 객체를 묶어 구성하기
     3. 객체들의 전체 수명주기(lifecycle)을 관리하기
+## Bean
+
+- 스프링 IoC 컨테이너가 관리하는 객체!!
+    - 오로지 빈 만을 관리한다.
+
+    → OwnerController는 스프링 IoC 컨테이너가 관리
+    → Owner는 스프링 IoC 컨테이너가 관리 x == bean이 아님
+
+- **Component Scanning 등록**
+    - annotation은 주석일 뿐 그것을 처리하는 프로세스가 따로 존재한다.
+
+    `@SpringBootApplication`
+    모든 패키지의 `@Component` annotation을 찾아 빈에 등록
+
+- **직접 등록**
+    - `@Bean` Annotation을 이용해 직접 등록한다.
+
+## DI (의존성 주입)
+
+`@Autowired` / `@Inject`
+
+- `빈` 클래스에 생성자의 매개변수가 `빈` 으로 등록되어 있고 생성자 하나 일 때는 쓰지 않아도 **기본적으로** 주입이됨 ( annotation을 쓰지 않는 방법 )
+1. 생성자 주입
+2. 필드 주입
+3. Setter  주입
+
+## AOP (Aspect Oriented Programming)
+
+→ 흩어진 코드를 한 곳으로 모으자!!
+
+- 바이트 코드 ⇒ 컴파일 후 코드 끼워 넣기
+- 프록시 패턴
+
+### 작성
+
+- Annotation 만들기
+- 실제 Aspect 클래스 작성해서 적용하기
+    - `@Around`
+    - 실행할 함수 작성
+
+## Portable Service Abstraction(PSA)
+
+ 스프링의 API 대부분은 PSA이다. (추상화)
+
+인터페이스만 잘 이해하면 뒷동작을 이해하지 않고도 올바른 사용 가능
+
+- ex) 스프링 트랙잭션
+    - `@Transcation`
+    - 인터페이스 하나에 → 구현체는 굉장히 **다양**
+        - Bean 이 바껴도 그대로 코드 유지 가능
+
+- ex) 스프링 캐시
+    - `@Cacheable`
+    - 구현체가 바껴도 캐시의 aspect 코드는 바뀔일 이 없다.
+
+- ex) 스프링 웹 MVC
+    - `@Controller`
+    - 구현체로 `Servelt` | `Reactive`를 사용할 수 있다.
