@@ -87,6 +87,8 @@ public class HelloWorldController {
 ### 6. HelloWorld Bean 추가
 * HelloWorldController에 추가
   * String형식이 아닌 Bean객체 형식으로 return하기 때문에 Spring Framework에서는 **json형태**({"message":"Hello World"})로 변환하여 반환해준다.
+  * 여기서 생긴 의문! @ResponseBody이 없는데 왜 ViewResolver가 동작하지 않고 HttpMessageConverter가 동작할까?
+    * HelloWorldController에 있는 @RestController에 @ResponseBody가 포함되어 있었다~
 ```java
     // class 생성 : alt + enter
     @GetMapping("/hello-world-bean")
