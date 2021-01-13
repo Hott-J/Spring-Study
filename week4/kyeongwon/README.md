@@ -61,8 +61,56 @@
   
 ### 4. Spring Boot Project 구조 확인과 실행 방법
 * application.properties 파일명을 application.yml로 수정 -> Spring 설정 파일(yml이 더 많이 사용되는 추세이다.)
-* application.yml 파일에 추가(서버 포트 설정)
+* application.yml 파일에 추가(톰캣 서버 포트 설정)
 ```java
 server:
   port: 8088
 ```
+
+### 5. HelloWorld Controller 추가
+* 일반 controller class와 REST controller class는 다르다. -> @RestControlller 사용
+```java
+@RestController
+public class HelloWorldController {
+    // GET
+    // /hello-world (endpoint)
+    // 예전 방식 : @RequestMapping(method=RequestMethod.GET, path="/hello-world")
+    @GetMapping("/hello-world")
+    public String helloWorld() {
+        return "Hello World";
+    }
+}
+```
+* Postman으로도 확인 가능하다.   
+<img src="https://user-images.githubusercontent.com/61045469/104487101-0186a980-5610-11eb-8b03-8313e68529ed.png" width="70%" height="50%"></img><br/>
+
+### 6. HelloWorld Bean 추가
+* HelloWorldController에 추가
+  * String형식이 아닌 Bean객체 형식으로 return하기 때문에 Spring Framework에서는 **json형태**({"message":"Hello World"})로 변환하여 반환해준다.
+```java
+    // class 생성 : alt + enter
+    @GetMapping("/hello-world-bean")
+    public HelloWorldBean helloWorldBean() {
+        return new HelloWorldBean("Hello World");
+    }
+```
+* Lombok 실행하기 위한 옵션 설정
+  * IntelliJ - File - Settings - annotation 검색(Annotation Processors) - Enable annotation processing 체크 후 Apply
+* Lombok Plugin 추가
+  * IntelliJ - File - Settings - Plugins - lombok 검색 후 Lombok Plugin 설치 - Restart IDE
+* **@Data** : Lombok에서는 여러 method들을 자동 생성해주기 때문에 getter, setter를 만들 필요 없다.
+* **@AllArgsConstructor**는 생성자를 만들어주는 역할을 하기 때문에 따로 생성자 코드를 추가하면 error가 난다.
+* 매개변수가 없는 생성자를 만들어주고 싶은 경우, **@NoArgsConstructor**를 쓰면 된다.
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class HelloWorldBean {
+    private String message;
+
+}
+```
+
+### 7. DispatcherServlet과 프로젝트 동작의 이해
+* Spring Boot 동작원리
+  * 
