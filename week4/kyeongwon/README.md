@@ -66,6 +66,9 @@
 server:
   port: 8088
 ```
+* application.yml vs application.properties
+  * application.properties 형식 -> 설정이름=값
+  * application.yml 형식 -> 설정이름:값
 
 ### 5. HelloWorld Controller 추가
 * 일반 controller class와 REST controller class는 다르다. -> @RestControlller 사용
@@ -81,7 +84,7 @@ public class HelloWorldController {
     }
 }
 ```
-* Postman으로도 확인 가능하다.   
+* Postman으로도 확인 가능  
 <img src="https://user-images.githubusercontent.com/61045469/104487101-0186a980-5610-11eb-8b03-8313e68529ed.png" width="70%" height="50%"></img><br/>
 
 ### 6. HelloWorld Bean 추가
@@ -114,5 +117,76 @@ public class HelloWorldBean {
 ```
 
 ### 7. DispatcherServlet과 프로젝트 동작의 이해
-* Spring Boot 동작원리
-  * 
+* DispatcherServlet
+  * client 요청을 처리하는 gateway로 볼 수 있다.
+  * client 요청을 한곳으로 받아서 처리하고 요청에 맞는 Handler로 요청을 전달한다.
+  * Handler 실행 결과를 Http response 형태로 만들어서 반환한다.   
+<img src="https://user-images.githubusercontent.com/61045469/104559350-9a0c4080-5687-11eb-8bb2-83e355ff684e.png" width="60%" height="40%"></img><br/>
+* RestController
+  * Spring 4부터 @RestController 지원
+  * @Controller + @RestController 기능 모두 포함
+  * View를 갖지 않는 REST Data(JSON, XML)를 반환    
+<img src="https://user-images.githubusercontent.com/61045469/104559637-0129f500-5688-11eb-91b7-cafa709f76fd.png" width="70%" height="50%"></img><br/>
+
+### 8. Path Variable 사용
+* 가변 data값 : @PathVariable annotation 사용
+* HelloWorldController에 추가
+```java
+    @GetMapping("/hello-world-bean/path-variable/{name}")
+    public HelloWorldBean helloWorldBean(@PathVariable String name) {
+        return new HelloWorldBean(String.format("Hello World, %s", name));
+    }
+```
+* JSON 플러그인 설치
+  * chrome 웹 스토어 - JSON Viewer 설치하기
+  
+<br>
+
+## :cherry_blossom: User Service API 구현
+
+### 1. User 도메인 클래스 생성
+* User Domain 생성
+```java
+@Data
+@AllArgsConstructor
+public class User {
+    private Integer id;
+    private String name;
+    private Date joinDate;
+}
+```
+* User Service 생성
+```java
+// 비즈니스 로직
+public class UserDaoService {
+    private static List<User> users = new ArrayList<>();
+
+    private static int usersCount = 3;
+
+    static {
+        users.add(new User(1, "Kenneth", new Date()));
+        users.add(new User(2, "Alice", new Date()));
+        users.add(new User(3, "Elena", new Date()));
+    }
+
+    public List<User> findAll() {
+        return users;
+    }
+
+    public User save(User user) {
+        if (user.getId() == null) {
+            user.setId(++usersCount);
+        }
+
+        users.add(user);
+        return user;
+    }
+
+    public User findOne(int id) {
+        for (User user : users) {
+            if (user.getId() == id) return user;
+        }
+        return null;
+    }
+}
+```
