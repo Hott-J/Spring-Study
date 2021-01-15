@@ -43,6 +43,7 @@
   * @SpringBootApplication가 붙여진 main 클래스를 실행시키면 Application이 실행된다.
   
 ### 2. REST API 설계
+* REST API가 지원하는 method : GET, POST, PUT(등록된 data를 변경할 경우에 사용), DELETE
 * Social Media Application
   * User -> Posts   
   <img src="https://user-images.githubusercontent.com/61045469/104457293-31708580-55ed-11eb-80c1-325db2fbff49.png" width="60%" height="40%"></img><br/>
@@ -189,6 +190,22 @@ public class UserDaoService {
         }
         return null;
     }
+    
+    // 사용자 삭제
+    public User deleteById(int id) {
+        Iterator<User> iterator = users.iterator();
+
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+
+            if (user.getId() == id) {
+                iterator.remove();
+                return user;
+            }
+        }
+
+        return null;
+    }
 }
 ```
 
@@ -236,6 +253,15 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+    
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        User user = service.deleteById(id);
+
+        if (user == null) { // 삭제하려는 사용자가 존재하지 않을 경우
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
     }
 }
 ```
@@ -297,3 +323,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 }
 ```
+
+## :cherry_blossom: RESTful Service 기능 확장
+
+### 1. Validation API - 유효성 체크
