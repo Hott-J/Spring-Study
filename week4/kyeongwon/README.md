@@ -323,6 +323,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 }
 ```
+<br>
 
 ## :cherry_blossom: RESTful Service 기능 확장
 
