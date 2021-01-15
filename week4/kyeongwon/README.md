@@ -105,7 +105,7 @@ public class HelloWorldController {
   * IntelliJ - File - Settings - Plugins - lombok 검색 후 Lombok Plugin 설치 - Restart IDE
 * **@Data** : Lombok에서는 여러 method들을 자동 생성해주기 때문에 getter, setter를 만들 필요 없다.
 * **@AllArgsConstructor**는 생성자를 만들어주는 역할을 하기 때문에 따로 생성자 코드를 추가하면 error가 난다.
-* 매개변수가 없는 생성자를 만들어주고 싶은 경우, **@NoArgsConstructor**를 쓰면 된다.
+* **@NoArgsConstructor**는 매개변수가 없는 생성자를 만들때 사용한다. (Default 생성자)
 ```java
 @Data
 @AllArgsConstructor
@@ -158,6 +158,7 @@ public class User {
 * User Service 생성
 ```java
 // 비즈니스 로직
+@Service
 public class UserDaoService {
     private static List<User> users = new ArrayList<>();
 
@@ -187,6 +188,112 @@ public class UserDaoService {
             if (user.getId() == id) return user;
         }
         return null;
+    }
+}
+```
+
+### 2. User API 구현
+* 사용자 목록 조회 -> GET HTTP Method
+* 사용자 등록 -> POST HTTP Method
+* ctrl + alt + v : 변수 자동 생성 단축키
+
+* UserController 클래스 (HTTP Status Code 제어 )
+```java
+@RestController
+public class UserController {
+    private UserDaoService service;
+
+    public UserController(UserDaoService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/users")
+    public List<User> retrieveAllUsers() {
+        return service.findAll();
+    }
+
+    // GET /users/1 or /users/10 -> String 형으로 서버에 전달됨
+    @GetMapping("/users/{id}")
+    public User retrieveUser(@PathVariable int id) { // 받을때 int 형으로 받으면 String -> int 자동 형변환됨
+        User user = service.findOne(id);
+
+        // HTTP Status Code 제어 -> Exception Handling
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        return user;
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@RequestBody User user) { // object 형식이기 때문에 @RequestBody 사용
+        User savedUser = service.save(user);
+
+        // HTTP Status Code 제어 -> 좋은 API 설계 방법.(네트워크 트래픽 감소, 효율적!) 최종적으로 200 대신 201 created 출력
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest() // 현재 요청된 request 값을 사용한다는 것을 의미
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+}
+```
+
+* Exception 클래스 -> null값을 리턴하지 않고 오류를 발생시키게끔 하였다.
+
+* 또한 500 error code를 리턴할 경우 예외 발생 원인코드가 드러나 보안상의 문제가 있을 수 있으므로, 다른 적절한 상태로 개선해보도록 한다.
+```java
+// HTTP Status Code
+// 2XX -> OK
+// 4XX -> Client 문제
+// 5XX -> Server 문제
+// resource 없을 경우 500 error code 대신 404 not found 를 리턴하도록 하자!
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+
+### 3. Spring AOP를 이용한 Exception Handling
+* 다른 클래스에도 exception을 적용할 수 있도록 exception폴더 생성
+* 일반화된 exception 클래스 생성 -> **AOP**
+
+* ExceptionResponse 클래스
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ExceptionResponse {
+    private Date timestamp;
+    private String message;
+    private String details;
+}
+```
+
+* CustomizedResponseEntityExceptionHandler 클래스
+```java
+@RestController
+@ControllerAdvice // 모든 컨트롤러가 실행될 때마다 적용 -> 에러 생기면 ExceptionHandler 에 등록된 method 실행됨
+public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // UserNotFoundException 일어날 경우 실행되는 method
+    @ExceptionHandler(UserNotFoundException.class)
+    public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
 ```
