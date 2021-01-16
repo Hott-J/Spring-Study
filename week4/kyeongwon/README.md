@@ -328,3 +328,53 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 ## :cherry_blossom: RESTful Service 기능 확장
 
 ### 1. Validation API - 유효성 체크
+* User Domain에 유효성 추가 - @Size, @Past
+```java
+    @Size(min=2) // 2글자 이상이여야 한다.
+    private String name;
+
+    @Past // 회원이 가입할때에는 과거 데이터만 쓸수 있도록 제약을 걸어둠
+    private Date joinDate;
+```
+
+* @Valid : 유효성 검사 어노테이션
+
+* handleMethodArgumentNotValid함수 재정의 - CustomizedResponseEntityExceptionHandler에 추가
+```java
+    // handleMethodArgumentNotValid 함수 재정의 - 오버라이딩
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+                ex.getBindingResult().toString());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+```
+
+* 이외에도 id값이 반드시 숫자여야 한다던지, 유효성 검사를 더 추가할 수 있다.
+
+
+### 2. Internationalization 구현 - 다국어 처리
+* main class에 추가 - Spring Boot가 초기화될때 메모리에 올라간다.(Bean으로 등록됨)
+```java
+	@Bean
+	public LocaleResolver localeResolver() {
+		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.KOREA);
+		return localeResolver;
+	}
+```
+
+* 다국어 파일 저장 - application.yml 파일에 추가
+```java
+spring:
+  messages:
+    basename: messages
+```
+
+* 다국어 파일
+  * messages.properties - 한국어 저장
+  * messages_fr.properties - 프랑스어 저장
+  * messages_en.properties - 영어 저장
