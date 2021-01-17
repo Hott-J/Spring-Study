@@ -378,3 +378,208 @@ spring:
   * messages.properties - 한국어 저장
   * messages_fr.properties - 프랑스어 저장
   * messages_en.properties - 영어 저장
+
+* Headers에 Accept-Language를 fr, en으로 하면 각각 프랑스어, 영어로 나옴. 아무것도 안쓰거나 없는걸 쓰면 한국어로 나옴
+
+### 3. Response 데이터 형식 변환 - XML format
+* xml 처리 라이브러리 추가 - pom.xml
+```java
+		<dependency>
+			<groupId>com.fastxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.10.2</version>
+		</dependency>
+```
+
+* Headers에 KEY : Accept, VALUE : application/xml으로 지정하면 xml형태로 반환해준다.
+* VALUE를 application/json이면 json형태로 반환받는다.(spring boot가 기본적으로 정해놓은 format은 json)
+
+### 4. Response 데이터 제어를 위한 Filtering
+* spring boot에서는 filtering 기능을 제공한다.
+* jackson library 사용하면 외부에 노출시키고 싶지 않은 data를 제어할 수 있다.
+* User Domain에 password, ssn 추가
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor // default 생성자
+@JsonIgnoreProperties(value={"password", "ssn"}) // 무시하고 싶은 필드명들 기입
+public class User {
+    private Integer id;
+
+    @Size(min=2, message="Name은 2글자 이상 입력해 주세요.") // 2글자 이상이여야 한다.
+    private String name;
+
+    @Past // 회원이 가입할때에는 과거 데이터만 쓸수 있도록 제약을 걸어둠
+    private Date joinDate;
+
+    // @JsonIgnore // filtering - 특정 필드값 제어
+    private String password;
+
+    // @JsonIgnore
+    private String ssn; // 주민번호
+}
+```
+
+* UserDaoService 수정
+```java
+    static {
+        users.add(new User(1, "Kenneth", new Date(), "pass1", "701010-1111111"));
+        users.add(new User(2, "Alice", new Date(), "pass2", "801010-1111111"));
+        users.add(new User(3, "Elena", new Date(), "pass3", "901010-1111111"));
+    }
+```
+
+* Domain class가 가지고 있는 값 중, 외부에 노출되어서는 안되는 정보(password, ssn)는 숨겨야 한다. -> @JsonIgnoreProperties 또는 @JsonIgnore 사용
+
+### 5. 프로그래밍으로 제어하는 Filtering 방법 - 전체, 개별 사용자 조회
+* User Domain 수정
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor // default 생성자
+@JsonFilter("UserInfo")
+public class User {
+    private Integer id;
+
+    @Size(min=2, message="Name은 2글자 이상 입력해 주세요.")
+    private String name;
+
+    @Past // 회원이 가입할때에는 과거 데이터만 쓸수 있도록 제약을 걸어둠
+    private Date joinDate;
+
+    private String password;
+    private String ssn; // 주민번호
+}
+```
+
+* 새로운 Controller 생성 - AdminUserController(관리자를 위한 컨트롤러)
+```java
+@RestController
+@RequestMapping("/admin") // /admin으로 시작하는 모든 요청을 받는다. -> /admin/users를 받으면 getmapping 동작
+public class AdminUserController {
+    private UserDaoService service;
+
+    public AdminUserController(UserDaoService service) {
+        this.service = service;
+    }
+    
+    @GetMapping("/users") // /admin/users
+    public MappingJacksonValue retrieveAllUsers() {
+        List<User> users = service.findAll();
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "joinDate", "ssn");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter); // filter 이름 -> User에 정의한 대로 써줘야됨
+
+        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        mapping.setFilters(filters);
+
+        return mapping;
+    }
+
+    // GET /admin/users/1 or /admin/users/10 -> String 형으로 서버에 전달됨
+    @GetMapping("/users/{id}") // /admin/users/{id}
+    public MappingJacksonValue retrieveUser(@PathVariable int id) {
+        User user = service.findOne(id);
+
+        // HTTP Status Code 제어 -> Exception Handling
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "joinDate", "ssn");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter); // filter 이름 -> User에 정의한 대로 써줘야됨
+
+        MappingJacksonValue mapping = new MappingJacksonValue(user);
+        mapping.setFilters(filters);
+
+        return mapping;
+    }
+}
+```
+
+### 6. URI를 이용한 REST API Version 관리
+* version2를 위한 새로운 Domain class 생성 - grade 필드 추가
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonFilter("UserInfoV2")
+public class UserV2 extends User { // User class 상속
+    private String grade;
+}
+```
+
+* V1, V2가 전혀 다른 REST API를 가지고 있다.
+* 버전 관리가 추가된 AdminUserController
+```java
+    // GET /admin/users/1 -> /admin/v1/users/1
+    @GetMapping("/v1/users/{id}")
+    public MappingJacksonValue retrieveUserV1(@PathVariable int id) {
+        User user = service.findOne(id);
+
+        // HTTP Status Code 제어 -> Exception Handling
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "joinDate", "ssn");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter); // filter 이름 -> User에 정의한 대로 써줘야됨
+
+        MappingJacksonValue mapping = new MappingJacksonValue(user);
+        mapping.setFilters(filters);
+
+        return mapping;
+    }
+
+    // /admin/v2/users/1
+    @GetMapping("/v2/users/{id}")
+    public MappingJacksonValue retrieveUserV2(@PathVariable int id) {
+        User user = service.findOne(id);
+
+        // HTTP Status Code 제어 -> Exception Handling
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        // User -> UserV2
+        UserV2 userV2 = new UserV2();
+        BeanUtils.copyProperties(user, userV2); // BeanUtils: Bean들간의 작업을 도와주는 class. id, class, joinDate, password, ssn
+        userV2.setGrade("VIP"); // grade 필드
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "joinDate", "grade");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoV2", filter); // filter 이름 -> User에 정의한 대로 써줘야됨
+
+        MappingJacksonValue mapping = new MappingJacksonValue(userV2);
+        mapping.setFilters(filters);
+
+        return mapping;
+    }
+```
+
+### 7. Request Parameter와 Header를 이용한 API Version 관리
+* Parameter 방식
+  * @GetMapping("/v1/users/{id}") -> @GetMapping(value="/users/{id}/", params="version=1") 로 수정
+  * 요청 방식 : localhost:8088/admin/users/1/?version=1 (파라미터라서 앞에 ? 붙여야 한다.)
+  
+* Header 방식
+  * @GetMapping(value="/users/{id}/", params="version=1") -> @GetMapping(value="/users/{id}", headers="X-API-VERSION=1") 로 수정
+  * 요청 방식 : localhost:8088/admin/users/1 쓰고 Headers에 KEY : X-API-VERSION, VALUE = 1 or 2 써서 요청
+  
+* produces 방법(MIME type 지정)
+  * @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json") 로 수정
+  * 요청 방식 : localhost:8088/admin/users/1 쓰고 Headers에 KEY : Accept, VALUE = application/vnd.company.appv1+json 써서 요청
+  
+* Version 관리 이유
+  * 단순히 사용자에게 보여주는 항목을 제한하는 용도라기 보단, REST API설계가 변경되거나 application구조가 바뀔 때도 version을 변경한다.
+  * 사용자에게 어떤 API version을 사용해야 하는지에 대해 가이드를 명시해 주어야 한다.
+
+* URI, Parameter를 통한 버전 관리 -> 일반 브라우저에서 실행 **가능**
+* MIME type, Header를 통한 버전 관리 -> 일반 브라우저에서 실행 **불가능**
