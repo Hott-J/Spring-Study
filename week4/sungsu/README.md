@@ -639,3 +639,8 @@ public class AdminUserController {
 ```
 - :smile: version관리는 단순하게 사용자에게 보여지는 항목을 제하는 용도가 아니라 설계나 구조가 변경될 때 버전을 변경하기 위해서 사용한다. 또한 사용자에게는 상황에 맞게 어떠한 version을 사용하는 지 가이드를 해줘야한다.
 ![version](https://user-images.githubusercontent.com/51367515/104942689-21471480-59f8-11eb-829e-0307d223b458.PNG)
+- :smile: Factor
+    - URI값이 너무 지저분한건 피하자
+    - 잘못된 헤더값을 사용하지 말자
+    - caching으로 인해 지정한 값이 반영되지 않는 경우를 고려 -> 안 될 경우 캐시를 삭제하기!
+    - 적절한 개발 도구가 제공되어야 한다.
