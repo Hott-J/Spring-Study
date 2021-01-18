@@ -105,7 +105,7 @@ public class HelloWorldController {
 * Lombok Plugin 추가
   * IntelliJ - File - Settings - Plugins - lombok 검색 후 Lombok Plugin 설치 - Restart IDE
 * **@Data** : Lombok에서는 여러 method들을 자동 생성해주기 때문에 getter, setter를 만들 필요 없다.
-* **@AllArgsConstructor**는 생성자를 만들어주는 역할을 하기 때문에 따로 생성자 코드를 추가하면 error가 난다.
+* **@AllArgsConstructor**는 생성자를 만들어주는 역할을 하기 때문에 따로 생성자 코드를 추가하면 error가 난다. 모든 필드를 가진 생성자를 자동으로 생성해준다.
 * **@NoArgsConstructor**는 매개변수가 없는 생성자를 만들때 사용한다. (Default 생성자)
 ```java
 @Data
