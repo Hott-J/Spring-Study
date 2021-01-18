@@ -148,3 +148,45 @@ new MemberRepository(new ConcurrentHashMap());
 - post/redirect/get 방법
   - 웹 브라우저에서 POST로 글쓰기를 요청했는데, 그러면 서버에 글이 써지겠지요? 그러면 문제는 웹 브라우저를 그 상태로 새로고침 하면 POST로 글쓰기가 또 호출됩니다! 그러면 글이 중복해서 또 써지겠지요? 이게 만약 쇼핑몰이라면 중복 주문 될 수 도 있습니다.(물론 그렇지 않게 잘 대비를 해야겠지요.) 그래서 post의 결과를 get으로 조회 화면으로 리다이렉트 해버리는 것이지요. 그러면 사용자가 실수로 새로고침을 눌러도 조회 화면만 다시 호출하게 됩니다.
 
+### :smile: AOP 순환참조
+
+직접 @Bean으로 등록했을 때 순환참조가 발생하는 이유는 다음과 같습니다.
+```java
+@Configuration
+
+public class SpringConfig {
+
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
+    }
+}
+
+@Aspect
+public class TimeTraceAop {
+
+    @Around("execution(* hello.hellospring..*(..))")
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable { }
+}
+```
+TimeTraceAop의 AOP 대상을 지정하는 @Around 코드를 보시면, SpringConfig의 timeTraceAop() 메서드도 AOP로 처리하게 됩니다. 그런데 이게 바로 자기 자신인 TimeTraceAop를 생성하는 코드인 것이지요. 그래서 순환참조 문제가 발생합니다.
+반면에 컴포넌트 스캔을 사용할 때는 AOP의 대상이 되는 이런 코드 자체가 없기 때문에 문제가 발생하지 않았습니다.
+그러면 AOP 설정 클래스를 빈으로 직접 등록할 때는 어떻게 문제를 해결하면 될까요? 바로 다음과 같이 AOP 대상에서 SpringConfig를 빼주면 됩니다.
+
+```java
+@Aspect
+public class TimeTraceAop {
+
+
+    @Around("execution(* hello.hellospring..*(..)) && !target(hello.hellospring.SpringConfig)")
+
+    //@Around("execution(* hello.hellospring..*(..))")
+
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {...}
+
+}
+```
+
+### :smile: AOP vs 인터셉터
+- 사실 AOP나 Intercepter둘다 공통 관심사를 해결하기 위한 목적을 가지고 있습니다. 인터셉터는 웹과 관련된 기능을 해결하는 것에 특화되어 있습니다. 특히 HttpRequest 관련된 정보를 받아서 해결할 수 있지요. 그리고 최근 컨트롤러를 설계할 때 파라미터로 HttpRequest를 잘 안쓰기 때문에, 컨트롤러를 AOP로 처리하면 이런 부분을 받아서 해결하기가 참 어렵습니다. 반면에 인터셉터는 HttpRequest 정보를 그냥 넘겨주기 때문에, 편리합니다. Interceptor는 웹에 특화되어 있기 때문에 웹과 관련된 기술을 사용하는 포인트에서만 사용할 수 있어서 범용성이 없습니다. 반면에 AOP는 범용성이 어마어마 하지요. 실무에서 가장 많이 사용하는 AOP의 대표적인 사례는 @Transactional을 활용한 트랜잭션 관리, @Async를 통한 비동기 처리 등이 있습니다.
+
