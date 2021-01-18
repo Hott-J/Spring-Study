@@ -174,7 +174,7 @@ public class HelloWorldBean {
 
 
     @GetMapping(path = "/hello-world-bean/path-variable/{name}")
-    public HelloWorldBean helloWorldBean(@PathVariable String name){ // HelloWorldBean()과매개변수가 다르므로 오버로딩
+    public HelloWorldBean helloWorldBean(@PathVariable String name){
         return new HelloWorldBean(String.format("Hello World, %s", name));
     }
 }
