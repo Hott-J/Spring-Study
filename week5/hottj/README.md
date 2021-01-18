@@ -117,3 +117,11 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 ### :smile: 게시물 조회를 위한 Post Entity와 User Entity와의 관계 설정
 - 게시판이 없을 경우에 404로 반환되도록 고쳐야하는 오류가 남아있다.
+
+### :smile: JPA를 이용한 새 게시물 추가 - POST HTTP Method
+
+![get](https://user-images.githubusercontent.com/47052106/104058104-8e0f2180-5236-11eb-8154-2bd09522cc16.JPG)
+
+![post](https://user-images.githubusercontent.com/47052106/104058105-8f404e80-5236-11eb-8754-9fd8d2bec295.JPG)
+
+![h2 get](https://user-images.githubusercontent.com/47052106/104058107-8f404e80-5236-11eb-923e-f24962a6c6c0.JPG)
