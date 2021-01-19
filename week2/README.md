@@ -1,5 +1,3 @@
-### :smile: 순환 참조
-
 #### :book: 순환 참조란?
 * Bean A도 Bean B를 참조하고, Bean B도 Bean A를 참조하는 경우에 발생
 * Bean B가 생성되지 않았는데 Bean A가 Bean B를 참조해 버리면 문제 발생
@@ -203,3 +201,154 @@ text/plain인 경우 StringHttpMessageConverter가 실행되고, application/jso
 ![image](https://user-images.githubusercontent.com/46257667/104092486-a0856b80-52c7-11eb-81c9-7bec39c41fe2.png)
 
 페이지 이동이 아닌 경우 @ResponseBody를 붙여 JSON이나 XML 데이터를 리턴하게 된다면 적절한 메시지 컨버터가 쓰여 HTTP response body에 직접 데이터가 쓰여진다.
+
+### :smile: Form
+- **Form**
+  - *name* : form의 이름, 서버로 보내질 때 이름의 값으로 데이터 전송
+  - *action* : form이 전송되는 서버 url 또는 html 링크
+  - *method* : 전송 방법 설정. get은 default, post는 데이터를 url에 공개하지 않고 숨겨서 전송하는 방법
+
+- [참고](https://velog.io/@choiiis/HTMLCSS-form-%ED%83%9C%EA%B7%B8-%EC%A0%95%EB%A6%AC)
+
+### :smile: 회원 등록 동작 원리
+
+**1. MemberController**
+```java
+@GetMapping("/members/new") //데이터 조회할때 보통 get 사용
+   public String createForm(){
+       return "members/createMemberForm";
+   }
+```
+
+- url 에 `localhost/members/new` 를 입력하면 이는 GET 방식이다. 조회를 할 때 주로 사용된다.
+- ViewResolver 가 작동해, template 폴더안에 members/createMemberForm.html 을 찾아 실행한다.
+
+**2. createMemberForm.html**
+```html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <form action="/members/new" method="post">
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="이름을
+입력하세요">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
+```
+
+- form 태그안에 **action** 태그와 **method** 태그를 통해 `/members/new` url로 `POST` 방식으로 form 태그 안의 데이터가 전송된다.
+
+**3. MemberController/@PostMaaping("/members/new")**
+```java
+ @PostMapping("members/new") //html 에서 버튼 누르면 post로 members/new로 넘어옴. 데이터를 등록할때 보통 post 사용
+    public String create(@ModelAttribute MemberForm form){
+        Member member=new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+
+        return "redirect:/"; //홈 화면으로 돌려버림
+    }
+ ```
+ 
+ - MemberForm 객체를 파라미터로 넣는다.
+ 
+**4. MemberForm**
+```java
+public class MemberForm {
+    private String name; //html에서 입력된 name이 들어온다.
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+- 스프링 MVC가 HTTP 파라미터로 넘어오는 모든 이름들을 인식해서 (name) MemberForm 객체 (직접 만든 아무 객체든 상관없음)에 동일한 프로퍼티 이름이 있으면 찾아서 넣어준다.
+- 자바빈 프토퍼티 규약에 의해 getName , setName 으로 메소드 선언
+  - *private String name1 로 선언할 경우, getName1 / setName1 과 같이 자바빈 프로퍼티 규약을 지켜야한다.*
+- 3번으로 올라가 name이 파라미터로 전송되고 `form.getName()` 통해 불러와진 다음 `member.setName`에 의해 member의 name에 저장된다.
+
+
+--- 
+# AOP
+
+- AOP는 Aspect Oriented Programming의 약자로 관점 지향 프로그래밍이라고 불린다. 관점 지향은 쉽게 말해 어떤 로직을 기준으로 핵심적인 관점, 부가적인 관점으로 나누어서 보고 그 관점을 기준으로 각각 모듈화하겠다는 것이다. 여기서 모듈화란 어떤 공통된 로직이나 기능을 하나의 단위로 묶는 것을 말한다.
+
+![aop2](https://user-images.githubusercontent.com/51367515/104126784-da2aa500-53a1-11eb-85a6-69fea1c4fd5d.png)
+
+- 사용 되는 곳 : 보아 인증, 트랜잭션 처리, 로깅
+
+- 기능을 핵심 비즈니스 기능과 공통기능으로 '구분’하고,모든 비즈니스 로직에 들어가는 공통기능의 코드를 개발자의 코드 밖에서 필요한 시점에 적용하는 프로그래밍 방식
+
+
+## :smile: 용어 설명
+- 로깅, 예외, 트랜잭션 처리 같은 코드들은 횡단 관심(Crosscutting Concerns)
+- 핵심 비즈니스 로직은 핵심 관심(Core Concerns)
+- 조인포인트(Joinpoint): 클라이언트가 호출하는 모든 비즈니스 메소드, 조인포인트 중에서 포인트컷이 되기 때문에 포인트컷의 후보라고 할 수 있습니다.
+
+- 포인트컷(Pointcut): 특정 조건에 의해 필터링 된 조인포인트, 수많은 조인포인트 중에 특정 메소드에서만 공통기능을 수행시키기 위해 사용됩니다.
+
+- 어드바이스(Advice): 공통기능의 코드, 독립된 클래스의 메소드로 작성합니다.
+
+- 위빙(Weaving): 포인트컷으로 지정한 핵심 비즈니스 로직을 가진 메소드가 호출될 때, 어드바이스에 해당하는 공통기능의 메소드가 삽입되는 과정을 의미합니다. 위빙을 통해서 공통기능과 핵심 기능을 가진 새로운 프록시를 생성하게 됩니다.
+
+- Aspect: 포인트컷과 어드바이스의 결합입니다. 어떤 포인트컷 메소드에 대해 어떤 어드바이스 메소드를 실행할지 결정합니다.
+
+![aop3](https://user-images.githubusercontent.com/51367515/104176536-bec7a480-544a-11eb-9336-4a7e447aa45f.png)
+
+
+# :smile: Proxy
+![프록시](https://user-images.githubusercontent.com/51367515/104176424-8e800600-544a-11eb-9f45-b21f65502efb.PNG)
+
+- 클라이언트가 사용하려고 하는 실제 대상인 것처럼 위장하여 클라이언트 클라이언트의 요청을 받아주어 처리하는 대리자 역할.
+
+- 프록시를 사용하는 이유 : 주 업무 코드는 보조 업무가 필요한 경우, 해당 Proxy 만 추가하면 되고, 필요없게 되면 Proxy를 제거하면 됨. 보조 업무의 탈 부착이 쉬워지고, 그리하여 주 업무 코드는 보조 업무 코드의 변경으로 인해서 발생하는 코드 수정 작업이 필요 없게 됨. 이는 OCP 법칙에 해당됨.
+
+# OCP (Open-Close Principal : 개방 폐쇄의 원칙)
+
+개방-폐쇄 원칙(OCP, Open-Closed Principle)은 '소프트웨어 개체(클래스, 모듈, 함수 등등)는 확장에 대해 열려 있어야 하고, 수정에 대해서는 닫혀 있어야 한다.'는 프로그래밍 원칙이다.
+
+```java
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
+
+@Aspect
+@Component
+public class LogAspect {
+
+    private static Logger logger = LoggerFactory.getLogger(LogAspect.class);
+
+    //ProceedingJoinPoint 클래스는 JoinPoint 인터페이스를 상속하는 인터페이서.. 인자는 스프링 컨테이너가 넘겨준다.
+    @Around("execution(* com.jun.demo.controller.HelloController.*(..))") //포인트컷
+    public Object logging(ProceedingJoinPoint pjp) throws Throwable{
+
+        StopWatch stopWatch = new StopWatch();
+        
+        stopWatch.start();
+        logger.info("start -" + pjp.getSignature().getDeclaringTypeName() + " / " + pjp.getSignature().getName());
+        Object result = pjp.proceed();
+        logger.info("finished -" + pjp.getSignature().getDeclaringTypeName() + " / " + pjp.getSignature().getName());
+
+        stopWatch.stop();
+        logger.info("Timer Stop - Elapsed time :" + stopWatch.getTotalTimeMillis());
+
+        return result;
+    }
+}
+```
