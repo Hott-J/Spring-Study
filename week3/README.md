@@ -190,5 +190,21 @@ String keesun;
 - String이라틑 타입의 빈을 꺼내 쓴 것. 컨테이너 안에 들어있는 빈을 꺼내올 때 @Autowired를 사용하면 꺼내오려는 빈의 타입을 보고 꺼내려고 시도함.
 - 빈을 등록할 때 사용한 함수 이름이 빈의 이름이 되고, 그 빈의 이름으로 꺼내 올 수도 있다. 하지만 여기서는 타입으로 꺼내온 것이며, keesun 대신 다른 이름을 써도 가져올 수 있을 것
 
+#### :book: URI와 URL의 차이점
+<img src="https://user-images.githubusercontent.com/61045469/104922630-4e86c900-59de-11eb-84b9-6e7d01add6b3.png" width="30%" height="10%"></img><br/>
+* URI(Uniform Resource Identifier)
+  * resource 식별자
+  * resource의 식별은 resource의 위치(URL)를 표시하거나 고유한 이름(URN)으로 접근할 수 있다.
+
+* URL(Uniform Resource Locator)
+  * resource를 access할 수 있는 위치를 나타낸다.
+  * ex) http://naver.com - 네이버 사이트의 URL(주소)
+  
+* URN(Unifrom Resource Name)
+  * resource의 name
+  * resource의 위치에 영향을 받지 않는다.
+  * ex) ISBN 0-486-27557-4
+  
+* 통상적으로 모든 URL을 URI로 인정한다.
 
 
