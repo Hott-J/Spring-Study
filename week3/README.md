@@ -225,10 +225,10 @@ String keesun;
 **was** : 서버 사이드 코드를 이용하여 동적인 컨텐츠를 생성하는 서버. WAS가 servlet container를 포함하는 개념이다.<br>
 * FrontController 패턴
 
-[기존의 servlet]
+[기존의 servlet]<br>
 ![image](https://user-images.githubusercontent.com/46257667/105040831-ab00eb80-5aa5-11eb-871e-fb9e79c218e4.png)
 
-[FrontController 패턴]
+[FrontController 패턴]<br>
 ![image](https://user-images.githubusercontent.com/46257667/105040992-d2f04f00-5aa5-11eb-8d1b-d7baa89db660.png)
 
 사용자의 모든 요청에 대해 ```인코딩 처리```, ```에러 페이지 처리```, ```공지``` 등에 대한 처리를 한 곳에서 할 수 있다.
