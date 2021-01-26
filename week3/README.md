@@ -207,4 +207,31 @@ String keesun;
   
 * 통상적으로 모든 URL을 URI로 인정한다.
 
+# :book: Servlet과 Servlet Container 
+>클라이언트가 어떠한 요청을 하면 그에 대한 결과를 다시 전송해주어야 하는데, 이러한 역할을 하는 자바 프로그램.
+
+서블릿이란 자바를 사용하여 웹을 만들기 위해 필요한 기술. 예를 들어, 어떠한 사용자가 로그인을 하려고 할 때. 사용자는 아이디와 비밀번호를 입력하고, 로그인 버튼을 누른다. 그때 서버는 클라이언트의 아이디와 비밀번호를 확인하고, 다음 페이지를 띄워주어야 하는데, 이러한 역할을 수행하는 것이 바로 서블릿(Servlet). 그래서 서블릿은 자바로 구현 된 *CGI라고 흔히 말한다.
+
+## Spring MVC 구성요소들 
+
+![image](https://user-images.githubusercontent.com/46257667/105039729-41341200-5aa4-11eb-8218-c6d9a9e0976f.png)
+
+```알아낸 것들```
+
+* Web Server vs Servlet Container vs WAS(web application server)
+
+**web server** : 웹 서버로 들어온 요청을 받아 컨테이너로 전송하고 웹 컨테이너의 결과값을 받아 클라이언트에게 전송한다. 정적인 리소스를 처리한다. <br>
+**servlet conatiner** : servlet을 관리하는 클래스. http 요청을 받아 servlet을 실행시킨다. 웹 서버와 통신 지원, 서블릿 생명주기 관리, 멀티쓰레드 지원 및 관리, 선언적인 보안 관리를 지원해준다.<br>
+**was** : 서버 사이드 코드를 이용하여 동적인 컨텐츠를 생성하는 서버. WAS가 servlet container를 포함하는 개념이다.<br>
+* FrontController 패턴
+
+[기존의 servlet]<br>
+![image](https://user-images.githubusercontent.com/46257667/105040831-ab00eb80-5aa5-11eb-871e-fb9e79c218e4.png)
+
+[FrontController 패턴]<br>
+![image](https://user-images.githubusercontent.com/46257667/105040992-d2f04f00-5aa5-11eb-8d1b-d7baa89db660.png)
+
+사용자의 모든 요청에 대해 ```인코딩 처리```, ```에러 페이지 처리```, ```공지``` 등에 대한 처리를 한 곳에서 할 수 있다.
+
+* spring MVC에서 servlet은 dispatcherSerlvet 하나만 사용하는 추세이다. 물론 여러 dispatcherServlet을 둘 수 있다.
 
