@@ -57,9 +57,6 @@
 ### :smile: REST API Documentation을 위한 Swagger 사용
 - 내가 만든 정보들을 가지고 보기 좋게 만들어준다.
 - `localhost:8088/v2/api-docs` 를 요청값으로 보내면 내가 만든 정보들이 나온다.(JSON / XML)
-- 버그
-  - springfox-swagger2 의 경우 version 2.9.2 가 아니라 3.0.0 사용
-  - springfox-swagger-ui 의 경우 version 3.0.0 으로 하면 창이 뜨지 않아 2.9.2 로 사용
 
 ### :smile: Swagger Documentation 구현 방법
 - [참고](https://springboot.tistory.com/24)
@@ -70,11 +67,19 @@
 
 ### :smile: REST API Monitoring을 위한 Actuator 설정
 - dependency와 yml 파일을 수정한다.
+- 서버의 모니터링 도구로서 별도로 커스타마이징해서 사용 가능
 
 ### :smile: HAL Browser를 이용한 HATEOAS 기능 구현
+- API 를 쉽게 사용할 수 있도록 부가적인 메타정보를 하이퍼링크 형식으로 간단하게 포함
+- localhost:port번호로 들어가서 Explorer에 요청하고 싶은 url을 입력한다. (ex) /actuator)
+  - actuator에서 사용가능한 부가적인 링크가 보인다.
+- REST 자원을 표시하기 위한 자료구조를 그때그때 생성하지 않더라도 헤테오스 기능을 사용할 수 있다.
 - 스프링 2.3.7 릴리즈 버젼일 경우
   - Swagger2 와 Swagger-Ui 버젼을 2.9.2 가 아니라 3.0.0 으로 수정하여야 컴파일됩니다.
     - 수정시, `localhost:8088/swagger-ui.html#/` 이 동작하질 않습니다.
+    -  위의 버그해결 방법
+        - springfox-swagger2 의 경우 version 2.9.2 가 아니라 3.0.0 사용
+        - springfox-swagger-ui 의 경우 version 3.0.0 으로 하면 창이 뜨지 않아 2.9.2 로 사용
 
 ### :smile: Spring Security를 이용한 인증 처리
 - 디펜덴시 추가
