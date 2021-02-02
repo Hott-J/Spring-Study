@@ -57,6 +57,9 @@
 ### :smile: REST API Documentation을 위한 Swagger 사용
 - 내가 만든 정보들을 가지고 보기 좋게 만들어준다.
 - `localhost:8088/v2/api-docs` 를 요청값으로 보내면 내가 만든 정보들이 나온다.(JSON / XML)
+- 버그
+  - springfox-swagger2 의 경우 version 2.9.2 가 아니라 3.0.0 사용
+  - springfox-swagger-ui 의 경우 version 3.0.0 으로 하면 창이 뜨지 않아 2.9.2 로 사용
 
 ### :smile: Swagger Documentation 구현 방법
 - [참고](https://springboot.tistory.com/24)
