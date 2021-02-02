@@ -1,0 +1,55 @@
+server:
+  port: 80
+property:
+  test:
+      name: property depth test
+propertyTest: test
+propertyTestList: a,b,c
+
+fruit:
+  list:
+    - name: banana
+      color: yellow
+    - name: apple
+      color: red
+    - name: water melon
+      color: green
+# 2.0 부턴 소문자와 케밥 표기법만을 지원한다. (@ConfigurationProperties 유연한 바인딩)
+#  color-name: bbb
+  color_name: bbb
+
+# 스프링의 데이터소스를 .yml 파일에서 (드라이버, 위치, 유저네임, 비밀번호 등)을 지정해줄 수 있다.
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password: sa
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8080
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8082
