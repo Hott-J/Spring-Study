@@ -16,7 +16,7 @@ public class Post {
     @GeneratedValue
     private Integer id;
 
-    private String description;
+    private String description; // 게시물 내용
 
     // User : Post -> 1: (0~N). User가 메인 데이터. Main : Sub -> Parent : Child
     @ManyToOne(fetch = FetchType.LAZY) // post가 여러개 올 수 있고, 하나의 값과 매칭. (User 하나와).

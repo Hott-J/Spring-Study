@@ -18,16 +18,20 @@ import java.util.*;
 @Configuration // 설정
 @EnableSwagger2
 public class SwaggerConfig {
+
+    // 연락처 정보
     private static final Contact DEFAULT_CONTACT = new Contact("Hottj",
             "http://www.hottj.co.kr","jhj13062004@naver.com");
 
+    // API Info
     private static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Awesome API Title",
             "My User management REST API service","1.0","urn:tos",
             DEFAULT_CONTACT,"Apache 2.0","http://www.apache.org/licenses/LICENSE-2.0",
             new ArrayList<>());
 
+    // json 과 xml 타입을 지원합니다
     private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES = new HashSet<>(
-            Arrays.asList("application/json","application/xml"));
+            Arrays.asList("application/json","application/xml")); // 배열 형태를 리스트로 변경
 
     @Bean
     public Docket api(){ // Documentation 화
