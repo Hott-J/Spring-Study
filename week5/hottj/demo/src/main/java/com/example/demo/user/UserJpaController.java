@@ -69,6 +69,28 @@ public class UserJpaController {
         return ResponseEntity.created(location).build();
     }
 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            throw new UserNotFoundException(String.format("ID[%s} not found", id));
+        }
+
+        User storedUser = optionalUser.get();
+        storedUser.setName(user.getName());
+        storedUser.setPassword(user.getPassword());
+
+        User updatedUser = userRepository.save(storedUser);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(updatedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
     // /jpa/users/9991/posts -> 9991번의 게시판들을 보여주세요
     @GetMapping("/users/{id}/posts")
     public List<Post> retrieveAllPostsByUser(@PathVariable int id){
@@ -87,7 +109,7 @@ public class UserJpaController {
             throw new UserNotFoundException(String.format("ID[%s] not found",id));
         }
 
-        post.setUser(user.get()); // 게시판에는 사용자 ID도 저장되므로, 사용자 ID도 필요하다.
+        post.setUser(user.get()); // 게시판에는 사용자도 저장되므로, 사용자 정보도 필요하다.
         Post savedPost = postRepository.save(post);
 
         // id 값 자동으로 지정

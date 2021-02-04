@@ -89,4 +89,23 @@ public class UserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
     }
+
+    // {id: "1", name: "new name", password: "new password"}
+    @PutMapping("/users/{id}")
+    public MappingJacksonValue updateUser(@PathVariable int id, @RequestBody User user) {
+        User updatedUser = service.update(id, user);
+
+        if (updatedUser == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", user.getId()));
+        }
+
+        // HATEOAS
+
+        EntityModel<User> model = new EntityModel<>(updatedUser);
+        WebMvcLinkBuilder linkTo=linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        model.add(linkTo.withRel("all-users"));
+
+        MappingJacksonValue mapping = new MappingJacksonValue(model);
+        return mapping;
+    }
 }

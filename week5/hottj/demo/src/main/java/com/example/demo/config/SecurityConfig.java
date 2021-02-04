@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("hottj") // ID
                 .password("{noop}0000") //인코딩없이 사용 no operation , Password.
-                .roles("USERS");
+                .roles("USERS"); // 로그인 완료시의 권한
     }
     // yml에 설정해놓은 아이디 비번으로는 로그인이 되지 않는다.
 }
