@@ -7,4 +7,5 @@
 ### 기존 코드와 달라진 점
 
 - HATEOAS를 사용하기 위해 Spring Boot Version을 2.3.7 에서 2.0.3 으로 downgrade
+- Swagger2 3.0.0 에서 2.9.2로 변경
 
