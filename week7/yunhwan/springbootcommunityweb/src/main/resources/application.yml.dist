@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: {ENTER_YOUR_ID}
+            client-secret: {ENTER_YOUR_SECRET}
+          facebook:
+            client-id: {ENTER_YOUR_ID}
+            client-secret: {ENTER_YOUR_SECRET}
