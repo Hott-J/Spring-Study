@@ -77,32 +77,32 @@
     * 인증 및 권한 부여를 담당하는 Authoriation Server(인증 서버) + 사용자의 데이터를 관리하는 Resource Server(리소스 서버)로 이루어져 있다.
 
 * OAuth 과정 (출처 : [https://gdtbgl93.tistory.com/180](https://gdtbgl93.tistory.com/180))   
-  <img src="https://user-images.githubusercontent.com/61045469/107243524-6d71fb80-6a70-11eb-979e-37855615ac93.png" width="70%" height="50%"></img><br/>
+  <img src="https://user-images.githubusercontent.com/61045469/107243524-6d71fb80-6a70-11eb-979e-37855615ac93.png" width="60%" height="40%"></img><br/>
   * Service Provider에 Client 정보 등록
-    1. Service Provider에 Client를 등록하면 Client별로 고유하게 식별할 수 있는 Client Id와 Secret Key가 생성된다.
-    2. Redirect URI를 등록한다. Redirect URI는 Service Provider가 Client에게 임시출입증과 같은 Access Token과 토큰을 발급받기 위해 사용하는 Authentication Code를 전해주는 경로이다.   
+    * 1. Service Provider에 Client를 등록하면 Client별로 고유하게 식별할 수 있는 Client Id와 Secret Key가 생성된다.
+    * 2. Redirect URI를 등록한다. Redirect URI는 Service Provider가 Client에게 임시출입증과 같은 Access Token과 토큰을 발급받기 위해 사용하는 Authentication Code를 전해주는 경로이다.   
 
-  <img src="https://user-images.githubusercontent.com/61045469/107243569-7c58ae00-6a70-11eb-91fd-29843f1529b8.png" width="70%" height="50%"></img><br/>
+  <img src="https://user-images.githubusercontent.com/61045469/107243569-7c58ae00-6a70-11eb-91fd-29843f1529b8.png" width="60%" height="40%"></img><br/>
   * Client의 인증 요청 & 권한 부여 요청
-    3. Resource Owner가 Client에 접속하여 '구글 아이디로 가입' 클릭
-    4. Client Page에서는 Service Provider에 권한을 부여하기 위해 Resource Owner의 승인을 요청한다.
-    5. 권한 인증을 요청할 때는 Client Id와 사용할 리소스의 범위를 나타내는 Scope, 그리고 Resource Owner의 리소스 사용 승인 시 임시 토큰인 Authorization Code를 전달할 Redirect Url을 함께 파라미터로 넘겨준다.
-    6. Service Provider에서는 Resource Owner가 로그인하여 리소스 사용을 승인할 수 있는 페이지로 302 코드 응답을 통해 슬쩍 Resource Owner를 이동시킨다.
-    7. 이 페이지는 Client가 사용할 권한 목록을 Resource Owner에게 명시적으로 보여주며, Resource Owner는 이에 동의 시 "나는 이 Client가 Scope에 명시한 범위 안에 있는 내 데이터에 접근할 권한을 부여하는 것에 동의한다."라고 말하는 것과 같다.   
-    <img src="https://user-images.githubusercontent.com/61045469/107242044-e96b4400-6a6e-11eb-9a6b-de6de20cdebb.png" width="70%" height="50%"></img><br/>
+    * 3. Resource Owner가 Client에 접속하여 '구글 아이디로 가입' 클릭
+    * 4. Client Page에서는 Service Provider에 권한을 부여하기 위해 Resource Owner의 승인을 요청한다.
+    * 5. 권한 인증을 요청할 때는 Client Id와 사용할 리소스의 범위를 나타내는 Scope, 그리고 Resource Owner의 리소스 사용 승인 시 임시 토큰인 Authorization Code를 전달할 Redirect Url을 함께 파라미터로 넘겨준다.
+    * 6. Service Provider에서는 Resource Owner가 로그인하여 리소스 사용을 승인할 수 있는 페이지로 302 코드 응답을 통해 슬쩍 Resource Owner를 이동시킨다.
+    * 7. 이 페이지는 Client가 사용할 권한 목록을 Resource Owner에게 명시적으로 보여주며, Resource Owner는 이에 동의 시 "나는 이 Client가 Scope에 명시한 범위 안에 있는 내 데이터에 접근할 권한을 부여하는 것에 동의한다."라고 말하는 것과 같다.   
+    <img src="https://user-images.githubusercontent.com/61045469/107242044-e96b4400-6a6e-11eb-9a6b-de6de20cdebb.png" width="50%" height="30%"></img><br/>
 
-  <img src="https://user-images.githubusercontent.com/61045469/107243651-8ed2e780-6a70-11eb-81b9-d22060c97edc.png" width="70%" height="50%"></img><br/>
+  <img src="https://user-images.githubusercontent.com/61045469/107243651-8ed2e780-6a70-11eb-81b9-d22060c97edc.png" width="60%" height="40%"></img><br/>
   * 인증 성공 시 Authentication Code 부여
-    8. Resource Owner가 인증 및 권한 사용 승인까지 마치면, Service Provider의 인증 서버는 Access Token을 발행받기 위한 Authentication Code를 302 상태 코드를 통해 Client에게 전달한다.
+    * 8. Resource Owner가 인증 및 권한 사용 승인까지 마치면, Service Provider의 인증 서버는 Access Token을 발행받기 위한 Authentication Code를 302 상태 코드를 통해 Client에게 전달한다.
       * 302 상태 코드는 URL을 Redirect시킨다는 뜻으로 Response Header에 설정된 Location필드에 있는 URL로 사용자를 이동시킬 수 있다.
       * Authentication Code(인가 코드)는 "이 Client는 Resource Owner에게 사용 허락을 받았음"이라고 적혀있는 증서라고 생각하면 된다.   
   
-  <img src="https://user-images.githubusercontent.com/61045469/107243739-aa3df280-6a70-11eb-8dd4-9c55432cb129.png" width="70%" height="50%"></img><br/>
+  <img src="https://user-images.githubusercontent.com/61045469/107243739-aa3df280-6a70-11eb-8dd4-9c55432cb129.png" width="60%" height="40%"></img><br/>
   * Access Token 발행 요청
-    9. Client는 서비스 제공자에게 Client Id와 Secret Key, Access Token이 발행되면, Authentication Code를 발급 받을때 사용했던 Redirect URL, Resource Owner에게 받은 Authentication Code(인가 코드)를 가지고 Authentication Server에 Access Token 발행 요청을 한다.
-    10. Service Provider의 Authoriation Server(인증 서버)는 리소스에 접근할 수 있는 Access Token을 발행하고 Client에게 보내준다.   
+    * 9. Client는 서비스 제공자에게 Client Id와 Secret Key, Access Token이 발행되면, Authentication Code를 발급 받을때 사용했던 Redirect URL, Resource Owner에게 받은 Authentication Code(인가 코드)를 가지고 Authentication Server에 Access Token 발행 요청을 한다.
+    * 10. Service Provider의 Authoriation Server(인증 서버)는 리소스에 접근할 수 있는 Access Token을 발행하고 Client에게 보내준다.   
 
-  <img src="https://user-images.githubusercontent.com/61045469/107243790-b5911e00-6a70-11eb-8b2e-ba981c6ef8cc.png" width="70%" height="50%"></img><br/>
+  <img src="https://user-images.githubusercontent.com/61045469/107243790-b5911e00-6a70-11eb-8b2e-ba981c6ef8cc.png" width="60%" height="40%"></img><br/>
   * 리소스에 접근 요청
-    11. Access Token을 받으면 Client는 이 토큰을 통해 Resource Server에서 사용자의 정보에 접근한다.
+    * 11. Access Token을 받으면 Client는 이 토큰을 통해 Resource Server에서 사용자의 정보에 접근한다.
  
