@@ -16,7 +16,7 @@
 | 4 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services)|O|
 | 5 | [RESTful Web](https://www.inflearn.com/course/spring-boot-restful-web-services) | O |
 | 6 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)|O |
-| 7 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)|X|
+| 7 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)|O|
 | 8 | [스프링 부트2](https://www.aladin.co.kr/m/mproduct.aspx?ItemId=168752840)         |x                  |
 
 
