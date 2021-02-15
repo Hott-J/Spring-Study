@@ -1,0 +1,4 @@
+rootProject.name = 'Spring-Boot-Community-Rest'
+
+include 'data-rest'
+include 'rest-web'
